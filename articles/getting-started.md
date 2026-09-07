@@ -2,46 +2,32 @@
 
 ## Why I wrote this
 
-Say you’ve asked a model for sixteen vignettes crossing frame with
-source, and they’ve come back, and they read well. A reviewer asks how
-you know the economic ones are actually more economic than the moral
-ones. That’s the question I couldn’t answer the first few times, and
-it’s a fair one. Reading the vignettes and nodding isn’t a manipulation
-check.
+How would I know whether model-written vignettes convey the manipulation
+I asked for? That’s the question behind this package. A text can read
+well and still give respondents something different from what I
+intended.
 
-The awkward part is that you’re not only unsure whether the materials
-carry the manipulation you asked for. You also don’t know what else they
-picked up along the way. Length, reading level, and tone can all drift
-with the condition, and any of them will turn up in your treatment
-effect wearing your manipulation’s clothes.
+I might ask for an economic and a moral argument about the same policy.
+The model might also make one longer, more emotional, or harder to read.
+I want to check those differences before interpreting an experimental
+result.
 
-The package grew out of Porter and Velez (2022). Their argument is that
-picking one placebo, or one stimulus, hands the researcher more freedom
-than anyone should want, and that you should generate a set and average
-over it instead. I took that seriously and then noticed it doesn’t stop
-at generation. If a model wrote the set, you didn’t choose any of them,
-so you can’t vouch for what they do to a respondent either.
+The package grew out of Porter and Velez (2022). Their work motivates
+using several stimuli per condition. I’ve added tools for inspecting
+those stimuli and collecting ratings of what they convey.
 
-So the package generates the materials and then validates them in three
-tiers. The first runs on your machine and costs nothing. It checks that
-the conditions are comparable on length, reading level, and vocabulary,
-and that no material announces its own condition. The second asks a
-language model to rate every material, blind to condition, on the
-construct you’re trying to move. The third does the same with human
-coders on a subsample.
+I’ll walk through the local checks, then model ratings and human
+ratings. The rating data in this vignette are simulated. I’ve included
+them so you can run the analysis without an API key.
 
-Tiers 2 and 3 ask the same question of different raters and report it in
-the same shape, so you read the two results together. That’s what tells
-you whether the model is seeing what your participants would see.
-
-[ellmer](https://ellmer.tidyverse.org/) does all the model work here:
-providers, credentials, concurrency, structured output, and cost
-accounting.
+[ellmer](https://ellmer.tidyverse.org/) handles the model calls and
+credentials.
 
 ## Designing and generating
 
-Start with a factorial design. Each column becomes a placeholder
-available to the generation template.
+First, name the factors and their levels. Here I cross the argument’s
+frame with the type of person making it. Each column becomes a
+placeholder in the prompt.
 
 ``` r
 design <- design_conditions(
@@ -59,7 +45,8 @@ design
 #> 4            4 moral    layperson
 ```
 
-Generation needs an API key, so I haven’t run the next chunk.
+The next example needs provider credentials, so it isn’t run when this
+vignette is built.
 
 ``` r
 chat <- ellmer::chat_openai(
@@ -76,22 +63,20 @@ materials <- generate_materials(
 )
 ```
 
-Two things about that call. One `chat` object is shared across every
-condition, so the system prompt stays constant and only the user turn
-changes. If the system prompt named a condition itself, that framing
-would land on every cell of the design, and I’ve made that mistake.
+I keep the system prompt general because it applies to every condition.
+The condition-specific instructions go in `template`. Use a fresh chat:
 [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
-now checks the system prompt against your factor levels and warns you.
+rejects earlier conversation turns and warns if the system prompt names
+a factor level.
 
-Generating several realisations per condition rather than one follows
-Porter and Velez (2022). Averaging over a few stimuli takes away the
-freedom to pick the one you happen to like.
+The multiple versions follow Porter and Velez (2022). I want to avoid
+making the result depend on one particular stimulus.
 
 ## Tier 1: automatic validation
 
-The bundled `repllm_materials` dataset holds 24 generated vignettes
-crossing three frames with two speaker types, so everything below runs
-without a key.
+For the rest of the analysis, I’ll use the bundled carbon-tax texts.
+There are 24: three frames crossed with two speaker types, with four
+versions per cell.
 
 ``` r
 data(repllm_materials)
@@ -114,8 +99,9 @@ auto
 #>   Overall: needs attention
 ```
 
-The pool is balanced on length and reading level, and one check fails.
-Each check is available on its own if you want the numbers underneath.
+Length and readability pass the default thresholds, but the leakage
+check flags two texts. I can also run each check separately to inspect
+its results.
 
 ``` r
 check_length_balance(repllm_materials$text, repllm_materials$frame)$by_condition
@@ -128,10 +114,10 @@ check_length_balance(repllm_materials$text, repllm_materials$frame)$by_condition
 #> 3 scientific     8       39.6     2.97       236.    0.0480
 ```
 
-The leakage check is worth a word. A vignette in the economic condition
-that contains the word “economic” lets a rater recover the condition
-from the label instead of the content, so what you end up measuring is
-label recognition.
+The leakage check finds words that could give away the condition. If a
+text calls its own argument “economic”, a rater could score that label
+rather than the argument. I’d read each flagged text before deciding
+what to change.
 
 ``` r
 flagged <- check_manipulation_leakage(repllm_materials$text,
@@ -145,15 +131,17 @@ flagged[, c("condition", "term")]
 #> 2 scientific scientific
 ```
 
-Passing tier 1 doesn’t mean the manipulation worked. It means the
-conditions are comparable on the nuisance dimensions, so if they differ
-downstream, length and reading level aren’t the reason.
+These checks help me find obvious problems. Passing them doesn’t
+establish that the materials are equivalent on everything except the
+manipulation. The readability formula is designed for English; other
+languages need an appropriate measure.
 
 ## Tier 2: synthetic validation
 
-Now ask whether the manipulation moved the construct. Raters see the
-text and nothing else. No condition labels, no generation prompts, and
-the order is shuffled separately for each rater.
+Next, I ask a model to rate how much each text appeals to economic
+consequences, moral duty, and scientific evidence. The package supplies
+the text without its condition label or generation prompt. It clears
+earlier chat turns and shuffles the order separately for each rater.
 
 ``` r
 ratings <- synthetic_ratings(
@@ -172,18 +160,16 @@ ratings <- synthetic_ratings(
 )
 ```
 
-I’d supply `personas` if you’re running more than one rater. Without
-them, and at a low temperature, your three synthetic raters are close to
-the same rater three times over, and their agreement will look better
-than it is.
+I’ve supplied different `personas` here. They may help vary the ratings,
+but they don’t turn repeated calls to one model into independent human
+judgments.
 
 [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
-reports condition means and contrasts with robust confidence intervals
-for every dimension. When several raters rate the same material those
-ratings aren’t independent, so the standard errors cluster by material.
+reports means by condition and contrasts with robust confidence
+intervals. When several raters score a material, the standard errors
+cluster by material.
 
-The bundled `repllm_synthetic` dataset is what a run like that gives
-you.
+I’ll use the simulated `repllm_synthetic` ratings to show the output:
 
 ``` r
 data(repllm_synthetic)
@@ -203,10 +189,10 @@ synthetic_check(repllm_synthetic, target = targets)
 #>   Recovered 3/3 intended contrasts
 ```
 
-I’d report agreement among the synthetic raters alongside it, and say
-which ICC you’re quoting. `icc_single` is the reliability of one rater,
-`icc_average` the reliability of their mean, and on this data they
-differ by up to .17.
+I’d report rater agreement alongside the condition comparisons.
+`icc_single` is the reliability of one rater; `icc_average` is the
+reliability of their mean. They differ by up to .17 in these data, so
+I’d be explicit about which one I’m quoting.
 
 ``` r
 rater_reliability(repllm_synthetic)
@@ -219,18 +205,17 @@ rater_reliability(repllm_synthetic)
 #> # ℹ 1 more variable: krippendorff_alpha <dbl>
 ```
 
-The `target` argument names the dimension each condition was meant to
-move. The recovery table says whether each condition actually scored
-highest on its own dimension, and how big that gap is in pooled standard
-deviations. The other dimensions are the discriminant check. A
-manipulation that moves everything hasn’t isolated anything.
+The `target` argument maps each condition to the dimension it’s meant to
+move. The recovery table reports whether that condition has the highest
+mean and its gap over the strongest competitor. I also inspect the other
+dimensions. A treatment may change more than I intended.
 
 ## Tier 3: human validation
 
-Human coding is the expensive tier, so it runs on a subsample.
-Allocation gives every condition at least one material before it
-distributes the rest proportionally, so a rare cell never gets rounded
-out of the sample.
+I’d usually start human coding with a stratified sample. By default, the
+sampler allocates at least one material per condition when the requested
+sample is large enough, then distributes the rest proportionally. It
+reports conditions that couldn’t be included.
 
 ``` r
 subsample <- sample_for_human_validation(repllm_materials, n = 12,
@@ -242,10 +227,10 @@ table(subsample$frame)
 #>          4          4          4
 ```
 
-[`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md)
-writes a blinded sheet for your coders and a separate key. The sheet has
-no condition labels and its rows are shuffled. Keep the key away from
-your coders.
+Now I’ll prepare the rating sheets. Each coder gets a shuffled copy with
+random IDs. The separate key holds the original IDs and condition
+labels. Keep that file away from the coders; use new paths if you’re
+exporting another task.
 
 ``` r
 task <- export_rating_task(
@@ -255,23 +240,23 @@ task <- export_rating_task(
   condition_col = "frame",
   n_raters = 2
 )
-#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmp8X55hB/ratings_key.csv
+#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpua6ZWp/ratings_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 names(readr::read_csv(task$sheets[1], show_col_types = FALSE))
 #> [1] "material_id" "text"        "rater"       "economic"    "moral"
 ```
 
-When the sheets come back,
-[`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
-rejoins the key and hands you the same long format the synthetic tier
-produces, so the same analysis functions apply.
+Once people have filled in the sheets, import their ratings with the
+key. The function restores the original IDs and produces the same long
+format used for model ratings.
 
 ``` r
 human <- import_human_ratings(task$sheets, task$key_path, scale = c(1, 7))
 ```
 
-The bundled `repllm_human` dataset is what that gives you for these
-materials.
+For the example below, I’ll use `repllm_human`. These are simulated
+human ratings of all 24 materials, so they aren’t the completed sheets
+from the 12-material sample above.
 
 ``` r
 data(repllm_human)
@@ -296,14 +281,13 @@ human_reliability(repllm_human)
 #> # ℹ 1 more variable: krippendorff_alpha <dbl>
 ```
 
-On two of the three dimensions the human effects come out smaller than
-the synthetic ones. On the third they don’t. Working out which is which
-is the whole reason the next step exists.
+The human and model ratings give somewhat different accounts of the
+materials. I’d inspect the gaps directly before interpreting that
+difference.
 
 ## Reading the two tiers together
 
-Both tiers came back above in the same shape, so set them next to each
-other.
+Here I put the recovery margins next to each other:
 
 ``` r
 syn <- synthetic_check(repllm_synthetic, target = targets)$recovery
@@ -321,15 +305,15 @@ data.frame(
 #> 3 scientific   economic      2.75  2.62
 ```
 
-Both recover all three manipulations, so on either account the design
-works. Each margin is measured against the nearest competing condition,
-which the table names. The model reads the economic and moral margins as
-wider than the coders do, and reads the scientific margin about the
-same. Whether that gap between the tiers matters is a judgement about
-your study, not something a threshold settles.
+Both sets of ratings put each intended condition highest on its target
+dimension. The economic and moral gaps are wider in the model ratings;
+the scientific gaps are similar. That ranking doesn’t establish that the
+design works with respondents, or that the two sets of ratings are
+interchangeable.
 
-It’s also worth checking agreement material by material, which is a
-different question from whether the condition means differ.
+I’d also compare ratings of the same materials. Agreement in how raters
+order individual texts is a different question from the size of the
+condition gaps.
 
 ``` r
 a <- aggregate(rating ~ material_id + dimension, repllm_synthetic, mean)
@@ -343,26 +327,22 @@ sapply(split(m, m$dimension),
 #>       0.90       0.92       0.91
 ```
 
-Around 0.9 on all three. The model orders the materials much as the
-coders do, while seeing two of the three manipulations as larger than
-they do. Those are separate facts and both are worth reporting.
+The correlations are around 0.9 on each dimension. In these simulated
+data, the model and human ratings order the materials similarly even
+though some condition gaps differ. I’d report both findings.
 
-An earlier version of this package folded all of that into one
-pass-or-fail number. I took it out. The arithmetic mixed two things that
-should stay apart: how much the tiers disagree about the materials, and
-how much steadier a model rater is than a person. A quiet rater looked
-inflated whether or not it disagreed with anyone, so the verdict was
-partly measuring rater consistency and reporting it as a problem with
-the stimuli.
+I don’t reduce the comparison to one pass-or-fail score. The former
+`compare_validation()` function mixed disagreement about the materials
+with differences in rater consistency. I’ve removed it. The condition
+comparisons and material-level checks above make the evidence easier to
+inspect.
 
-## What this package doesn’t do
+## Using repllm with ellmer
 
-It doesn’t talk to any API, and it doesn’t manage credentials, retries,
-concurrency, or cost accounting. ellmer already does all of that well,
-and I’d rather point you at it than reimplement any of it. If you just
-need to send text to a model from R, use ellmer directly. This package
-is for the case where a model wrote your treatments and you have to
-convince a reviewer that they worked.
+I use ellmer for provider calls, credentials, retries, and cost
+accounting. If you want to send text to a model from R, ellmer can do
+that directly. `repllm` adds the experimental design and validation
+steps described here.
 
 ## References
 

@@ -1,10 +1,9 @@
-# Check Lexical Distinctiveness Across Conditions
+# Compare vocabulary across conditions
 
-Compute pairwise Jaccard similarity between the vocabularies of each
-condition. Very high overlap suggests the conditions aren't really
-different. Very low overlap suggests they differ on more than the
-dimension you meant, so you can't put any effect down to the
-manipulation alone.
+Calculate pairwise Jaccard similarity between the vocabularies of each
+condition. High overlap can help identify conditions with very similar
+wording. Low overlap is a reason to read the texts and ask what else may
+have changed.
 
 ## Usage
 
@@ -34,6 +33,12 @@ check_lexical_overlap(texts, conditions, min_overlap = 0.1, max_overlap = 0.9)
 ## Value
 
 A list with `pairwise`, `min_observed`, `max_observed`, and `pass`.
+
+## Details
+
+I'd treat this as a diagnostic. Vocabulary overlap also depends on text
+length and how many materials are in each condition. Low overlap is
+advisory; it doesn't fail the check.
 
 ## Examples
 

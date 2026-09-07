@@ -1,28 +1,21 @@
-# repllm: Generation and Validation of LLM-Written Experimental Materials
+# repllm: Generate and check experimental materials
 
-Tools for social scientists who use a language model to write their
-experimental stimuli. The package generates materials from a factorial
-design and then validates them in three tiers. Automatic checks run
-locally and cost nothing. Synthetic checks have a model rate the
-materials. Human checks do the same with coders on a subsample. Running
-the last two on the same materials tells you whether the model's ratings
-resemble what people actually see.
+I built this package to help answer a question: do model-written
+experimental materials convey the manipulation I asked for? It generates
+texts from a factorial design, checks their length and wording, and
+helps collect ratings from models and people.
 
 ## Details
 
-ellmer does all the model work: providers, credentials, concurrency,
-structured output, and cost accounting. This package never calls an API
-itself.
+ellmer handles the model calls and credentials. The local checks run
+without an API key. I'd compare model and human ratings of the same
+materials before deciding how much to rely on the model ratings.
 
 ## Where this came from
 
-The package grew out of Porter and Velez (2022). Their argument is that
-picking one placebo, or one stimulus, hands the researcher more freedom
-than anyone should want, and that the fix is to generate a set and
-average over it. That logic doesn't stop at generation. If a model wrote
-the set, you didn't choose any of them and you can't vouch for what they
-do to a respondent, so the generation has to arrive with measurement
-attached. The three tiers here are that measurement.
+The package grew out of Porter and Velez (2022). Their work motivates
+using several stimuli per condition. I've added tools for checking what
+those stimuli convey before fielding an experiment.
 
 ## Workflow
 
@@ -47,15 +40,16 @@ attached. The three tiers here are that measurement.
     [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
     do the same with human coders.
 
-Steps 4 and 5 answer the same question with different raters, so run
-both on the same materials and set the results side by side.
+I'd run steps 4 and 5 on the same materials and compare the results.
+Agreement in condition rankings can still come with different rating
+gaps.
 
 ## Authorship provenance
 
-AI – Human (editor). Declared by Charles Crabtree: AI produced the work,
-with Charles Crabtree as human editor and package maintainer. The label
-follows <https://thelatentreview.com/provenance/>. See the installed
-PROVENANCE file for the scope of this declaration.
+Human \> AI. I led this work, with substantial AI contributions to the
+ideas and implementation. I'm Charles Crabtree, the package maintainer.
+The label follows <https://thelatentreview.com/provenance/>. The
+installed PROVENANCE file gives the full declaration.
 
 ## References
 

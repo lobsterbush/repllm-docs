@@ -6,57 +6,47 @@
     "previous_headings": "",
     "what": "Contributing to repllm",
     "title": "Contributing to repllm",
-    "text": "Thanks taking look. ’d glad help, ’d especially glad hear package gets something wrong.",
+    "text": "Thanks taking look. ’d glad hear ’re trying package falls short.",
     "code": ""
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html",
-    "id": "reporting-bugs",
+    "id": "reporting-a-bug",
     "dir": "",
     "previous_headings": "",
-    "what": "Reporting bugs",
+    "what": "Reporting a bug",
     "title": "Contributing to repllm",
-    "text": "Open issue https://github.com/lobsterbush/repllm-docs/issues include minimal reproducible example, output sessionInfo(), version ’re packageVersion(\"repllm\"). check passed think failed, ’s useful kind report can get. validation tool quietly says everything fine worse tool, please tell .",
+    "text": "Please open issue smallest example reproduces problem. Include sessionInfo() packageVersion(\"repllm\") can check environment ’re using. ’m especially interested cases check passes materials still obvious problem. short example help understand ’ve missed.",
     "code": ""
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html",
-    "id": "suggesting-features",
+    "id": "suggesting-a-feature",
     "dir": "",
     "previous_headings": "",
-    "what": "Suggesting features",
+    "what": "Suggesting a feature",
     "title": "Contributing to repllm",
-    "text": "Open issue describing want . package narrow scope purpose: generating experimental stimuli model, validating go field. Anything talking model, managing credentials, batching, cost accounting belongs ellmer instead, ’d rather point duplicate .",
+    "text": "Tell want fits study. ’m keeping package focused generating experimental materials checking fielding. ellmer handles provider calls, credentials, batching, costs.",
     "code": ""
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html",
-    "id": "pull-requests",
+    "id": "working-on-the-code",
     "dir": "",
     "previous_headings": "",
-    "what": "Pull requests",
+    "what": "Working on the code",
     "title": "Contributing to repllm",
-    "text": "Fork repository branch main. Match code style find. Exported functions snake_case, internal helpers .snake_case leading dot carry @keywords internal plus @noRd. Every exported function needs @param, @return, @export, @examples. Add tests testthat. Nothing suite requires API key ’d like keep way, use bundled datasets mock ellmer call local_mocked_bindings(). examples tests/testthat/. ’re fixing bug, please add test fails change passes , say comment failure mode . Several tests test-regressions.R written way ’ve earned keep. run: check() come back 0 errors, 0 warnings, 0 notes. Update NEWS.md ’re . Please don’t edit NAMESPACE anything man/ hand. generated devtools::document().",
+    "text": "source repository currently private. Email access ’d like contribute code, fork branch main. Please follow existing naming conventions: snake_case exported functions .snake_case internal helpers. Internal helpers use @keywords internal @noRd. Exported functions need @param, @return, @export, @examples documentation. bug fix, add test fails change passes . Use bundled data mock ellmer call local_mocked_bindings(). tests don’t need API keys, ’d like keep way. ’ll find examples tests/testthat/. run: Please read errors, warnings, notes mention unresolved ones pull request. Add short entry NEWS.md explaining changed user. Edit documentation R/ regenerate devtools::document(). NAMESPACE files man/ generated, edits won’t survive next build.",
     "code": "devtools::document() devtools::test() devtools::check()"
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html",
-    "id": "code-of-conduct",
+    "id": "working-together",
     "dir": "",
     "previous_headings": "",
-    "what": "Code of conduct",
+    "what": "Working together",
     "title": "Contributing to repllm",
-    "text": "kind. ’s whole .",
-    "code": ""
-  },
-  {
-    "path": "https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html",
-    "id": "questions",
-    "dir": "",
-    "previous_headings": "",
-    "what": "Questions",
-    "title": "Contributing to repllm",
-    "text": "Email charles.crabtree@monash.edu.",
+    "text": "Please kind specific giving feedback. something’s unclear, send note.",
     "code": ""
   },
   {
@@ -66,7 +56,7 @@
     "previous_headings": "",
     "what": "Why I wrote this",
     "title": "Generating and validating experimental materials",
-    "text": "Say ’ve asked model sixteen vignettes crossing frame source, ’ve come back, read well. reviewer asks know economic ones actually economic moral ones. ’s question couldn’t answer first times, ’s fair one. Reading vignettes nodding isn’t manipulation check. awkward part ’re unsure whether materials carry manipulation asked . also don’t know else picked along way. Length, reading level, tone can drift condition, turn treatment effect wearing manipulation’s clothes. package grew Porter Velez (2022). argument picking one placebo, one stimulus, hands researcher freedom anyone want, generate set average instead. took seriously noticed doesn’t stop generation. model wrote set, didn’t choose , can’t vouch respondent either. package generates materials validates three tiers. first runs machine costs nothing. checks conditions comparable length, reading level, vocabulary, material announces condition. second asks language model rate every material, blind condition, construct ’re trying move. third human coders subsample. Tiers 2 3 ask question different raters report shape, read two results together. ’s tells whether model seeing participants see. ellmer model work : providers, credentials, concurrency, structured output, cost accounting.",
+    "text": "know whether model-written vignettes convey manipulation asked ? ’s question behind package. text can read well still give respondents something different intended. might ask economic moral argument policy. model might also make one longer, emotional, harder read. want check differences interpreting experimental result. package grew Porter Velez (2022). work motivates using several stimuli per condition. ’ve added tools inspecting stimuli collecting ratings convey. ’ll walk local checks, model ratings human ratings. rating data vignette simulated. ’ve included can run analysis without API key. ellmer handles model calls credentials.",
     "code": ""
   },
   {
@@ -76,7 +66,7 @@
     "previous_headings": "",
     "what": "Designing and generating",
     "title": "Generating and validating experimental materials",
-    "text": "Start factorial design. column becomes placeholder available generation template. Generation needs API key, haven’t run next chunk. Two things call. One chat object shared across every condition, system prompt stays constant user turn changes. system prompt named condition , framing land every cell design, ’ve made mistake. generate_materials() now checks system prompt factor levels warns . Generating several realisations per condition rather one follows Porter Velez (2022). Averaging stimuli takes away freedom pick one happen like.",
+    "text": "First, name factors levels. cross argument’s frame type person making . column becomes placeholder prompt. next example needs provider credentials, isn’t run vignette built. keep system prompt general applies every condition. condition-specific instructions go template. Use fresh chat: generate_materials() rejects earlier conversation turns warns system prompt names factor level. multiple versions follow Porter Velez (2022). want avoid making result depend one particular stimulus.",
     "code": "design <- design_conditions(   frame  = c(\"economic\", \"moral\"),   source = c(\"expert\", \"layperson\") ) #> ℹ Design: 4 conditions from 2 factors design #> # A tibble: 4 × 3 #>   condition_id frame    source    #>          <int> <chr>    <chr>     #> 1            1 economic expert    #> 2            2 moral    expert    #> 3            3 economic layperson #> 4            4 moral    layperson chat <- ellmer::chat_openai(   \"You write short, neutral survey vignettes. Return only the vignette text.\",   echo = \"none\" )  materials <- generate_materials(   design,   template = \"Write a 60-word quote about a carbon tax from a {source}               emphasising the {frame} perspective.\",   chat = chat,   n_versions = 3 )"
   },
   {
@@ -86,7 +76,7 @@
     "previous_headings": "",
     "what": "Tier 1: automatic validation",
     "title": "Generating and validating experimental materials",
-    "text": "bundled repllm_materials dataset holds 24 generated vignettes crossing three frames two speaker types, everything runs without key. pool balanced length reading level, one check fails. check available want numbers underneath. leakage check worth word. vignette economic condition contains word “economic” lets rater recover condition label instead content, end measuring label recognition. Passing tier 1 doesn’t mean manipulation worked. means conditions comparable nuisance dimensions, differ downstream, length reading level aren’t reason.",
+    "text": "rest analysis, ’ll use bundled carbon-tax texts. 24: three frames crossed two speaker types, four versions per cell. Length readability pass default thresholds, leakage check flags two texts. can also run check separately inspect results. leakage check finds words give away condition. text calls argument “economic”, rater score label rather argument. ’d read flagged text deciding change. checks help find obvious problems. Passing doesn’t establish materials equivalent everything except manipulation. readability formula designed English; languages need appropriate measure.",
     "code": "data(repllm_materials) auto <- validate_auto(repllm_materials, condition_col = \"frame\") #>  #> ── Automatic validation ── #>  #> ✔ Length balance: max deviation 4.8% #> ✔ Readability: grade-level spread 0.4 #> ! Manipulation leakage: 2/24 materials name a condition term. #> ✔ Distinctiveness: Jaccard overlap in [0.1, 0.11] #> ! Needs attention: \"leakage\" auto #> Automatic validation #>   Materials: 24 across 3 conditions #>   length          PASS #>   readability     PASS #>   leakage         WARNING #>   distinctiveness PASS #>   Overall: needs attention check_length_balance(repllm_materials$text, repllm_materials$frame)$by_condition #> ✔ Length balance: max deviation 4.8% #> # A tibble: 3 × 6 #>   condition      n mean_words sd_words mean_chars deviation #>   <chr>      <int>      <dbl>    <dbl>      <dbl>     <dbl> #> 1 economic       8       42.4     2.83       240.    0.0180 #> 2 moral          8       42.9     2.42       248.    0.0300 #> 3 scientific     8       39.6     2.97       236.    0.0480 flagged <- check_manipulation_leakage(repllm_materials$text,                                       repllm_materials$frame)$flagged #> ! Manipulation leakage: 2/24 materials name a condition term. flagged[, c(\"condition\", \"term\")] #> # A tibble: 2 × 2 #>   condition  term       #>   <chr>      <chr>      #> 1 economic   economic   #> 2 scientific scientific"
   },
   {
@@ -96,7 +86,7 @@
     "previous_headings": "",
     "what": "Tier 2: synthetic validation",
     "title": "Generating and validating experimental materials",
-    "text": "Now ask whether manipulation moved construct. Raters see text nothing else. condition labels, generation prompts, order shuffled separately rater. ’d supply personas ’re running one rater. Without , low temperature, three synthetic raters close rater three times , agreement look better . synthetic_check() reports condition means contrasts robust confidence intervals every dimension. several raters rate material ratings aren’t independent, standard errors cluster material. bundled repllm_synthetic dataset run like gives . ’d report agreement among synthetic raters alongside , say ICC ’re quoting. icc_single reliability one rater, icc_average reliability mean, data differ .17. target argument names dimension condition meant move. recovery table says whether condition actually scored highest dimension, big gap pooled standard deviations. dimensions discriminant check. manipulation moves everything hasn’t isolated anything.",
+    "text": "Next, ask model rate much text appeals economic consequences, moral duty, scientific evidence. package supplies text without condition label generation prompt. clears earlier chat turns shuffles order separately rater. ’ve supplied different personas . may help vary ratings, don’t turn repeated calls one model independent human judgments. synthetic_check() reports means condition contrasts robust confidence intervals. several raters score material, standard errors cluster material. ’ll use simulated repllm_synthetic ratings show output: ’d report rater agreement alongside condition comparisons. icc_single reliability one rater; icc_average reliability mean. differ .17 data, ’d explicit one ’m quoting. target argument maps condition dimension ’s meant move. recovery table reports whether condition highest mean gap strongest competitor. also inspect dimensions. treatment may change intended.",
     "code": "ratings <- synthetic_ratings(   repllm_materials,   dimensions = c(     economic   = \"how strongly the text appeals to economic consequences\",     moral      = \"how strongly the text appeals to moral duty\",     scientific = \"how strongly the text appeals to scientific evidence\"   ),   chat     = ellmer::chat_openai(echo = \"none\"),   condition_col = \"frame\",   n_raters = 3,   personas = c(\"a general survey respondent\",                \"a policy analyst\",                \"an undergraduate student\") ) data(repllm_synthetic)  targets <- c(economic = \"economic\", moral = \"moral\",              scientific = \"scientific\")  synthetic_check(repllm_synthetic, target = targets) #> Synthetic validation #>   Materials: 24 | raters: 3 | dimensions: 3  #>   Ratings: 216 #>   Standard errors: cluster-robust by material (24 clusters)  #>   Manipulation recovery: #>     ok    economic     on economic     margin +3.71 over scientific   (d = +6.23) #>     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67) #>     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23) #>   Recovered 3/3 intended contrasts rater_reliability(repllm_synthetic) #> # A tibble: 3 × 8 #>   dimension  n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>         <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 economic          3          24         24        0      0.935       0.977 #> 2 moral             3          24         24        0      0.930       0.975 #> 3 scientific        3          24         24        0      0.716       0.883 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
   },
   {
@@ -106,8 +96,8 @@
     "previous_headings": "",
     "what": "Tier 3: human validation",
     "title": "Generating and validating experimental materials",
-    "text": "Human coding expensive tier, runs subsample. Allocation gives every condition least one material distributes rest proportionally, rare cell never gets rounded sample. export_rating_task() writes blinded sheet coders separate key. sheet condition labels rows shuffled. Keep key away coders. sheets come back, import_human_ratings() rejoins key hands long format synthetic tier produces, analysis functions apply. bundled repllm_human dataset gives materials. two three dimensions human effects come smaller synthetic ones. third don’t. Working whole reason next step exists.",
-    "code": "subsample <- sample_for_human_validation(repllm_materials, n = 12,                                          stratify_by = \"frame\", seed = 42) #> ✔ Sampled 12 materials from 3 of 3 stratum/strata table(subsample$frame) #>  #>   economic      moral scientific  #>          4          4          4 task <- export_rating_task(   subsample,   path = file.path(tempdir(), \"ratings.csv\"),   dimensions = c(economic = \"economic appeal\", moral = \"moral appeal\"),   condition_col = \"frame\",   n_raters = 2 ) #> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmp8X55hB/ratings_key.csv #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders. names(readr::read_csv(task$sheets[1], show_col_types = FALSE)) #> [1] \"material_id\" \"text\"        \"rater\"       \"economic\"    \"moral\" human <- import_human_ratings(task$sheets, task$key_path, scale = c(1, 7)) data(repllm_human)  human_check(repllm_human, target = targets) #> Human validation #>   Materials: 24 | raters: 2 | dimensions: 3  #>   Ratings: 144 #>   Standard errors: cluster-robust by material (24 clusters)  #>   Manipulation recovery: #>     ok    economic     on economic     margin +2.44 over scientific   (d = +2.82) #>     ok    moral        on moral        margin +2.62 over scientific   (d = +3.24) #>     ok    scientific   on scientific   margin +2.62 over economic     (d = +3.16) #>   Recovered 3/3 intended contrasts human_reliability(repllm_human) #> # A tibble: 3 × 8 #>   dimension  n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>         <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 economic          2          24         24        0      0.753       0.859 #> 2 moral             2          24         24        0      0.754       0.860 #> 3 scientific        2          24         24        0      0.794       0.885 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
+    "text": "’d usually start human coding stratified sample. default, sampler allocates least one material per condition requested sample large enough, distributes rest proportionally. reports conditions couldn’t included. Now ’ll prepare rating sheets. coder gets shuffled copy random IDs. separate key holds original IDs condition labels. Keep file away coders; use new paths ’re exporting another task. people filled sheets, import ratings key. function restores original IDs produces long format used model ratings. example , ’ll use repllm_human. simulated human ratings 24 materials, aren’t completed sheets 12-material sample . human model ratings give somewhat different accounts materials. ’d inspect gaps directly interpreting difference.",
+    "code": "subsample <- sample_for_human_validation(repllm_materials, n = 12,                                          stratify_by = \"frame\", seed = 42) #> ✔ Sampled 12 materials from 3 of 3 stratum/strata table(subsample$frame) #>  #>   economic      moral scientific  #>          4          4          4 task <- export_rating_task(   subsample,   path = file.path(tempdir(), \"ratings.csv\"),   dimensions = c(economic = \"economic appeal\", moral = \"moral appeal\"),   condition_col = \"frame\",   n_raters = 2 ) #> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpua6ZWp/ratings_key.csv #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders. names(readr::read_csv(task$sheets[1], show_col_types = FALSE)) #> [1] \"material_id\" \"text\"        \"rater\"       \"economic\"    \"moral\" human <- import_human_ratings(task$sheets, task$key_path, scale = c(1, 7)) data(repllm_human)  human_check(repllm_human, target = targets) #> Human validation #>   Materials: 24 | raters: 2 | dimensions: 3  #>   Ratings: 144 #>   Standard errors: cluster-robust by material (24 clusters)  #>   Manipulation recovery: #>     ok    economic     on economic     margin +2.44 over scientific   (d = +2.82) #>     ok    moral        on moral        margin +2.62 over scientific   (d = +3.24) #>     ok    scientific   on scientific   margin +2.62 over economic     (d = +3.16) #>   Recovered 3/3 intended contrasts human_reliability(repllm_human) #> # A tibble: 3 × 8 #>   dimension  n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>         <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 economic          2          24         24        0      0.753       0.859 #> 2 moral             2          24         24        0      0.754       0.860 #> 3 scientific        2          24         24        0      0.794       0.885 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/articles/getting-started.html",
@@ -116,17 +106,17 @@
     "previous_headings": "",
     "what": "Reading the two tiers together",
     "title": "Generating and validating experimental materials",
-    "text": "tiers came back shape, set next . recover three manipulations, either account design works. margin measured nearest competing condition, table names. model reads economic moral margins wider coders , reads scientific margin . Whether gap tiers matters judgement study, something threshold settles. ’s also worth checking agreement material material, different question whether condition means differ. Around 0.9 three. model orders materials much coders , seeing two three manipulations larger . separate facts worth reporting. earlier version package folded one pass--fail number. took . arithmetic mixed two things stay apart: much tiers disagree materials, much steadier model rater person. quiet rater looked inflated whether disagreed anyone, verdict partly measuring rater consistency reporting problem stimuli.",
+    "text": "put recovery margins next : sets ratings put intended condition highest target dimension. economic moral gaps wider model ratings; scientific gaps similar. ranking doesn’t establish design works respondents, two sets ratings interchangeable. ’d also compare ratings materials. Agreement raters order individual texts different question size condition gaps. correlations around 0.9 dimension. simulated data, model human ratings order materials similarly even though condition gaps differ. ’d report findings. don’t reduce comparison one pass--fail score. former compare_validation() function mixed disagreement materials differences rater consistency. ’ve removed . condition comparisons material-level checks make evidence easier inspect.",
     "code": "syn <- synthetic_check(repllm_synthetic, target = targets)$recovery hum <- human_check(repllm_human, target = targets)$recovery  data.frame(   condition = syn$condition,   nearest   = syn$nearest,   synthetic = round(syn$margin, 2),   human     = round(hum$margin, 2) ) #>    condition    nearest synthetic human #> 1   economic scientific      3.71  2.44 #> 2      moral scientific      3.37  2.62 #> 3 scientific   economic      2.75  2.62 a <- aggregate(rating ~ material_id + dimension, repllm_synthetic, mean) b <- aggregate(rating ~ material_id + dimension, repllm_human, mean) m <- merge(a, b, by = c(\"material_id\", \"dimension\"),            suffixes = c(\"_syn\", \"_hum\"))  sapply(split(m, m$dimension),        function(d) round(cor(d$rating_syn, d$rating_hum), 2)) #>   economic      moral scientific  #>       0.90       0.92       0.91"
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/articles/getting-started.html",
-    "id": "what-this-package-doesnt-do",
+    "id": "using-repllm-with-ellmer",
     "dir": "Articles",
     "previous_headings": "",
-    "what": "What this package doesn’t do",
+    "what": "Using repllm with ellmer",
     "title": "Generating and validating experimental materials",
-    "text": "doesn’t talk API, doesn’t manage credentials, retries, concurrency, cost accounting. ellmer already well, ’d rather point reimplement . just need send text model R, use ellmer directly. package case model wrote treatments convince reviewer worked.",
+    "text": "use ellmer provider calls, credentials, retries, cost accounting. want send text model R, ellmer can directly. repllm adds experimental design validation steps described .",
     "code": ""
   },
   {
@@ -164,9 +154,9 @@
     "id": "repllm",
     "dir": "",
     "previous_headings": "",
-    "what": "Generate and validate experimental materials",
-    "title": "Generate and validate experimental materials",
-    "text": "Research software · Charles Crabtree Generate model.Validate evidence. R toolkit experimental materials: factorial designs, local diagnostics, blinded model ratings, human validation. Start data ↗ Explore reference → Version 0.4.0 · Experimental · Preparing CRAN wrote package kept asking language model draft vignettes survey experiments, good answer someone asked whether vignettes actually said . Generating stimuli way fast makes factorial designs cheap. also hands measurement problem hand-written stimuli didn’t . don’t know whether materials carry manipulation asked , don’t know else carry along . Length, reading level, tone, vocabulary can drift condition, show treatment effect. repllm generates materials validates three tiers: local checks cost nothing, model rating every material blind condition, human coders subsample. last two ask question different raters, read together.",
+    "what": "Checking model-written experimental materials",
+    "title": "Checking model-written experimental materials",
+    "text": "Research software · Charles Crabtree treatment dowhat think ? built repllm generate materials survey experiments check putting front respondents. Try example ↗ See functions → Version 0.4.0 · Experimental · Preparing CRAN language model can write set experimental vignettes quickly. ’d still want know whether vignettes vary way intended. economic frame make people think economic consequences. might also produce longer text, one ’s harder read. differences matter experiment. ’s problem built repllm help . generates materials factorial design, checks text, helps collect ratings models people. want see materials fall short field study.",
     "code": ""
   },
   {
@@ -175,8 +165,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Installation",
-    "title": "Generate and validate experimental materials",
-    "text": "repllm yet available CRAN. source repository currently requires access maintainer. repository access: source archive, install dependencies remotes::install_local(\"repllm_0.4.0.tar.gz\", dependencies = TRUE). Contact Charles Crabtree source access. Requirements: R 4.1 later. Local diagnostics bundled examples need credentials. Generation synthetic rating require ellmer-supported provider credentials; provider charges may apply. Documentation: https://lobsterbush.github.io/repllm-docs/",
+    "title": "Checking model-written experimental materials",
+    "text": "’m preparing repllm CRAN. now, source repository private; email ’d like access. : ’ve sent source archive, can install dependencies remotes::install_local(\"repllm_0.4.0.tar.gz\", dependencies = TRUE). ’ll need R 4.1 later. can run local checks bundled examples without API key. Generating materials collecting model ratings needs provider supported ellmer, credentials, fees provider charges. documentation public.",
     "code": "# install.packages(\"remotes\") remotes::install_github(\"lobsterbush/repllm\")"
   },
   {
@@ -185,8 +175,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Three tiers of validation",
-    "title": "Generate and validate experimental materials",
-    "text": "Check length, readability, condition leakage, vocabulary locally. Ask model raters score text without condition labels generation history. Collect blinded human ratings stratified sample compare evidence.",
+    "title": "Checking model-written experimental materials",
+    "text": "start things can check locally: length, reading level, vocabulary, words give away condition. Model ratings help screen materials. raters get text without condition label conversation produced . want know whether people read materials way. package prepares blinded rating sheets sample.",
     "code": ""
   },
   {
@@ -195,8 +185,8 @@
     "dir": "",
     "previous_headings": "Three tiers of validation",
     "what": "The workflow",
-    "title": "Generate and validate experimental materials",
-    "text": "package ships one simulated study can run without API key: repllm_materials holds 24 generated vignettes, repllm_synthetic repllm_human hold ratings three LLM raters two human coders.",
+    "title": "Checking model-written experimental materials",
+    "text": "’ve included 24 carbon-tax vignettes simulated ratings can try package without making model call. repllm_materials holds texts; repllm_synthetic repllm_human hold ratings representing three model raters two human coders.",
     "code": "design_conditions()  ->  generate_materials()                                  |               +------------------+------------------+               |                  |                  |         validate_auto()   synthetic_ratings()  sample_for_human_validation()          (tier 1, free)    synthetic_check()      export_rating_task()                               (tier 2)            import_human_ratings()                                                      human_check()                                                       (tier 3)  Tiers 2 and 3 ask the same question of different raters and report it the same way, so you set the two results side by side."
   },
   {
@@ -205,8 +195,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Quick start",
-    "title": "Generate and validate experimental materials",
-    "text": "Run complete local check connecting provider: bundled materials ratings simulated teaching data, evidence model ratings reproduce human judgments real study.",
+    "title": "Checking model-written experimental materials",
+    "text": "’d start . runs local checks compares two sets simulated ratings: ratings teaching data. show functions behave. don’t tell us well model agree people study.",
     "code": "library(repllm) validate_auto(repllm_materials, condition_col = \"frame\") targets <- c(economic = \"economic\", moral = \"moral\", scientific = \"scientific\") synthetic_check(repllm_synthetic, target = targets) human_check(repllm_human, target = targets)"
   },
   {
@@ -215,8 +205,8 @@
     "dir": "",
     "previous_headings": "Quick start",
     "what": "Generate your own materials",
-    "title": "Generate and validate experimental materials",
-    "text": "One chat object shared across every condition, system prompt stays constant user turn varies. system prompt named condition , framing land every cell design, ’ve made mistake. generate_materials() now checks system prompt factor levels warns . Generating three versions per condition rather one follows Porter Velez (2022). Averaging several stimuli takes away freedom pick one happen like.",
+    "title": "Checking model-written experimental materials",
+    "text": "example crosses frame source asks three versions condition. ’ll need provider credentials run . Use fresh chat object. system prompt applies every condition, put condition-specific instructions template. function warns finds factor level system prompt rejects chat earlier conversation turns. use several versions follows Porter Velez (2022). want design depend less particular wording happened choose.",
     "code": "library(repllm)  design <- design_conditions(   frame  = c(\"economic\", \"moral\"),   source = c(\"expert\", \"layperson\") )  chat <- ellmer::chat_openai(   \"You write short, neutral survey vignettes. Return only the vignette text.\",   echo = \"none\" )  materials <- generate_materials(   design,   template = \"Write a 60-word quote about a carbon tax from a {source}               emphasising the {frame} perspective.\",   chat = chat,   n_versions = 3 )"
   },
   {
@@ -225,8 +215,8 @@
     "dir": "",
     "previous_headings": "Quick start",
     "what": "Tier 1: the local checks",
-    "title": "Generate and validate experimental materials",
-    "text": "run machine, cost nothing, need key. Two 24 vignettes use word “economic” “scientific” inside condition name. lets rater recover condition label instead content, ’d measuring label recognition. Passing tier 1 means diagnostics found differences beyond chosen thresholds. establish equivalence rule confounds. Readability scores use English-language formula; inspect non-English materials language-appropriate measures.",
+    "title": "Checking model-written experimental materials",
+    "text": "checks run machine. ’s find bundled texts: Two vignettes contain “economic” “scientific”, label condition. ’d inspect texts. rater might respond label without reading intended argument. checks pass default thresholds. tells us checks found; doesn’t rule confounding. readability formula English, ’d use language-appropriate measure texts.",
     "code": "data(repllm_materials) validate_auto(repllm_materials, condition_col = \"frame\") #> -- Automatic validation -- #> v Length balance: max deviation 4.8% #> v Readability: grade-level spread 0.4 #> ! Manipulation leakage: 2/24 materials name a condition term. #> v Distinctiveness: Jaccard overlap in [0.1, 0.11] #> ! Needs attention: \"leakage\""
   },
   {
@@ -235,8 +225,8 @@
     "dir": "",
     "previous_headings": "Quick start",
     "what": "Tier 2: synthetic raters",
-    "title": "Generate and validate experimental materials",
-    "text": "row margin nearest competing condition, named, Cohen’s d pair. Reporting margin strongest competitor rather average stricter test, naming competitor keeps d interpretable. Raters see text nothing else. condition labels, generation prompts, order shuffled separately rater. Ratings come back ellmer::parallel_chat_structured() type_object() schema, model can’t hand value scale ’s nothing parse. ’d supply personas ’re running one rater. Without , low temperature, three synthetic raters close rater three times , agreement look better .",
+    "title": "Checking model-written experimental materials",
+    "text": "ask model raters score economic moral appeals. analysis uses bundled ratings, also include scientific appeals. recovery table names strongest competing condition reports gap rating points Cohen’s d. find easier interpret comparison average conditions. rater sees material text. package removes earlier chat turns, replaces system prompt rating instructions, shuffles texts. asks ellmer structured ratings records failed --range responses missing. ’d give raters different personas, keeping mind ’re still using model. High agreement among can reflect shared model behavior. wouldn’t take evidence people agree.",
     "code": "ratings <- synthetic_ratings(   repllm_materials,   dimensions = c(     economic = \"how strongly the text appeals to economic consequences\",     moral    = \"how strongly the text appeals to moral duty\"   ),   chat     = ellmer::chat_openai(echo = \"none\"),   condition_col = \"frame\",   n_raters = 3,   personas = c(\"a general survey respondent\", \"a policy analyst\",                \"an undergraduate student\") )  targets <- c(economic = \"economic\", moral = \"moral\", scientific = \"scientific\") synthetic_check(repllm_synthetic, target = targets) #> Synthetic validation #>   Materials: 24 | raters: 3 | dimensions: 3 #>   Ratings: 216 #>   Standard errors: cluster-robust by material (24 clusters) #>   Manipulation recovery: #>     ok    economic     on economic     margin +3.71 over scientific   (d = +6.23) #>     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67) #>     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23) #>   Recovered 3/3 intended contrasts"
   },
   {
@@ -245,8 +235,8 @@
     "dir": "",
     "previous_headings": "Quick start",
     "what": "Tier 3: human coders",
-    "title": "Generate and validate experimental materials",
-    "text": "sheets carry condition labels rows shuffled. key goes separate file never reaches coders.",
+    "title": "Checking model-written experimental materials",
+    "text": "sample 12 materials prepare separate sheet coder: sheets use random IDs shuffled rows. separate key links IDs original materials conditions; keep away coders. Choose new file paths new task, since existing sheets won’t overwritten.",
     "code": "dims <- c(economic   = \"economic appeal\",           moral      = \"moral appeal\",           scientific = \"scientific appeal\")  sub  <- sample_for_human_validation(repllm_materials, n = 12,                                     stratify_by = \"frame\") task <- export_rating_task(sub, file.path(tempdir(), \"sheet.csv\"),                            dimensions = dims, condition_col = \"frame\",                            n_raters = 3)  # ... your coders fill in the sheets ...  human <- import_human_ratings(task$sheets, task$key_path, scale = c(1, 7)) human_check(human, target = targets)"
   },
   {
@@ -255,8 +245,8 @@
     "dir": "",
     "previous_headings": "Quick start",
     "what": "Reading the two tiers together",
-    "title": "Generate and validate experimental materials",
-    "text": "tiers report thing shape, put next . bundled example: simulated example, tiers rank intended condition highest. descriptive ordering significance test evidence equivalence. model reads economic moral margins wider coders , reads scientific margin . worth looking decide manipulation strong. rater_reliability() worth reporting beside , note ICC quote. data one synthetic rater .72 .94 depending dimension, mean three .88 .98. different claims. reduce single pass fail number. earlier version package , arithmetic turned mix two things mixed: much tiers actually disagree materials, much steadier model rater person. quiet rater came looking inflated whether disagreed anyone. Read two tables.",
+    "title": "Checking model-written experimental materials",
+    "text": "use summaries sets ratings. makes easier see differ. ’s bundled example: intended condition ranks highest target dimension sets ratings. model ratings show wider economic moral gaps human ratings . scientific gaps similar. ’d look differences deciding much rely model ratings. ranking descriptive. doesn’t test whether two sets ratings equivalent, doesn’t establish manipulation work respondents. ’d also report rater_reliability() specify ICC ’m using. data, reliability one synthetic rater ranges .72 .94 across dimensions. mean three raters, ranges .88 .98. choice depends whether ’m analysing individual ratings average.",
     "code": "targets <- c(economic = \"economic\", moral = \"moral\", scientific = \"scientific\") synthetic_check(repllm_synthetic, target = targets) #>     ok    economic     on economic     margin +3.71 over scientific   (d = +6.23) #>     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67) #>     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23)  human_check(repllm_human, target = targets) #>     ok    economic     on economic     margin +2.44 over scientific   (d = +2.82) #>     ok    moral        on moral        margin +2.62 over scientific   (d = +3.24) #>     ok    scientific   on scientific   margin +2.62 over economic     (d = +3.16)"
   },
   {
@@ -265,8 +255,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "What this owes to Porter and Velez",
-    "title": "Generate and validate experimental materials",
-    "text": "package grew Porter Velez (2022). argument picking one placebo, one stimulus, hands researcher freedom anyone want, generate set average instead. took seriously noticed doesn’t stop generation. model wrote set, didn’t choose , can’t vouch respondent. generation arrive measurement attached, ’s three tiers . replicate_design() n_versions argument idea directly. rest think follows . Porter, E., & Velez, Y. R. (2022). Placebo selection survey experiments: agnostic approach. Political Analysis, 30(4), 481-494.",
+    "title": "Checking model-written experimental materials",
+    "text": "package grew Porter Velez (2022). work motivates using several stimuli per condition averaging . ’ve carried idea replicate_design() n_versions argument. also want evidence generated materials convey. ’s ’ve put generation validation package. Porter, E., & Velez, Y. R. (2022). Placebo selection survey experiments: agnostic approach. Political Analysis, 30(4), 481-494.",
     "code": ""
   },
   {
@@ -275,7 +265,7 @@
     "dir": "",
     "previous_headings": "",
     "what": "Citation",
-    "title": "Generate and validate experimental materials",
+    "title": "Checking model-written experimental materials",
     "text": "",
     "code": "@software{repllm2026,   title  = {repllm: Generation and Validation of LLM-Written Experimental Materials},   author = {Crabtree, Charles},   year   = {2026},   url    = {https://github.com/lobsterbush/repllm},   note   = {R package version 0.4.0} }"
   },
@@ -285,8 +275,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Contact",
-    "title": "Generate and validate experimental materials",
-    "text": "issue tracker best place bugs requests, email charles.crabtree@monash.edu. ’d glad hear breaks. Charles Crabtree, Monash University Korea University. MIT License.",
+    "title": "Checking model-written experimental materials",
+    "text": "’d glad hear ’re using package, especially check misses something. Open issue email . Charles Crabtree, Monash University Korea University. MIT License.",
     "code": ""
   },
   {
@@ -295,8 +285,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Provenance",
-    "title": "Generate and validate experimental materials",
-    "text": "AI – Human (editor) 🤖✏️👤 Declared Charles Crabtree: AI produced work, Charles Crabtree human editor package maintainer. declaration covers package documentation. September 2026 audit site revision used OpenAI Codex. label follows Latent Review’s provenance standard, shared CC 4.0. package remains MIT licensed. authorship declaration distinct model, prompt, timestamp provenance recorded generated materials.",
+    "title": "Checking model-written experimental materials",
+    "text": "Human > AI 👤>🤖 led work, substantial contributions AI ideas implementation. maintain package edit documentation. used OpenAI Codex September 2026 audit revisions. ’m using Latent Review’s provenance standard, shared CC 4.0. package remains MIT licensed. Generated materials also carry separate record model prompt used produce .",
     "code": ""
   },
   {
@@ -305,8 +295,8 @@
     "dir": "",
     "previous_headings": "",
     "what": "Development and replication",
-    "title": "Generate and validate experimental materials",
-    "text": "development, install devtools, , pkgdown CRAN. local source checkout, run remotes::install_deps(dependencies = TRUE), : tests mock provider calls require API keys. getting-started vignette reproduces local validation examples bundled data.",
+    "title": "Checking model-written experimental materials",
+    "text": "work package, install devtools, , pkgdown CRAN. local checkout, run remotes::install_deps(dependencies = TRUE), followed : tests use simulated data mock model calls, don’t need API keys. getting-started vignette walks bundled example.",
     "code": "devtools::test() devtools::check(args = \"--as-cran\") source(here::here(\"data-raw\", \"build_site.R\"))"
   },
   {
@@ -314,9 +304,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Check Length Balance Across Conditions — check_length_balance",
-    "title": "Check Length Balance Across Conditions — check_length_balance",
-    "text": "Compare word character counts across conditions. condition runs longer gives participants react , manipulation gets confused sheer exposure.",
+    "what": "Compare text length across conditions — check_length_balance",
+    "title": "Compare text length across conditions — check_length_balance",
+    "text": "Compare word character counts across conditions. inspect condition consistently produces longer texts: respondents may reacting extra information well intended manipulation.",
     "code": ""
   },
   {
@@ -325,7 +315,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Check Length Balance Across Conditions — check_length_balance",
+    "title": "Compare text length across conditions — check_length_balance",
     "text": "",
     "code": "check_length_balance(texts, conditions, threshold = 0.2)"
   },
@@ -335,7 +325,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Check Length Balance Across Conditions — check_length_balance",
+    "title": "Compare text length across conditions — check_length_balance",
     "text": "texts Character vector materials. NA entries excluded statistics reported separately. conditions Condition labels, length texts. threshold Proportional deviation grand mean triggers warning (default: 0.20).",
     "code": ""
   },
@@ -345,7 +335,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Check Length Balance Across Conditions — check_length_balance",
+    "title": "Compare text length across conditions — check_length_balance",
     "text": "list by_condition, grand_mean_words,   max_deviation, n_missing, n_no_condition,   pass.",
     "code": ""
   },
@@ -355,7 +345,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Check Length Balance Across Conditions — check_length_balance",
+    "title": "Compare text length across conditions — check_length_balance",
     "text": "",
     "code": "check_length_balance(   c(\"Short text here.\", \"A somewhat longer text appears here now.\", \"Brief.\"),   c(\"treatment\", \"treatment\", \"control\") ) #> ! Length balance: max deviation 72.7% (> 20%) #> $by_condition #> # A tibble: 2 × 6 #>   condition     n mean_words sd_words mean_chars deviation #>   <chr>     <int>      <dbl>    <dbl>      <dbl>     <dbl> #> 1 control       1          1    NA             6     0.727 #> 2 treatment     2          5     2.83         28     0.364 #>  #> $grand_mean_words #> [1] 3.666667 #>  #> $max_deviation #> [1] 0.7272727 #>  #> $n_missing #> [1] 0 #>  #> $n_no_condition #> [1] 0 #>  #> $pass #> [1] FALSE #>"
   },
@@ -364,9 +354,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
-    "title": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
-    "text": "Compute pairwise Jaccard similarity vocabularies condition. high overlap suggests conditions really different. low overlap suggests differ dimension meant, put effect manipulation alone.",
+    "what": "Compare vocabulary across conditions — check_lexical_overlap",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
+    "text": "Calculate pairwise Jaccard similarity vocabularies condition. High overlap can help identify conditions similar wording. Low overlap reason read texts ask else may changed.",
     "code": ""
   },
   {
@@ -375,7 +365,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
     "text": "",
     "code": "check_lexical_overlap(texts, conditions, min_overlap = 0.1, max_overlap = 0.9)"
   },
@@ -385,7 +375,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
     "text": "texts Character vector materials. conditions Condition labels. min_overlap Jaccard similarity note emitted (default: 0.10). Advisory ; affect pass. max_overlap Jaccard similarity check fails (default: 0.90).",
     "code": ""
   },
@@ -395,8 +385,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
     "text": "list pairwise, min_observed,   max_observed, pass.",
+    "code": ""
+  },
+  {
+    "path": "https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.html",
+    "id": "details",
+    "dir": "Reference",
+    "previous_headings": "",
+    "what": "Details",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
+    "text": "treat diagnostic. Vocabulary overlap also depends text length many materials condition. Low overlap advisory; fail check.",
     "code": ""
   },
   {
@@ -405,7 +405,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Check Lexical Distinctiveness Across Conditions — check_lexical_overlap",
+    "title": "Compare vocabulary across conditions — check_lexical_overlap",
     "text": "",
     "code": "check_lexical_overlap(   c(\"The tax creates jobs and growth.\", \"The tax protects our children.\",     \"Jobs and growth follow the tax.\", \"Our children deserve protection.\"),   c(\"economic\", \"moral\", \"economic\", \"moral\") ) #> ✔ Distinctiveness: Jaccard overlap in [0.17, 0.17] #> $pairwise #> # A tibble: 1 × 3 #>   condition_1 condition_2 jaccard #>   <chr>       <chr>         <dbl> #> 1 economic    moral         0.167 #>  #> $min_observed #> [1] 0.1666667 #>  #> $max_observed #> [1] 0.1666667 #>  #> $pass #> [1] TRUE #>"
   },
@@ -414,9 +414,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
-    "title": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
-    "text": "vignette contains word \"economic\" lets rater recover condition label instead content. measure label recognition. check flags materials containing condition label term want .",
+    "what": "Find words that could give away the condition — check_manipulation_leakage",
+    "title": "Find words that could give away the condition — check_manipulation_leakage",
+    "text": "Look condition labels terms asked function flag. text calls argument \"economic\" prompt rater score label. read flagged texts decide whether express intended argument simply name .",
     "code": ""
   },
   {
@@ -425,7 +425,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
+    "title": "Find words that could give away the condition — check_manipulation_leakage",
     "text": "",
     "code": "check_manipulation_leakage(texts, conditions, terms = NULL, threshold = 0)"
   },
@@ -435,7 +435,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
+    "title": "Find words that could give away the condition — check_manipulation_leakage",
     "text": "texts Character vector materials. conditions Condition labels. terms Character vector terms appear. Defaults unique condition labels. Terms shorter three characters skipped, message, match much informative. arms named something like \"T1\" \"C\", pass words actually care . threshold Maximum acceptable proportion materials containing flagged term (default: 0, .e. leakage fails).",
     "code": ""
   },
@@ -445,7 +445,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
+    "title": "Find words that could give away the condition — check_manipulation_leakage",
     "text": "list flagged (tibble offending materials),   by_condition, leak_rate, pass.",
     "code": ""
   },
@@ -455,7 +455,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Check Whether Materials Name Their Own Manipulation — check_manipulation_leakage",
+    "title": "Find words that could give away the condition — check_manipulation_leakage",
     "text": "",
     "code": "check_manipulation_leakage(   c(\"This economic argument is about jobs.\", \"We owe our children a future.\"),   c(\"economic\", \"moral\") ) #> ! Manipulation leakage: 1/2 materials name a condition term. #> $flagged #> # A tibble: 1 × 4 #>   index condition term     text                                  #>   <int> <chr>     <chr>    <chr>                                 #> 1     1 economic  economic This economic argument is about jobs. #>  #> $by_condition #> # A tibble: 2 × 4 #>   condition     n n_flagged leak_rate #>   <chr>     <int>     <int>     <dbl> #> 1 economic      1         1         1 #> 2 moral         1         0         0 #>  #> $leak_rate #> [1] 0.5 #>  #> $pass #> [1] FALSE #>"
   },
@@ -464,9 +464,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Check Readability Across Conditions — check_readability",
-    "title": "Check Readability Across Conditions — check_readability",
-    "text": "Estimate Flesch-Kincaid grade level text compare across conditions. quanteda.textstats installed gives exact score. , get syllable-counting approximation instead, result records one got.",
+    "what": "Compare reading levels across conditions — check_readability",
+    "title": "Compare reading levels across conditions — check_readability",
+    "text": "Estimate Flesch-Kincaid reading levels compare condition means. function uses quanteda.textstats installed syllable heuristic otherwise. output tells method used.",
     "code": ""
   },
   {
@@ -475,7 +475,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Check Readability Across Conditions — check_readability",
+    "title": "Compare reading levels across conditions — check_readability",
     "text": "",
     "code": "check_readability(texts, conditions, threshold = 2)"
   },
@@ -485,7 +485,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Check Readability Across Conditions — check_readability",
+    "title": "Compare reading levels across conditions — check_readability",
     "text": "texts Character vector materials. conditions Condition labels. threshold Maximum acceptable difference mean grade level two conditions (default: 2.0).",
     "code": ""
   },
@@ -495,8 +495,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Check Readability Across Conditions — check_readability",
+    "title": "Compare reading levels across conditions — check_readability",
     "text": "list per_text, by_condition,   max_diff, unmeasurable (conditions computable   grade level, fail check), method, n_missing,   n_no_condition, pass.",
+    "code": ""
+  },
+  {
+    "path": "https://lobsterbush.github.io/repllm-docs/reference/check_readability.html",
+    "id": "details",
+    "dir": "Reference",
+    "previous_headings": "",
+    "what": "Details",
+    "title": "Compare reading levels across conditions — check_readability",
+    "text": "English-language measure. use suitable measure language study interpreting differences texts.",
     "code": ""
   },
   {
@@ -505,7 +515,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Check Readability Across Conditions — check_readability",
+    "title": "Compare reading levels across conditions — check_readability",
     "text": "",
     "code": "check_readability(   c(\"The policy creates jobs by investing in new infrastructure.\",     \"We must act now to protect future generations from harm.\"),   c(\"economic\", \"moral\") ) #> ! Readability: grade-level spread 4.2 (> 2) #> $per_text #> # A tibble: 2 × 3 #>   condition text                                                        fk_grade #>   <chr>     <chr>                                                          <dbl> #> 1 economic  The policy creates jobs by investing in new infrastructure.     10.2 #> 2 moral     We must act now to protect future generations from harm.         6   #>  #> $by_condition #> # A tibble: 2 × 4 #>   condition     n mean_grade sd_grade #>   <chr>     <int>      <dbl>    <dbl> #> 1 economic      1       10.2       NA #> 2 moral         1        6         NA #>  #> $max_diff #> [1] 4.2 #>  #> $unmeasurable #> character(0) #>  #> $method #> [1] \"quanteda.textstats::textstat_readability (Flesch.Kincaid)\" #>  #> $n_missing #> [1] 0 #>  #> $n_no_condition #> [1] 0 #>  #> $pass #> [1] FALSE #>"
   },
@@ -514,9 +524,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Build a Factorial Design of Experimental Conditions — design_conditions",
-    "title": "Build a Factorial Design of Experimental Conditions — design_conditions",
-    "text": "Cross set experimental factors design matrix, one row per condition. study starts, generate_materials takes input: every column name becomes {placeholder} can drop generation template. Use .exclude drop cells make sense, asking model write stimulus nobody ever field.",
+    "what": "Build the experimental conditions — design_conditions",
+    "title": "Build the experimental conditions — design_conditions",
+    "text": "Start factors want vary. function crosses levels design one row per condition. column becomes {placeholder} prompt passed generate_materials.",
     "code": ""
   },
   {
@@ -525,7 +535,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Build a Factorial Design of Experimental Conditions — design_conditions",
+    "title": "Build the experimental conditions — design_conditions",
     "text": "",
     "code": "design_conditions(..., .exclude = NULL)"
   },
@@ -535,7 +545,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Build a Factorial Design of Experimental Conditions — design_conditions",
+    "title": "Build the experimental conditions — design_conditions",
     "text": "... Named character factor vectors, one per experimental factor. example frame = c(\"economic\", \"moral\"), source = c(\"expert\", \"layperson\"). .exclude Optional function taking design tibble returning logical vector. Rows returns TRUE dropped, useful removing impossible -limits factor combinations.",
     "code": ""
   },
@@ -545,8 +555,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Build a Factorial Design of Experimental Conditions — design_conditions",
+    "title": "Build the experimental conditions — design_conditions",
     "text": "tibble one row per condition, condition_id column,   one column per factor.",
+    "code": ""
+  },
+  {
+    "path": "https://lobsterbush.github.io/repllm-docs/reference/design_conditions.html",
+    "id": "details",
+    "dir": "Reference",
+    "previous_headings": "",
+    "what": "Details",
+    "title": "Build the experimental conditions — design_conditions",
+    "text": "use .exclude remove combinations make sense study asking model write .",
     "code": ""
   },
   {
@@ -555,7 +575,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Build a Factorial Design of Experimental Conditions — design_conditions",
+    "title": "Build the experimental conditions — design_conditions",
     "text": "",
     "code": "design_conditions(   frame  = c(\"economic\", \"moral\"),   source = c(\"expert\", \"layperson\") ) #> ℹ Design: 4 conditions from 2 factors #> # A tibble: 4 × 3 #>   condition_id frame    source    #>          <int> <chr>    <chr>     #> 1            1 economic expert    #> 2            2 moral    expert    #> 3            3 economic layperson #> 4            4 moral    layperson  # Drop an implausible cell design_conditions(   frame  = c(\"economic\", \"moral\"),   source = c(\"expert\", \"layperson\"),   .exclude = function(d) d$frame == \"moral\" & d$source == \"expert\" ) #> ℹ Design: 3 conditions from 2 factors #> # A tibble: 3 × 3 #>   condition_id frame    source    #>          <int> <chr>    <chr>     #> 1            1 economic expert    #> 2            2 economic layperson #> 3            3 moral    layperson"
   },
@@ -564,9 +584,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Export a Blinded Rating Task for Human Coders — export_rating_task",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
-    "text": "Write rating sheet coders can fill , plus separate key file linking row back condition. sheet condition labels, generation prompts, design columns. Random codes replace original IDs rows shuffled. text can still reveal manipulation.",
+    "what": "Prepare blinded rating sheets — export_rating_task",
+    "title": "Prepare blinded rating sheets — export_rating_task",
+    "text": "Write rating sheets human coders separate key researcher. sheet contains text, random material codes, blank rating columns. leaves condition labels, generation prompts, original IDs. coder gets separately shuffled sheet.",
     "code": ""
   },
   {
@@ -575,7 +595,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
+    "title": "Prepare blinded rating sheets — export_rating_task",
     "text": "",
     "code": "export_rating_task(   materials,   path,   dimensions,   key_path = NULL,   scale = c(1, 7),   n_raters = 1L,   condition_col = \"condition\",   text_col = \"text\",   seed = 42 )"
   },
@@ -585,7 +605,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
+    "title": "Prepare blinded rating sheets — export_rating_task",
     "text": "materials data frame materials rated. path Path new rating sheet CSV. Existing output files never overwritten; choose new paths new task. dimensions Named character vector dimensions, passed synthetic_ratings. One blank column per dimension added. key_path Path key CSV. Defaults path _key suffix. scale Numeric length-2 vector rating endpoints (default c(1, 7)). reported console message rather written sheet, tell coders endpoints . n_raters Number coders complete copy. greater one, separate shuffled sheet written per coder. condition_col Column holding condition (default \"condition\"). Written key, never sheet. text_col Column holding material text (default \"text\"). seed Integer seed shuffle (default: 42).",
     "code": ""
   },
@@ -595,7 +615,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
+    "title": "Prepare blinded rating sheets — export_rating_task",
     "text": "Invisibly, list sheets (paths written)   key_path. key maps blinded material_id codes   original_material_id condition. Import restores original IDs.",
     "code": ""
   },
@@ -605,8 +625,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
-    "text": "Keep key away coders. import_human_ratings rejoins ratings come back.",
+    "title": "Prepare blinded rating sheets — export_rating_task",
+    "text": "Keep key away coders. import_human_ratings uses restore original IDs conditions. text can still reveal manipulation, check sending sheets.",
     "code": ""
   },
   {
@@ -615,18 +635,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Export a Blinded Rating Task for Human Coders — export_rating_task",
+    "title": "Prepare blinded rating sheets — export_rating_task",
     "text": "",
-    "code": "m <- data.frame(   condition = c(\"economic\", \"moral\"),   text = c(\"Jobs and growth follow.\", \"We owe our children better.\") ) tmp <- tempfile(fileext = \".csv\") export_rating_task(m, tmp, dimensions = c(economic = \"economic appeal\")) #> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpud3fuK/file1706f21041b0f_key.csv #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders."
+    "code": "m <- data.frame(   condition = c(\"economic\", \"moral\"),   text = c(\"Jobs and growth follow.\", \"We owe our children better.\") ) tmp <- tempfile(fileext = \".csv\") export_rating_task(m, tmp, dimensions = c(economic = \"economic appeal\")) #> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpqRWDLT/file627d402ade4_key.csv #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders."
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/reference/generate_materials.html",
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Generate Experimental Materials from a Factorial Design — generate_materials",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
-    "text": "model write experimental stimuli (vignettes, quotes, scenarios) design matrix. row design produces n_versions independent realisations, following Porter Velez (2022).",
+    "what": "Generate materials for each condition — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
+    "text": "Ask model write experimental materials design. row produces n_versions separate responses, following Porter Velez (2022). can use vignettes, quotations, short texts.",
     "code": ""
   },
   {
@@ -635,7 +655,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
     "text": "",
     "code": "generate_materials(   design,   template,   chat,   n_versions = 3L,   seed = NULL,   max_active = 10,   rpm = 500 )"
   },
@@ -645,7 +665,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
     "text": "design data frame conditions, typically design_conditions. Column names become {placeholder}s template. template glue-style string used build per-condition instruction. Column names design available {name}. chat ellmer Chat object used every condition. system prompt carry task-general instructions (length, register, format), never condition-specific content. Use fresh chat conversation history; previously used chats rejected. n_versions Number independent realisations per condition (default: 3). seed Optional integer seed recorded provenance attributes. Note providers bit-reproducible even temperature 0. max_active Maximum concurrent requests. rpm Requests per minute limit.",
     "code": ""
   },
@@ -655,18 +675,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
     "text": "tibble class llm_materials: columns   design, plus material_id, version, prompt,   text. Failed generations keep row text = NA.   Generation provenance stored \"provenance\" attribute.",
     "code": ""
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/reference/generate_materials.html",
-    "id": "why-the-system-prompt-is-shared",
+    "id": "keep-the-system-prompt-general",
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Why the system prompt is shared",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
-    "text": "Every condition generated Chat object, system prompt stays constant user turn changes. keeps conditions comparable. system prompt named condition , framing land every cell design, confound package meant catch. generate_materials() checks system prompt factor levels warns finds one.",
+    "what": "Keep the system prompt general",
+    "title": "Generate materials for each condition — generate_materials",
+    "text": "system prompt applies every condition. put instructions length format , condition-specific wording template. generate_materials() warns system prompt names factor level. Use fresh chat earlier conversation turns enter requests.",
     "code": ""
   },
   {
@@ -675,7 +695,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "References",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
     "text": "Porter, E., & Velez, Y. R. (2022). Placebo selection survey experiments: agnostic approach. Political Analysis, 30(4), 481-494.",
     "code": ""
   },
@@ -685,7 +705,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Generate Experimental Materials from a Factorial Design — generate_materials",
+    "title": "Generate materials for each condition — generate_materials",
     "text": "",
     "code": "if (FALSE) { # \\dontrun{ design <- design_conditions(   frame  = c(\"economic\", \"moral\"),   source = c(\"expert\", \"layperson\") )  chat <- ellmer::chat_openai(   \"You write short, neutral survey vignettes. Return only the vignette.\",   echo = \"none\" )  materials <- generate_materials(   design,   template = \"Write a 60-word quote about a carbon tax from a {source}               emphasising the {frame} perspective.\",   chat = chat,   n_versions = 3 ) } # }"
   },
@@ -694,9 +714,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Generate the Same Design Under Several Models — generation_sensitivity",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
-    "text": "Re-run stimulus generation one generator stack results. treatment-side version sensitivity analysis. manipulation survives one model, property model rather design.",
+    "what": "Generate materials with several models — generation_sensitivity",
+    "title": "Generate materials with several models — generation_sensitivity",
+    "text": "Run design template several generators combine outputs. use see whether materials depend heavily model writes .",
     "code": ""
   },
   {
@@ -705,7 +725,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
+    "title": "Generate materials with several models — generation_sensitivity",
     "text": "",
     "code": "generation_sensitivity(design, template, chats, n_versions = 3L, ...)"
   },
@@ -715,7 +735,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
+    "title": "Generate materials with several models — generation_sensitivity",
     "text": "design data frame conditions. template glue-style instruction template. chats named list ellmer Chat objects, one per generator. n_versions Realisations per condition per generator (default: 3). ... Passed generate_materials.",
     "code": ""
   },
@@ -725,7 +745,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
+    "title": "Generate materials with several models — generation_sensitivity",
     "text": "tibble class llm_materials added   generator column, one \"provenance\" entry per generator.",
     "code": ""
   },
@@ -735,8 +755,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
-    "text": "compare generators, split result run checks piece: lapply(split(m, m$generator), validate_auto, condition_col = \"frame\"). check passes one generator fails another, design work think .",
+    "title": "Generate materials with several models — generation_sensitivity",
+    "text": "compare results, split generator run checks separately: lapply(split(m, m$generator), validate_auto, condition_col = \"frame\"). checks differ across models, inspect texts deciding field.",
     "code": ""
   },
   {
@@ -745,7 +765,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Generate the Same Design Under Several Models — generation_sensitivity",
+    "title": "Generate materials with several models — generation_sensitivity",
     "text": "",
     "code": "if (FALSE) { # \\dontrun{ materials <- generation_sensitivity(   design, template,   chats = list(     gpt   = ellmer::chat_openai(sys, echo = \"none\"),     claude = ellmer::chat_anthropic(sys, echo = \"none\")   ) ) } # }"
   },
@@ -754,9 +774,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Test the Manipulation Against Human Ratings — human_check",
-    "title": "Test the Manipulation Against Human Ratings — human_check",
-    "text": "human-coded counterpart synthetic_check. uses estimator two tiers directly comparable: condition means contrasts robust confidence intervals per dimension, clustered material several coders rate one.",
+    "what": "Compare conditions using human ratings — human_check",
+    "title": "Compare conditions using human ratings — human_check",
+    "text": "Analyse human ratings estimator used synthetic_check. result includes condition means contrasts robust confidence intervals. Standard errors cluster material several coders rate text.",
     "code": ""
   },
   {
@@ -765,7 +785,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Test the Manipulation Against Human Ratings — human_check",
+    "title": "Compare conditions using human ratings — human_check",
     "text": "",
     "code": "human_check(ratings, target = NULL, conf_level = 0.95)"
   },
@@ -775,7 +795,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Test the Manipulation Against Human Ratings — human_check",
+    "title": "Compare conditions using human ratings — human_check",
     "text": "ratings long tibble import_human_ratings. target Optional named character vector mapping condition levels dimension meant maximise. conf_level Confidence level intervals (default: 0.95).",
     "code": ""
   },
@@ -785,8 +805,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Test the Manipulation Against Human Ratings — human_check",
+    "title": "Compare conditions using human ratings — human_check",
     "text": "object class rating_validation.",
+    "code": ""
+  },
+  {
+    "path": "https://lobsterbush.github.io/repllm-docs/reference/human_check.html",
+    "id": "details",
+    "dir": "Reference",
+    "previous_headings": "",
+    "what": "Details",
+    "title": "Compare conditions using human ratings — human_check",
+    "text": "compare human model results materials. Similar condition rankings can still come different rating gaps.",
     "code": ""
   },
   {
@@ -795,7 +825,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Test the Manipulation Against Human Ratings — human_check",
+    "title": "Compare conditions using human ratings — human_check",
     "text": "",
     "code": "ratings <- data.frame(   material_id = rep(paste0(\"m\", 1:4), each = 2),   condition   = rep(c(\"economic\", \"economic\", \"moral\", \"moral\"), each = 2),   dimension   = rep(c(\"economic\", \"moral\"), times = 4),   rating      = c(6, 3, 6, 2, 3, 6, 2, 7) ) human_check(ratings, target = c(economic = \"economic\", moral = \"moral\")) #> Human validation #>   Materials: 4 | raters: 1 | dimensions: 2  #>   Ratings: 8 #>   Standard errors: HC2  #>   Manipulation recovery: #>     ok    economic     on economic     margin +3.50 over moral        (d = +7.00) #>     ok    moral        on moral        margin +4.00 over economic     (d = +5.66) #>   Recovered 2/2 intended contrasts"
   },
@@ -804,9 +834,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Agreement Among Human Coders — human_reliability",
-    "title": "Agreement Among Human Coders — human_reliability",
-    "text": "Inter-rater reliability across human coders, computed identically rater_reliability synthetic raters two footing.",
+    "what": "Check agreement among human coders — human_reliability",
+    "title": "Check agreement among human coders — human_reliability",
+    "text": "Calculate agreement among human coders using rater_reliability. use statistics sets raters results can read together.",
     "code": ""
   },
   {
@@ -815,7 +845,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Agreement Among Human Coders — human_reliability",
+    "title": "Check agreement among human coders — human_reliability",
     "text": "",
     "code": "human_reliability(ratings)"
   },
@@ -825,7 +855,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Agreement Among Human Coders — human_reliability",
+    "title": "Check agreement among human coders — human_reliability",
     "text": "ratings long human ratings tibble rater column.",
     "code": ""
   },
@@ -835,7 +865,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Agreement Among Human Coders — human_reliability",
+    "title": "Check agreement among human coders — human_reliability",
     "text": "tibble one row per dimension.",
     "code": ""
   },
@@ -845,7 +875,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Agreement Among Human Coders — human_reliability",
+    "title": "Check agreement among human coders — human_reliability",
     "text": "",
     "code": "r <- data.frame(   material_id = rep(paste0(\"m\", 1:4), times = 2),   rater       = rep(c(\"human_1\", \"human_2\"), each = 4),   dimension   = \"economic\",   rating      = c(6, 5, 2, 3, 6, 6, 3, 2) ) human_reliability(r) #> # A tibble: 1 × 8 #>   dimension n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>        <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 economic         2           4          4        0      0.899       0.947 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
   },
@@ -854,9 +884,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Read Completed Human Ratings — import_human_ratings",
-    "title": "Read Completed Human Ratings — import_human_ratings",
-    "text": "Read one completed rating sheets, rejoin condition key, reshape long format rest package uses, can analyse human ratings functions synthetic ones.",
+    "what": "Read the completed rating sheets — import_human_ratings",
+    "title": "Read the completed rating sheets — import_human_ratings",
+    "text": "Read completed sheets join separate key. function restores original material IDs condition labels, puts ratings long format used rest package. run human_check output compare conditions.",
     "code": ""
   },
   {
@@ -865,7 +895,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Read Completed Human Ratings — import_human_ratings",
+    "title": "Read the completed rating sheets — import_human_ratings",
     "text": "",
     "code": "import_human_ratings(path, key_path, dimensions = NULL, scale = NULL)"
   },
@@ -875,7 +905,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Read Completed Human Ratings — import_human_ratings",
+    "title": "Read the completed rating sheets — import_human_ratings",
     "text": "path Path completed sheet, character vector paths. key_path Path key written export_rating_task. dimensions Character vector dimension column names read. NULL, every column material_id, text, rater treated dimension. scale Optional numeric length-2 vector. Ratings outside scale set NA reported.",
     "code": ""
   },
@@ -885,7 +915,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Read Completed Human Ratings — import_human_ratings",
+    "title": "Read the completed rating sheets — import_human_ratings",
     "text": "long tibble material_id, condition,   rater, dimension, rating.",
     "code": ""
   },
@@ -895,7 +925,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Read Completed Human Ratings — import_human_ratings",
+    "title": "Read the completed rating sheets — import_human_ratings",
     "text": "",
     "code": "if (FALSE) { # \\dontrun{ human <- import_human_ratings(   c(\"ratings_rater1.csv\", \"ratings_rater2.csv\"),   key_path = \"ratings_key.csv\" ) human_check(human, target = c(economic = \"economic\", moral = \"moral\")) } # }"
   },
@@ -904,9 +934,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Randomise Execution Order — randomize_design",
-    "title": "Randomise Execution Order — randomize_design",
-    "text": "Shuffle rows design. Randomising generation order guards order effects providers keep request-level state, need randomise presentation order showing materials raters.",
+    "what": "Shuffle the order of the conditions — randomize_design",
+    "title": "Shuffle the order of the conditions — randomize_design",
+    "text": "Return design rows random order. shuffle order generating materials presenting raters. Supply seed want reproduce shuffle.",
     "code": ""
   },
   {
@@ -915,7 +945,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Randomise Execution Order — randomize_design",
+    "title": "Shuffle the order of the conditions — randomize_design",
     "text": "",
     "code": "randomize_design(design, seed = NULL)"
   },
@@ -925,7 +955,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Randomise Execution Order — randomize_design",
+    "title": "Shuffle the order of the conditions — randomize_design",
     "text": "design data frame shuffle. seed Integer seed. Supply one reproducible shuffle.",
     "code": ""
   },
@@ -935,7 +965,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Randomise Execution Order — randomize_design",
+    "title": "Shuffle the order of the conditions — randomize_design",
     "text": "design rows random order.",
     "code": ""
   },
@@ -945,7 +975,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Randomise Execution Order — randomize_design",
+    "title": "Shuffle the order of the conditions — randomize_design",
     "text": "",
     "code": "d <- design_conditions(frame = c(\"a\", \"b\", \"c\")) #> ℹ Design: 3 conditions from 1 factor randomize_design(d, seed = 42) #> # A tibble: 3 × 2 #>   condition_id frame #>          <int> <chr> #> 1            1 a     #> 2            3 c     #> 3            2 b"
   },
@@ -954,9 +984,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Agreement Among Raters — rater_reliability",
-    "title": "Agreement Among Raters — rater_reliability",
-    "text": "Report inter-rater reliability across raters dimension, either synthetic human ratings. get intraclass correlation continuous scales Krippendorff's alpha ordinal check. Failed ratings reported rather quietly dropped.",
+    "what": "Check agreement among raters — rater_reliability",
+    "title": "Check agreement among raters — rater_reliability",
+    "text": "Calculate inter-rater reliability dimension using intraclass correlation ordinal Krippendorff's alpha. function also reports missing ratings number complete materials used ICC.",
     "code": ""
   },
   {
@@ -965,7 +995,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Agreement Among Raters — rater_reliability",
+    "title": "Check agreement among raters — rater_reliability",
     "text": "",
     "code": "rater_reliability(ratings)"
   },
@@ -975,7 +1005,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Agreement Among Raters — rater_reliability",
+    "title": "Check agreement among raters — rater_reliability",
     "text": "ratings long ratings tibble rater column.",
     "code": ""
   },
@@ -985,7 +1015,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Agreement Among Raters — rater_reliability",
+    "title": "Check agreement among raters — rater_reliability",
     "text": "tibble one row per dimension: n_raters,   n_materials, n_complete (materials every rater scored,   ICC computed ), n_failed, icc_single   (ICC(,1), reliability one rater), icc_average (ICC(,k),   reliability mean), krippendorff_alpha. Report icc_single single rating unit analysis   icc_average average raters first. can differ lot:   .67 .89 data typical.",
     "code": ""
   },
@@ -995,8 +1025,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Agreement Among Raters — rater_reliability",
-    "text": "High agreement among synthetic raters necessary sufficient. low temperature without distinct personas, model raters agree nearly rater, tells nothing well construct measured.",
+    "title": "Check agreement among raters — rater_reliability",
+    "text": "specify whether reporting reliability one rater mean several. also careful interpreting high agreement among repeated calls model: raters share model, agreement among establish agreement people.",
     "code": ""
   },
   {
@@ -1005,7 +1035,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Agreement Among Raters — rater_reliability",
+    "title": "Check agreement among raters — rater_reliability",
     "text": "",
     "code": "r <- data.frame(   material_id = rep(paste0(\"m\", 1:4), times = 2),   condition   = rep(c(\"a\", \"a\", \"b\", \"b\"), times = 2),   rater       = rep(c(\"synthetic_1\", \"synthetic_2\"), each = 4),   dimension   = \"tone\",   rating      = c(5, 6, 2, 3, 5, 5, 2, 4) ) rater_reliability(r) #> # A tibble: 1 × 8 #>   dimension n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>        <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 tone             2           4          4        0      0.903       0.949 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
   },
@@ -1014,9 +1044,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Add Replicates to a Design — replicate_design",
-    "title": "Add Replicates to a Design — replicate_design",
-    "text": "Expand condition n replicates. stimulus generation multiple-realisations logic Porter Velez (2022). Generating several independent versions per condition averaging takes away freedom pick one stimulus happen like.",
+    "what": "Add versions of each condition — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
+    "text": "Repeat row design n times. use want several materials per condition, following Porter Velez (2022). Averaging several stimuli makes result less dependent one choice wording.",
     "code": ""
   },
   {
@@ -1025,7 +1055,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Add Replicates to a Design — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
     "text": "",
     "code": "replicate_design(design, n = 3)"
   },
@@ -1035,7 +1065,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Add Replicates to a Design — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
     "text": "design tibble design_conditions. n Number replicates per condition (default: 3).",
     "code": ""
   },
@@ -1045,7 +1075,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Add Replicates to a Design — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
     "text": "expanded design replicate column.",
     "code": ""
   },
@@ -1055,7 +1085,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "References",
-    "title": "Add Replicates to a Design — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
     "text": "Porter, E., & Velez, Y. R. (2022). Placebo selection survey experiments: agnostic approach. Political Analysis, 30(4), 481-494.",
     "code": ""
   },
@@ -1065,7 +1095,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Add Replicates to a Design — replicate_design",
+    "title": "Add versions of each condition — replicate_design",
     "text": "",
     "code": "d <- design_conditions(frame = c(\"economic\", \"moral\")) #> ℹ Design: 2 conditions from 1 factor replicate_design(d, n = 3) #> # A tibble: 6 × 3 #>   condition_id frame    replicate #>          <int> <chr>        <int> #> 1            1 economic         1 #> 2            1 economic         2 #> 3            1 economic         3 #> 4            2 moral            1 #> 5            2 moral            2 #> 6            2 moral            3"
   },
@@ -1074,9 +1104,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "text": "Tools social scientists use language model write experimental stimuli. package generates materials factorial design validates three tiers. Automatic checks run locally cost nothing. Synthetic checks model rate materials. Human checks coders subsample. Running last two materials tells whether model's ratings resemble people actually see.",
+    "what": "repllm: Generate and check experimental materials — repllm-package",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
+    "text": "built package help answer question: model-written experimental materials convey manipulation asked ? generates texts factorial design, checks length wording, helps collect ratings models people.",
     "code": ""
   },
   {
@@ -1085,8 +1115,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "text": "ellmer model work: providers, credentials, concurrency, structured output, cost accounting. package never calls API .",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
+    "text": "ellmer handles model calls credentials. local checks run without API key. compare model human ratings materials deciding much rely model ratings.",
     "code": ""
   },
   {
@@ -1095,8 +1125,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Where this came from",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "text": "package grew Porter Velez (2022). argument picking one placebo, one stimulus, hands researcher freedom anyone want, fix generate set average . logic stop generation. model wrote set, choose vouch respondent, generation arrive measurement attached. three tiers measurement.",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
+    "text": "package grew Porter Velez (2022). work motivates using several stimuli per condition. added tools checking stimuli convey fielding experiment.",
     "code": ""
   },
   {
@@ -1105,8 +1135,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Workflow",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "text": "design_conditions builds factorial design. generate_materials writes stimuli. validate_auto runs local confound checks. synthetic_ratings synthetic_check     test whether manipulation moved intended construct. sample_for_human_validation,     export_rating_task, import_human_ratings,     human_check human coders. Steps 4 5 answer question different raters, run materials set results side side.",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
+    "text": "design_conditions builds factorial design. generate_materials writes stimuli. validate_auto runs local confound checks. synthetic_ratings synthetic_check     test whether manipulation moved intended construct. sample_for_human_validation,     export_rating_task, import_human_ratings,     human_check human coders. run steps 4 5 materials compare results. Agreement condition rankings can still come different rating gaps.",
     "code": ""
   },
   {
@@ -1115,8 +1145,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Authorship provenance",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
-    "text": "AI – Human (editor). Declared Charles Crabtree: AI produced work, Charles Crabtree human editor package maintainer. label follows https://thelatentreview.com/provenance/. See installed PROVENANCE file scope declaration.",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
+    "text": "Human > AI. led work, substantial AI contributions ideas implementation. Charles Crabtree, package maintainer. label follows https://thelatentreview.com/provenance/. installed PROVENANCE file gives full declaration.",
     "code": ""
   },
   {
@@ -1125,7 +1155,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "References",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
     "text": "Porter, E., & Velez, Y. R. (2022). Placebo selection survey experiments: agnostic approach. Political Analysis, 30(4), 481-494.",
     "code": ""
   },
@@ -1135,7 +1165,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Author",
-    "title": "repllm: Generation and Validation of LLM-Written Experimental Materials — repllm-package",
+    "title": "repllm: Generate and check experimental materials — repllm-package",
     "text": "Maintainer: Charles Crabtree charles.crabtree@monash.edu (ORCID)",
     "code": ""
   },
@@ -1144,9 +1174,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Human Ratings of the Example Materials — repllm_human",
-    "title": "Human Ratings of the Example Materials — repllm_human",
-    "text": "Simulated output import_human_ratings: two human coders score 24 materials repllm_materials three dimensions repllm_synthetic. show measurement noise less separation conditions, human coders usually .",
+    "what": "Example human ratings — repllm_human",
+    "title": "Example human ratings — repllm_human",
+    "text": "Simulated ratings format returned import_human_ratings. Two human coders score 24 materials repllm_materials three dimensions repllm_synthetic.",
     "code": ""
   },
   {
@@ -1155,7 +1185,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Human Ratings of the Example Materials — repllm_human",
+    "title": "Example human ratings — repllm_human",
     "text": "",
     "code": "repllm_human"
   },
@@ -1165,8 +1195,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Format",
-    "title": "Human Ratings of the Example Materials — repllm_human",
+    "title": "Example human ratings — repllm_human",
     "text": "tibble 144 rows 5 columns: material_id Identifier matching repllm_materials. condition framing condition material. rater \"human_1\" \"human_2\". dimension Rated dimension. rating Integer rating 1 7 scale.",
+    "code": ""
+  },
+  {
+    "path": "https://lobsterbush.github.io/repllm-docs/reference/repllm_human.html",
+    "id": "details",
+    "dir": "Reference",
+    "previous_headings": "",
+    "what": "Details",
+    "title": "Example human ratings — repllm_human",
+    "text": "given ratings noise smaller gaps two dimensions difference inspect. teaching data; ratings collected people.",
     "code": ""
   },
   {
@@ -1175,7 +1215,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Human Ratings of the Example Materials — repllm_human",
+    "title": "Example human ratings — repllm_human",
     "text": "",
     "code": "data(repllm_human) data(repllm_synthetic)  human_check(repllm_human, target = c(economic = \"economic\")) #> Human validation #>   Materials: 24 | raters: 2 | dimensions: 3  #>   Ratings: 144 #>   Standard errors: cluster-robust by material (24 clusters)  #>   Manipulation recovery: #>     ok    economic     on economic     margin +2.44 over scientific   (d = +2.82) #>   Recovered 1/1 intended contrasts  # Set the two tiers side by side targets <- c(economic = \"economic\", moral = \"moral\",              scientific = \"scientific\") synthetic_check(repllm_synthetic, target = targets)$recovery #> # A tibble: 3 × 8 #>   condition  dimension  mean_target nearest    nearest_mean margin margin_d #>   <chr>      <chr>            <dbl> <chr>             <dbl>  <dbl>    <dbl> #> 1 economic   economic          6.67 scientific         2.96   3.71     6.23 #> 2 moral      moral             6.58 scientific         3.21   3.37     6.67 #> 3 scientific scientific        5.88 economic           3.12   2.75     3.23 #> # ℹ 1 more variable: is_highest <lgl>"
   },
@@ -1184,9 +1224,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Generated Experimental Materials — repllm_materials",
-    "title": "Generated Experimental Materials — repllm_materials",
-    "text": "Twenty-four short vignettes carbon tax, written LLM factorial design crossing three frames two speaker types, four realisations per cell. Together repllm_synthetic repllm_human form one complete simulated validation study, every function package can demonstrated without API key.",
+    "what": "Example experimental materials — repllm_materials",
+    "title": "Example experimental materials — repllm_materials",
+    "text": "included 24 carbon-tax vignettes: three frames crossed two speaker types, four versions per cell. form worked example simulated ratings repllm_synthetic repllm_human.",
     "code": ""
   },
   {
@@ -1195,7 +1235,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Generated Experimental Materials — repllm_materials",
+    "title": "Example experimental materials — repllm_materials",
     "text": "",
     "code": "repllm_materials"
   },
@@ -1205,7 +1245,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Format",
-    "title": "Generated Experimental Materials — repllm_materials",
+    "title": "Example experimental materials — repllm_materials",
     "text": "tibble 24 rows 5 columns: material_id Identifier, \"m01\" \"m24\". frame Framing condition: \"economic\", \"moral\",     \"scientific\". source Speaker condition: \"expert\" \"citizen\". version Realisation number within condition, 1 4. text generated vignette.",
     "code": ""
   },
@@ -1215,8 +1255,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Generated Experimental Materials — repllm_materials",
-    "text": "built instructive rather flattering. balanced length reading level, two name condition, check_manipulation_leakage fires validate_auto comes back needing attention.",
+    "title": "Example experimental materials — repllm_materials",
+    "text": "Two texts contain condition labels, check_manipulation_leakage flags . Length readability pass default thresholds. data let inspect checks without making model call.",
     "code": ""
   },
   {
@@ -1225,7 +1265,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Generated Experimental Materials — repllm_materials",
+    "title": "Example experimental materials — repllm_materials",
     "text": "",
     "code": "data(repllm_materials)  # Tier 1: local checks, no API key required validate_auto(repllm_materials, condition_col = \"frame\") #>  #> ── Automatic validation ── #>  #> ✔ Length balance: max deviation 4.8% #> ✔ Readability: grade-level spread 0.4 #> ! Manipulation leakage: 2/24 materials name a condition term. #> ✔ Distinctiveness: Jaccard overlap in [0.1, 0.11] #> ! Needs attention: \"leakage\" #> Automatic validation #>   Materials: 24 across 3 conditions #>   length          PASS #>   readability     PASS #>   leakage         WARNING #>   distinctiveness PASS #>   Overall: needs attention   # The two materials that name their own condition leak <- check_manipulation_leakage(repllm_materials$text,                                    repllm_materials$frame) #> ! Manipulation leakage: 2/24 materials name a condition term. leak$flagged[, c(\"condition\", \"term\")] #> # A tibble: 2 × 2 #>   condition  term       #>   <chr>      <chr>      #> 1 economic   economic   #> 2 scientific scientific"
   },
@@ -1234,9 +1274,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Synthetic Ratings of the Example Materials — repllm_synthetic",
-    "title": "Synthetic Ratings of the Example Materials — repllm_synthetic",
-    "text": "Simulated output synthetic_ratings: three LLM raters score 24 materials repllm_materials three dimensions.",
+    "what": "Example model ratings — repllm_synthetic",
+    "title": "Example model ratings — repllm_synthetic",
+    "text": "Simulated ratings format returned synthetic_ratings. Three model raters score 24 materials repllm_materials three dimensions.",
     "code": ""
   },
   {
@@ -1245,7 +1285,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Synthetic Ratings of the Example Materials — repllm_synthetic",
+    "title": "Example model ratings — repllm_synthetic",
     "text": "",
     "code": "repllm_synthetic"
   },
@@ -1255,7 +1295,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Format",
-    "title": "Synthetic Ratings of the Example Materials — repllm_synthetic",
+    "title": "Example model ratings — repllm_synthetic",
     "text": "tibble 216 rows 5 columns: material_id Identifier matching repllm_materials. condition framing condition material. rater \"synthetic_1\" \"synthetic_3\". dimension Rated dimension: \"economic\", \"moral\",     \"scientific\". rating Integer rating 1 7 scale.",
     "code": ""
   },
@@ -1265,8 +1305,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Synthetic Ratings of the Example Materials — repllm_synthetic",
-    "text": "simulation synthetic raters recover every intended manipulation exaggerating two . economic moral dimensions separation conditions amplified relative human coders. scientific dimension . Run synthetic_check human_check repllm_human, set two side side.",
+    "title": "Example model ratings — repllm_synthetic",
+    "text": "set example model human ratings rank intended condition highest. model ratings show larger economic moral gaps simulated human ratings ; scientific gaps similar. Run synthetic_check human_check compare .",
     "code": ""
   },
   {
@@ -1275,7 +1315,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Synthetic Ratings of the Example Materials — repllm_synthetic",
+    "title": "Example model ratings — repllm_synthetic",
     "text": "",
     "code": "data(repllm_synthetic)  synthetic_check(   repllm_synthetic,   target = c(economic = \"economic\", moral = \"moral\",              scientific = \"scientific\") ) #> Synthetic validation #>   Materials: 24 | raters: 3 | dimensions: 3  #>   Ratings: 216 #>   Standard errors: cluster-robust by material (24 clusters)  #>   Manipulation recovery: #>     ok    economic     on economic     margin +3.71 over scientific   (d = +6.23) #>     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67) #>     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23) #>   Recovered 3/3 intended contrasts  rater_reliability(repllm_synthetic) #> # A tibble: 3 × 8 #>   dimension  n_raters n_materials n_complete n_failed icc_single icc_average #>   <chr>         <int>       <int>      <int>    <int>      <dbl>       <dbl> #> 1 economic          3          24         24        0      0.935       0.977 #> 2 moral             3          24         24        0      0.930       0.975 #> 3 scientific        3          24         24        0      0.716       0.883 #> # ℹ 1 more variable: krippendorff_alpha <dbl>"
   },
@@ -1284,9 +1324,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Sample Materials for Human Validation — sample_for_human_validation",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
-    "text": "Draw subsample materials human rating, stratified condition every cell shows . Human coding expensive tier, usually runs subsample. Run human_check set result beside synthetic_check see whether two tiers agree.",
+    "what": "Sample materials for people to rate — sample_for_human_validation",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
+    "text": "Draw sample materials, usually stratified condition. use rating whole pool hand expensive. Analyse returned ratings human_check compare synthetic_check materials.",
     "code": ""
   },
   {
@@ -1295,7 +1335,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
     "text": "",
     "code": "sample_for_human_validation(   materials,   n,   stratify_by = \"condition\",   min_per_stratum = 1L,   text_col = \"text\",   seed = 42 )"
   },
@@ -1305,8 +1345,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
-    "text": "materials data frame materials. n Total number materials sample. stratify_by Column name stratify (default: \"condition\"). Use NULL simple random sample. min_per_stratum Minimum number materials drawn stratum proportional allocation (default: 1). guarantees every condition represented even one rare. Set 0 purely proportional allocation. text_col Name text column (default: \"text\"). seed Integer seed (default: 42).",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
+    "text": "materials data frame materials. n Total number materials sample. stratify_by Column name stratify (default: \"condition\"). Use NULL simple random sample. min_per_stratum Minimum number materials drawn stratum proportional allocation (default: 1), requested sample large enough. Omitted conditions reported. Set 0 purely proportional allocation. text_col Name text column (default: \"text\"). seed Integer seed (default: 42).",
     "code": ""
   },
   {
@@ -1315,7 +1355,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
     "text": "tibble: sampled rows materials, original   column order, plus material_id absent.",
     "code": ""
   },
@@ -1325,8 +1365,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
-    "text": "Allocation gives every stratum min_per_stratum materials first, distributes left largest remainder, never exceeding stratum's size. stratum single member drawn correctly. Materials missing stratum value excluded reported, get min(n, <materials stratum value>) rows rather min(n, nrow(materials)) whenever label missing.",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
+    "text": "sample large enough, stratum receives min_per_stratum materials first. remainder allocated proportionally using largest remainders, without exceeding available materials. function reports strata included. Materials missing stratum labels excluded counted. number returned therefore capped number stratum label.",
     "code": ""
   },
   {
@@ -1335,7 +1375,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Sample Materials for Human Validation — sample_for_human_validation",
+    "title": "Sample materials for people to rate — sample_for_human_validation",
     "text": "",
     "code": "m <- data.frame(   condition = rep(c(\"economic\", \"moral\"), each = 10),   text = paste(\"vignette\", 1:20) ) sample_for_human_validation(m, n = 6, seed = 42) #> ✔ Sampled 6 materials from 2 of 2 stratum/strata #> # A tibble: 6 × 3 #>   condition text        material_id #>   <chr>     <chr>       <chr>       #> 1 economic  vignette 1  m0001       #> 2 economic  vignette 5  m0005       #> 3 economic  vignette 10 m0010       #> 4 moral     vignette 12 m0012       #> 5 moral     vignette 14 m0014       #> 6 moral     vignette 19 m0019"
   },
@@ -1344,9 +1384,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
-    "text": "Take set ratings, synthetic human, report condition means contrasts robust confidence intervals every dimension. Give target also reports whether condition scored highest dimension meant move, big gap pooled standard deviations.",
+    "what": "Compare conditions using model ratings — synthetic_check",
+    "title": "Compare conditions using model ratings — synthetic_check",
+    "text": "Report condition means contrasts rated dimension. Supply target map see whether condition highest mean dimension meant move. recovery table also reports gap strongest competitor rating points pooled standard deviations.",
     "code": ""
   },
   {
@@ -1355,7 +1395,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
+    "title": "Compare conditions using model ratings — synthetic_check",
     "text": "",
     "code": "synthetic_check(ratings, target = NULL, conf_level = 0.95)"
   },
@@ -1365,7 +1405,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
+    "title": "Compare conditions using model ratings — synthetic_check",
     "text": "ratings long tibble material_id, condition, dimension, rating, synthetic_ratings import_human_ratings. target Optional named character vector mapping condition levels dimension meant maximise, e.g. c(economic = \"economic\", moral = \"moral\"). conf_level Confidence level intervals (default: 0.95).",
     "code": ""
   },
@@ -1375,7 +1415,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
+    "title": "Compare conditions using model ratings — synthetic_check",
     "text": "object class rating_validation.",
     "code": ""
   },
@@ -1385,8 +1425,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
-    "text": "Standard errors cluster material several raters rate material, since ratings independent observations.",
+    "title": "Compare conditions using model ratings — synthetic_check",
+    "text": "read recovery table alongside contrast intervals. ranking descriptive; test whether treatment work respondents. Contrasts use robust standard errors, clustered material several raters score text.",
     "code": ""
   },
   {
@@ -1395,7 +1435,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Test Whether the Manipulation Moved the Intended Construct — synthetic_check",
+    "title": "Compare conditions using model ratings — synthetic_check",
     "text": "",
     "code": "ratings <- data.frame(   material_id = rep(paste0(\"m\", 1:4), each = 2),   condition   = rep(c(\"economic\", \"economic\", \"moral\", \"moral\"), each = 2),   dimension   = rep(c(\"economic\", \"moral\"), times = 4),   rating      = c(6, 2, 7, 3, 2, 6, 3, 7) ) synthetic_check(ratings, target = c(economic = \"economic\", moral = \"moral\")) #> Synthetic validation #>   Materials: 4 | raters: 1 | dimensions: 2  #>   Ratings: 8 #>   Standard errors: HC2  #>   Manipulation recovery: #>     ok    economic     on economic     margin +4.00 over moral        (d = +5.66) #>     ok    moral        on moral        margin +4.00 over economic     (d = +5.66) #>   Recovered 2/2 intended contrasts"
   },
@@ -1404,9 +1444,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
-    "text": "Ask model rate every material one dimensions, blind condition produced . second tier. cheap enough run whole stimulus pool, asks whether manipulation moved construct meant move.",
+    "what": "Collect model ratings of the materials — synthetic_ratings",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
+    "text": "Ask model rate texts dimensions specify. use ratings screen pool materials comparing human ratings sample. human_check uses analysis synthetic_check.",
     "code": ""
   },
   {
@@ -1415,7 +1455,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
     "text": "",
     "code": "synthetic_ratings(   materials,   dimensions,   chat,   n_raters = 3L,   personas = NULL,   scale = c(1, 7),   condition_col = \"condition\",   text_col = \"text\",   seed = NULL,   max_active = 10,   rpm = 500 )"
   },
@@ -1425,7 +1465,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
     "text": "materials data frame materials, typically generate_materials. dimensions Named character vector list. Names become dimension names; values describe rater judge, e.g. c(economic = \"strongly text appeals economic consequences\"). chat ellmer Chat object. system prompt replaced generated rating instruction conversation history cleared clone. supplied chat modified. n_raters Number independent synthetic raters (default: 3). personas Optional character vector rater perspectives, recycled n_raters. Without , low temperature, synthetic raters close rater several times agreement look better . scale Numeric length-2 vector giving rating endpoints (default: c(1, 7)). condition_col Column identifying condition (default: \"condition\"). Used labelling output, never sent. text_col Column holding material text (default: \"text\"). seed Optional integer seed presentation-order shuffle. max_active, rpm Concurrency controls passed ellmer.",
     "code": ""
   },
@@ -1435,28 +1475,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
     "text": "long tibble material_id, condition,   rater, dimension, rating. Failed invalid   ratings kept NA rather dropped. Materials without usable   text skipped; count stored n_missing_materials.",
     "code": ""
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.html",
-    "id": "details",
+    "id": "what-the-raters-see",
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Details",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
-    "text": "Synthetic ratings evidence rather proof. treat screening instrument. Rate subsample hand human_check compare two rely model's ratings rest pool.",
-    "code": ""
-  },
-  {
-    "path": "https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.html",
-    "id": "blinding",
-    "dir": "Reference",
-    "previous_headings": "",
-    "what": "Blinding",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
-    "text": "Raters see material text nothing else. Condition labels, generation prompts, design columns never get sent. order shuffled separately rater, position track condition.",
+    "what": "What the raters see",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
+    "text": "package sends material's text without condition label, generation prompt, design columns. clears earlier chat turns clone, replaces system prompt rating instructions, shuffles texts rater. stimulus can still give away condition.",
     "code": ""
   },
   {
@@ -1465,7 +1495,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Rate Materials with Synthetic (LLM) Raters — synthetic_ratings",
+    "title": "Collect model ratings of the materials — synthetic_ratings",
     "text": "",
     "code": "if (FALSE) { # \\dontrun{ ratings <- synthetic_ratings(   materials,   dimensions = c(     economic = \"how strongly the text appeals to economic consequences\",     moral    = \"how strongly the text appeals to moral duty\"   ),   chat = ellmer::chat_openai(echo = \"none\"),   n_raters = 3,   personas = c(\"a general survey respondent\",                \"a policy analyst\",                \"an undergraduate student\") ) } # }"
   },
@@ -1474,9 +1504,9 @@
     "id": {},
     "dir": "Reference",
     "previous_headings": "",
-    "what": "Automatic Validation of Experimental Materials — validate_auto",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
-    "text": "Run local checks generated materials reach rater. cost nothing, need API key, catch generators get wrong often. Conditions drift apart length reading level, materials name manipulation instead embodying .",
+    "what": "Run the local text checks — validate_auto",
+    "title": "Run the local text checks — validate_auto",
+    "text": "Check length, reading level, vocabulary, words give away condition. checks run locally need API key.",
     "code": ""
   },
   {
@@ -1485,7 +1515,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Usage",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
+    "title": "Run the local text checks — validate_auto",
     "text": "",
     "code": "validate_auto(   materials,   condition_col = \"condition\",   text_col = \"text\",   length_threshold = 0.2,   readability_threshold = 2,   leakage_terms = NULL,   custom_checks = NULL )"
   },
@@ -1495,7 +1525,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Arguments",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
+    "title": "Run the local text checks — validate_auto",
     "text": "materials data frame materials, typically generate_materials. condition_col Name column holding condition labels (default: \"condition\"). multi-factor design, pass factor want conditions compared . text_col Name text column (default: \"text\"). length_threshold Proportional deviation grand mean word count triggers warning (default: 0.20). readability_threshold Maximum acceptable grade-level spread conditions (default: 2.0). leakage_terms Optional character vector terms appear materials. Defaults unique condition labels. custom_checks Optional named list functions. takes (materials, condition_col, text_col) returns list least logical pass.",
     "code": ""
   },
@@ -1505,7 +1535,7 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Value",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
+    "title": "Run the local text checks — validate_auto",
     "text": "object class auto_validation.",
     "code": ""
   },
@@ -1515,8 +1545,8 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Details",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
-    "text": "first three tiers, establishes materials comparable nuisance dimensions. tell whether manipulation worked. synthetic_check human_check .",
+    "title": "Run the local text checks — validate_auto",
+    "text": "start paying ratings. Passing checks means materials met chosen thresholds. rule confounds establish manipulation works. Use synthetic_check human_check examine ratings texts convey.",
     "code": ""
   },
   {
@@ -1525,18 +1555,18 @@
     "dir": "Reference",
     "previous_headings": "",
     "what": "Examples",
-    "title": "Automatic Validation of Experimental Materials — validate_auto",
+    "title": "Run the local text checks — validate_auto",
     "text": "",
     "code": "m <- data.frame(   condition = c(\"economic\", \"economic\", \"moral\", \"moral\"),   text = c(     \"The tax creates 50,000 jobs and raises GDP by 2.3 percent.\",     \"Firms would gain steady revenue and hire more staff next year.\",     \"We owe future generations a livable world and must act now.\",     \"Protecting our children from harm is a duty we cannot ignore.\"   ) ) validate_auto(m) #>  #> ── Automatic validation ── #>  #> ✔ Length balance: max deviation 0% #> ! Readability: grade-level spread 2.1 (> 2) #> ✔ Manipulation leakage: none detected. #> ✔ Distinctiveness: Jaccard overlap in [0.03, 0.03] #> ℹ Conditions share little vocabulary (min Jaccard 0.03); check that they differ only on the intended dimension. #> ! Needs attention: \"readability\" #> Automatic validation #>   Materials: 4 across 2 conditions #>   length          PASS #>   readability     WARNING #>   leakage         PASS #>   distinctiveness PASS #>   Overall: needs attention"
   },
   {
     "path": "https://lobsterbush.github.io/repllm-docs/news/index.html",
-    "id": "submission-audit-0-4-0",
+    "id": "september-audit-0-4-0",
     "dir": "Changelog",
     "previous_headings": "",
-    "what": "Submission audit",
+    "what": "September audit",
     "title": "repllm 0.4.0",
-    "text": "Prevent conversation history leaking generation synthetic rating. Replace condition-revealing material IDs random codes human sheets; restore original IDs import retain support earlier sheet formats. Refuse overwrite existing rating sheets keys. Preserve leading zeroes imported IDs reject duplicate keys, duplicate ratings, missing dimensions. Validate scalar counts, dimension descriptions, scale endpoints, material IDs, confidence levels. Count empty generation responses failures. Require estimatr advertised robust inference default. Correct sensitivity-result print method condition-column examples. Declare AI – Human (editor) authorship provenance redesign documentation match Charles Crabtree’s professional website.",
+    "text": "’ve tightened checks around blinding imported ratings. changes address ways labels reach raters observations counted incorrectly. Prevent conversation history leaking generation synthetic rating. Replace condition-revealing material IDs random codes human sheets; restore original IDs import retain support earlier sheet formats. Refuse overwrite existing rating sheets keys. Preserve leading zeroes imported IDs reject duplicate keys, duplicate ratings, missing dimensions. Validate scalar counts, dimension descriptions, scale endpoints, material IDs, confidence levels. Count empty generation responses failures. Require estimatr advertised robust inference default. Correct sensitivity-result print method condition-column examples. Declare Human > AI provenance package documentation. Rewrite public text voice match site professional website.",
     "code": ""
   },
   {
@@ -1546,7 +1576,7 @@
     "previous_headings": "",
     "what": "Scope change",
     "title": "repllm 0.4.0",
-    "text": "package now generating experimental treatments model validating field . ’ve taken text-annotation workflow: llm_run(), run_coding(), reliability gold standard, prompt model sensitivity, LaTeX reporting, audit logging. want annotate text, use ellmer directly. covers structured output, batching, retries, cost accounting now, good reason sit top .",
+    "text": "’ve focused package generating experimental materials checking fielding. ’ve removed text-annotation workflow, including llm_run(), run_coding(), gold-standard reliability checks, prompt model sensitivity, LaTeX reporting, audit logging. ellmer handles annotation model calls directly.",
     "code": ""
   },
   {
@@ -1556,7 +1586,7 @@
     "previous_headings": "",
     "what": "Validation in three tiers",
     "title": "repllm 0.4.0",
-    "text": "Automatic (validate_auto()): check_length_balance(), check_readability(), check_manipulation_leakage(), check_lexical_overlap(). Runs locally API key. check_readability() delegates quanteda.textstats available records method produced score. Synthetic (synthetic_ratings(), synthetic_check()): model rates every material target construct, blind condition shuffled order. Ratings come back ellmer::parallel_chat_structured() type_object() schema, model can’t hand -scale value ’s nothing parse. Human (sample_for_human_validation(), export_rating_task(), import_human_ratings(), human_check()): blinded rating sheets separate key, read back long format synthetic tier produces.",
+    "text": "Automatic (validate_auto()): check_length_balance(), check_readability(), check_manipulation_leakage(), check_lexical_overlap(). Runs locally API key. check_readability() delegates quanteda.textstats available records method produced score. Synthetic (synthetic_ratings(), synthetic_check()): model rates every material target construct, blind condition shuffled order. Ratings come back ellmer::parallel_chat_structured() type_object() schema. Failed --range ratings recorded missing. Human (sample_for_human_validation(), export_rating_task(), import_human_ratings(), human_check()): blinded rating sheets separate key, read back long format synthetic tier produces.",
     "code": ""
   },
   {
@@ -1566,7 +1596,7 @@
     "previous_headings": "",
     "what": "Generation",
     "title": "repllm 0.4.0",
-    "text": "generate_materials() now takes single shared chat. used build one Chat per prompt pass first parallel_chat(), made first condition’s instruction system prompt every generation confounded whole design. bad bug ’m glad ’s gone. generate_materials() warns shared system prompt names one factor levels. Generation provenance (model, params, template hash, seed, failure count) stored returned object. generation_sensitivity() runs design several generators. design_conditions() replaces cross_design() crosses experimental factors rather chats temperatures.",
+    "text": "generate_materials() now takes single shared chat. used build one Chat per prompt pass first parallel_chat(), made first condition’s instruction system prompt every generation. put condition-specific wording every request. ’ve corrected . generate_materials() warns shared system prompt names one factor levels. Generation provenance (model, params, template hash, seed, failure count) stored returned object. generation_sensitivity() runs design several generators. design_conditions() replaces cross_design() crosses experimental factors rather chats temperatures.",
     "code": ""
   },
   {
@@ -1576,7 +1606,7 @@
     "previous_headings": "",
     "what": "Correctness",
     "title": "repllm 0.4.0",
-    "text": "Stratified sampling longer hits R’s sample() length-one trap, return wrong index duplicate rows; min_per_stratum guarantees every condition represented; allocation now returns exactly n, longer errors strata requested draws. Missing texts, failed API calls, blank ratings counted reported everywhere rather dropped denominators. Standard errors clustered material several raters rate material. Term matching escapes regex metacharacters anchors word boundaries next word characters, codebook labels strongly agree (2) match correctly.",
+    "text": "Stratified sampling longer hits R’s sample() length-one trap, return wrong index duplicate rows. min_per_stratum allocates minimum condition sample large enough. Allocation returns requested number available pool reports omitted strata. Missing texts, failed API calls, blank ratings reported. Synthetic rating output also records many materials skipped missing text. Standard errors clustered material several raters rate material. Term matching escapes regex metacharacters anchors word boundaries next word characters, codebook labels strongly agree (2) match correctly.",
     "code": ""
   },
   {
@@ -1586,7 +1616,7 @@
     "previous_headings": "",
     "what": "Example data",
     "title": "repllm 0.4.0",
-    "text": "bundled datasets replaced one complete simulated validation study, whole pipeline runs without API key. repllm_materials: 24 generated carbon-tax vignettes, three frames crossed two speaker types, four realisations per cell. repllm_synthetic: 216 ratings, three LLM raters x 24 materials x three dimensions. repllm_human: 144 ratings, two human coders materials dimensions. built instructive rather flattering. materials balanced length reading level, two name condition, validate_auto() comes back needing attention. rating tiers recover three intended manipulations, two tiers correlate 0.9 every dimension essentially mean difference. model tier still reads economic moral gaps wider coders , scientific gap . split worth looking eye. annotation-era datasets repllm_example, repllm_example_run, repllm_vignettes removed.",
+    "text": "’ve replaced earlier datasets one worked example. ratings simulated, can run analysis without API key. repllm_materials: 24 generated carbon-tax vignettes, three frames crossed two speaker types, four realisations per cell. repllm_synthetic: 216 ratings, three LLM raters x 24 materials x three dimensions. repllm_human: 144 ratings, two human coders materials dimensions. ’ve included two texts name condition, leakage check something flag. length readability checks pass default thresholds. simulated ratings, intended condition ranks highest target dimension. model human ratings correlate 0.9 dimension, little mean difference. model ratings still show larger economic moral gaps. ’d inspect agreement gaps. annotation-era datasets repllm_example, repllm_example_run, repllm_vignettes removed.",
     "code": ""
   },
   {
@@ -1596,7 +1626,7 @@
     "previous_headings": "",
     "what": "Removed",
     "title": "repllm 0.4.0",
-    "text": "compare_validation() gone, along validation_comparison class. reduced two rating tiers one pass--fail verdict built gap_inflation, difference tier’s standardised effect. tier divided pooled SD, SD carries rater’s noise, quiet model rater produced large apparent effect noisy human coder small one. simulated data tiers agreed exactly every material, metric read +0.55, past default threshold fails study. quantity measuring rater consistency much rater disagreement, gate. Run synthetic_check() human_check() materials read two recovery tables side side. correlation mean difference old function reported sound couple lines aggregate() cor(); vignette shows .",
+    "text": "’ve removed compare_validation() validation_comparison class. gap_inflation score compared effects standardised tier’s pooled SD. mixed differences rater consistency disagreement materials. simulation tiers agreed every material, score +0.55 failed default threshold. now compare synthetic_check() human_check() materials. vignette also shows calculate correlations mean differences aggregate() cor().",
     "code": ""
   },
   {
@@ -1616,7 +1646,7 @@
     "previous_headings": "",
     "what": "Reporting",
     "title": "repllm 0.4.0",
-    "text": "quantity printed d Cohen’s d design two conditions: numerator one pairwise contrast denominator pooled every condition, including ones outside contrast. recovery table now reports margin (points nearest competing condition), nearest (condition ), margin_d, genuine Cohen’s d pair. Naming competitor also makes number interpretable. rater_reliability() returns icc_single (ICC(,1), one rater) icc_average (ICC(,k), mean) instead one unlabelled icc. bundled data .72 .88 scientific dimension, quoting wrong one materially overstates agreement. rater_reliability() also returns n_complete says ICC used fewer materials data contains. irr::icc drops material rater missed, 10 percent ratings failing can drop third materials, old output gave way see. by_condition reports n_materials alongside n_ratings. single n counted ratings, three materials rated three raters read n = 9. se_type longer reports first dimension’s estimator . dimensions differ says exposes se_types. import_human_ratings() distinguishes cell coder left blank one holding something unreadable. coder typing “five” previously became indistinguishable NA blank count. min_per_stratum three threshold arguments validated instead failing inside allocator .",
+    "text": "quantity printed d Cohen’s d design two conditions: numerator one pairwise contrast denominator pooled every condition, including ones outside contrast. recovery table now reports margin (points nearest competing condition), nearest (condition ), margin_d, Cohen’s d pair. Naming competitor also makes number interpretable. rater_reliability() returns icc_single (ICC(,1), one rater) icc_average (ICC(,k), mean) instead one unlabelled icc. bundled data .72 .88 scientific dimension, quoting wrong one materially overstates agreement. rater_reliability() also returns n_complete says ICC used fewer materials data contains. irr::icc drops material rater missed, 10 percent ratings failing can drop third materials, old output gave way see. by_condition reports n_materials alongside n_ratings. single n counted ratings, three materials rated three raters read n = 9. se_type longer reports first dimension’s estimator . dimensions differ says exposes se_types. import_human_ratings() distinguishes cell coder left blank one holding something unreadable. coder typing “five” previously became indistinguishable NA blank count. min_per_stratum three threshold arguments validated instead failing inside allocator .",
     "code": ""
   },
   {
@@ -1626,7 +1656,7 @@
     "previous_headings": "",
     "what": "Correctness fixes from adversarial testing",
     "title": "repllm 0.4.0",
-    "text": "came stress-testing every exported function degenerate, non-ASCII, malformed input. Several put wrong number table without saying anything, worst way validation tool fail. Non-ASCII studies protection . check_manipulation_leakage() system-prompt confound warning matched PCRE \\b, ASCII-, French vignette containing “economique” (accented) condition name came back clean. Matching Unicode-aware now, terms scripts without word separators (Han, Kana, Hangul, Thai) use substring matching, since boundary assertions can’t apply . check_lexical_overlap() tokenised [^-z'], splitting every accented word two producing empty vocabularies non-Latin scripts. now tokenises Unicode semantics reports rather returning [Inf, -Inf] nothing comparable. check_readability() dropped conditions computable grade level spread, reporting reassuring spread zero PASS. Unmeasurable conditions now named fail check. export_rating_task() overwrite blinding key rating sheet whenever path .csv suffix, destroyed file linking materials conditions. Paths derived safely now, key sheet paths asserted distinct, validation happens anything gets written. dimension named rater, text, material_id, condition silently clobbered renamed sheet’s columns; names now rejected. rater_reliability() fed duplicate material--rater rows stats::reshape(), kept first pair returned ICC alpha 1.0 contradictory ratings. Duplicates now error. -missing ratings returned alpha 1.0 now return NA. .pooled_sd() fell back overall standard deviation condition within-condition variance, pinned reported standardised effect constant matter data said. returns NA now. target entries naming condition absent ratings dropped silently, shrinking denominator partly-wrong target report “recovered 2/2”. now error. Factor character rating columns crashed inside dplyr produced NA means populated sd. Ratings now validated, character columns coerced unambiguous clear error otherwise. design_conditions(.exclude=) returning NA replaced real condition -NA phantom row. replicate_design() accepted n = Inf silently overwrote existing replicate column. Repeated factor levels now warn. validate_auto() reported “passed” half pool unusable; verdict now accounts missing texts unlabelled materials. synthetic_ratings() accepted scale = c(NA, 7) failed inside (). Rows missing condition label formed silent NA stratum per-condition tables tier-1 checks. now excluded counted new n_no_condition field.",
+    "text": "fixes came testing unusual inputs, including missing values non-English text. Several affected reported numbers without producing error message. check_manipulation_leakage() system-prompt warning used PCRE \\b, ASCII-, French vignette containing “economique” (accented) condition name came back clean. Matching Unicode-aware now, terms scripts without word separators (Han, Kana, Hangul, Thai) use substring matching, since boundary assertions can’t apply . check_lexical_overlap() tokenised [^-z'], splitting every accented word two producing empty vocabularies non-Latin scripts. now tokenises Unicode semantics reports rather returning [Inf, -Inf] nothing comparable. check_readability() dropped conditions computable grade level spread, reporting spread zero pass. Unmeasurable conditions now named fail check. export_rating_task() overwrite blinding key rating sheet whenever path .csv suffix, destroyed file linking materials conditions. Paths derived safely now, key sheet paths asserted distinct, validation happens anything gets written. dimension named rater, text, material_id, condition silently clobbered renamed sheet’s columns; names now rejected. rater_reliability() fed duplicate material--rater rows stats::reshape(), kept first pair returned ICC alpha 1.0 contradictory ratings. Duplicates now error. -missing ratings returned alpha 1.0 now return NA. .pooled_sd() fell back overall standard deviation condition within-condition variance, pinned reported standardised effect constant matter data said. returns NA now. target entries naming condition absent ratings dropped silently, shrinking denominator partly-wrong target report “recovered 2/2”. now error. Factor character rating columns crashed inside dplyr produced NA means populated sd. Ratings now validated, character columns coerced unambiguous clear error otherwise. design_conditions(.exclude=) returning NA replaced real condition -NA phantom row. replicate_design() accepted n = Inf silently overwrote existing replicate column. Repeated factor levels now warn. validate_auto() reported “passed” half pool unusable; verdict now accounts missing texts unlabelled materials. synthetic_ratings() accepted scale = c(NA, 7) failed inside (). Rows missing condition label formed silent NA stratum per-condition tables tier-1 checks. now excluded counted new n_no_condition field.",
     "code": ""
   },
   {
@@ -1646,7 +1676,7 @@
     "previous_headings": "",
     "what": "New modules",
     "title": "repllm 0.3.0",
-    "text": "Response cleaning (R/clean.R): clean_responses() standardises raw LLM output (trim, lowercase, remap); extract_label() pulls first matching category verbose chain--thought responses; label_distribution() returns frequency table proportions. Visualisation (R/visualize.R): plot_confusion(), plot_sensitivity(), plot_labels(), plot_cost(): publication-ready ggplot figures using theme_tufte() ggthemes available. Material validation (R/validate_materials.R): check_length_balance(), check_readability(), validate_materials(): pre-deployment confound detection experimental stimuli.",
+    "text": "Response cleaning (R/clean.R): clean_responses() standardises raw LLM output (trim, lowercase, remap); extract_label() pulls first matching category verbose chain--thought responses; label_distribution() returns frequency table proportions. Visualisation (R/visualize.R): plot_confusion(), plot_sensitivity(), plot_labels(), plot_cost(): ggplot figures using theme_tufte() ggthemes available. Material validation (R/validate_materials.R): check_length_balance(), check_readability(), validate_materials(): pre-deployment confound detection experimental stimuli.",
     "code": ""
   },
   {
@@ -1686,7 +1716,7 @@
     "previous_headings": "",
     "what": "Major changes",
     "title": "repllm 0.2.0",
-    "text": "Rebuilt research methodology toolkit top ellmer. package longer reimplements LLM API calls. uses ellmer LLM communication focuses experimental design, reliability, sensitivity analysis, validation, pre-registration, reporting.",
+    "text": "rebuilt package around ellmer, handles model calls. version focused experimental design, reliability checks, sensitivity analysis, validation, pre-registration, reporting.",
     "code": ""
   },
   {

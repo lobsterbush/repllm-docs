@@ -15,7 +15,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Get started</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Try the example</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -35,29 +35,31 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="repllm-040">repllm 0.4.0<a class="anchor" aria-label="anchor" href="#repllm-040"></a></h2>
 <div class="section level3">
-<h3 id="submission-audit-0-4-0">Submission audit<a class="anchor" aria-label="anchor" href="#submission-audit-0-4-0"></a></h3>
+<h3 id="september-audit-0-4-0">September audit<a class="anchor" aria-label="anchor" href="#september-audit-0-4-0"></a></h3>
+<p>I’ve tightened the checks around blinding and imported ratings. The changes below address ways that labels could reach raters or observations could be counted incorrectly.</p>
 <ul><li>Prevent conversation history from leaking into generation or synthetic rating.</li>
 <li>Replace condition-revealing material IDs with random codes in human sheets; restore original IDs on import and retain support for earlier sheet formats.</li>
 <li>Refuse to overwrite existing rating sheets or keys. Preserve leading zeroes in imported IDs and reject duplicate keys, duplicate ratings, and missing dimensions.</li>
 <li>Validate scalar counts, dimension descriptions, scale endpoints, material IDs, and confidence levels. Count empty generation responses as failures.</li>
 <li>Require <code>estimatr</code> for the advertised robust inference default.</li>
 <li>Correct the sensitivity-result print method and condition-column examples.</li>
-<li>Declare AI – Human (editor) authorship provenance and redesign the documentation to match Charles Crabtree’s professional website.</li>
+<li>Declare Human &gt; AI provenance for the package and documentation.</li>
+<li>Rewrite the public text in my voice and match the site to my professional website.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="scope-change-0-4-0">Scope change<a class="anchor" aria-label="anchor" href="#scope-change-0-4-0"></a></h3>
-<p>The package is now about generating experimental treatments with a model and validating them before you field them. I’ve taken out the text-annotation workflow: <code>llm_run()</code>, <code>run_coding()</code>, reliability against a gold standard, prompt and model sensitivity, LaTeX reporting, and audit logging. If you want to annotate text, use <code>ellmer</code> directly. It covers structured output, batching, retries, and cost accounting on its own now, and there was no good reason for me to sit on top of it.</p>
+<p>I’ve focused the package on generating experimental materials and checking them before fielding. I’ve removed the text-annotation workflow, including <code>llm_run()</code>, <code>run_coding()</code>, gold-standard reliability checks, prompt and model sensitivity, LaTeX reporting, and audit logging. ellmer handles annotation and model calls directly.</p>
 </div>
 <div class="section level3">
 <h3 id="validation-in-three-tiers-0-4-0">Validation in three tiers<a class="anchor" aria-label="anchor" href="#validation-in-three-tiers-0-4-0"></a></h3>
 <ul><li>Automatic (<code><a href="../reference/validate_auto.html">validate_auto()</a></code>): <code><a href="../reference/check_length_balance.html">check_length_balance()</a></code>, <code><a href="../reference/check_readability.html">check_readability()</a></code>, <code><a href="../reference/check_manipulation_leakage.html">check_manipulation_leakage()</a></code>, and <code><a href="../reference/check_lexical_overlap.html">check_lexical_overlap()</a></code>. Runs locally with no API key. <code><a href="../reference/check_readability.html">check_readability()</a></code> delegates to <code>quanteda.textstats</code> when available and records which method produced the score.</li>
-<li>Synthetic (<code><a href="../reference/synthetic_ratings.html">synthetic_ratings()</a></code>, <code><a href="../reference/synthetic_check.html">synthetic_check()</a></code>): a model rates every material on the target construct, blind to condition and in shuffled order. Ratings come back through <code><a href="https://ellmer.tidyverse.org/reference/parallel_chat.html" class="external-link">ellmer::parallel_chat_structured()</a></code> with a <code>type_object()</code> schema, so the model can’t hand you an off-scale value and there’s nothing to parse.</li>
+<li>Synthetic (<code><a href="../reference/synthetic_ratings.html">synthetic_ratings()</a></code>, <code><a href="../reference/synthetic_check.html">synthetic_check()</a></code>): a model rates every material on the target construct, blind to condition and in shuffled order. Ratings come back through <code><a href="https://ellmer.tidyverse.org/reference/parallel_chat.html" class="external-link">ellmer::parallel_chat_structured()</a></code> with a <code>type_object()</code> schema. Failed and out-of-range ratings are recorded as missing.</li>
 <li>Human (<code><a href="../reference/sample_for_human_validation.html">sample_for_human_validation()</a></code>, <code><a href="../reference/export_rating_task.html">export_rating_task()</a></code>, <code><a href="../reference/import_human_ratings.html">import_human_ratings()</a></code>, <code><a href="../reference/human_check.html">human_check()</a></code>): blinded rating sheets with a separate key, read back into the same long format the synthetic tier produces.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="generation-0-4-0">Generation<a class="anchor" aria-label="anchor" href="#generation-0-4-0"></a></h3>
 <ul><li>
-<code><a href="../reference/generate_materials.html">generate_materials()</a></code> now takes a single shared <code>chat</code>. It used to build one Chat per prompt and pass the first to <code>parallel_chat()</code>, which made the first condition’s instruction the system prompt for every generation and confounded the whole design. That was a bad bug and I’m glad it’s gone.</li>
+<code><a href="../reference/generate_materials.html">generate_materials()</a></code> now takes a single shared <code>chat</code>. It used to build one Chat per prompt and pass the first to <code>parallel_chat()</code>, which made the first condition’s instruction the system prompt for every generation. That could put condition-specific wording into every request. I’ve corrected it.</li>
 <li>
 <code><a href="../reference/generate_materials.html">generate_materials()</a></code> warns when the shared system prompt names one of your factor levels.</li>
 <li>Generation provenance (model, params, template hash, seed, failure count) is stored on the returned object.</li>
@@ -68,28 +70,28 @@
 </ul></div>
 <div class="section level3">
 <h3 id="correctness-0-4-0">Correctness<a class="anchor" aria-label="anchor" href="#correctness-0-4-0"></a></h3>
-<ul><li>Stratified sampling no longer hits R’s <code><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample()</a></code> length-one trap, which could return a wrong index and duplicate rows; <code>min_per_stratum</code> guarantees every condition is represented; allocation now returns exactly <code>n</code>, and no longer errors when there are more strata than requested draws.</li>
-<li>Missing texts, failed API calls, and blank ratings are counted and reported everywhere rather than being dropped from denominators.</li>
+<ul><li>Stratified sampling no longer hits R’s <code><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample()</a></code> length-one trap, which could return a wrong index and duplicate rows. <code>min_per_stratum</code> allocates a minimum to each condition when the sample is large enough. Allocation returns the requested number up to the available pool and reports omitted strata.</li>
+<li>Missing texts, failed API calls, and blank ratings are reported. Synthetic rating output also records how many materials were skipped for missing text.</li>
 <li>Standard errors are clustered by material when several raters rate the same material.</li>
 <li>Term matching escapes regex metacharacters and anchors word boundaries only next to word characters, so codebook labels such as <code>strongly agree (2)</code> match correctly.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="example-data-0-4-0">Example data<a class="anchor" aria-label="anchor" href="#example-data-0-4-0"></a></h3>
-<p>The bundled datasets are replaced by one complete simulated validation study, so the whole pipeline runs without an API key.</p>
+<p>I’ve replaced the earlier datasets with one worked example. The ratings are simulated, so you can run the analysis without an API key.</p>
 <ul><li>
 <code>repllm_materials</code>: 24 generated carbon-tax vignettes, three frames crossed with two speaker types, four realisations per cell.</li>
 <li>
 <code>repllm_synthetic</code>: 216 ratings, three LLM raters x 24 materials x three dimensions.</li>
 <li>
 <code>repllm_human</code>: 144 ratings, two human coders over the same materials and dimensions.</li>
-</ul><p>I built them to be instructive rather than flattering. The materials are balanced on length and reading level, but two of them name their own condition, so <code><a href="../reference/validate_auto.html">validate_auto()</a></code> comes back needing attention. Both rating tiers recover all three intended manipulations, and the two tiers correlate at about 0.9 on every dimension with essentially no mean difference. The model tier still reads the economic and moral gaps as wider than the coders do, and the scientific gap about the same. That split is worth looking at by eye.</p>
+</ul><p>I’ve included two texts that name their own condition, so the leakage check has something to flag. The length and readability checks pass at the default thresholds. In the simulated ratings, each intended condition ranks highest on its target dimension. The model and human ratings correlate at about 0.9 on each dimension, with little mean difference. The model ratings still show larger economic and moral gaps. I’d inspect both the agreement and those gaps.</p>
 <p>The annotation-era datasets <code>repllm_example</code>, <code>repllm_example_run</code>, and <code>repllm_vignettes</code> are removed.</p>
 </div>
 <div class="section level3">
 <h3 id="removed-0-4-0">Removed<a class="anchor" aria-label="anchor" href="#removed-0-4-0"></a></h3>
 <ul><li>
-<p><code>compare_validation()</code> is gone, along with the <code>validation_comparison</code> class. It reduced the two rating tiers to one pass-or-fail verdict built on <code>gap_inflation</code>, the difference between each tier’s standardised effect. Each tier was divided by its own pooled SD, and that SD carries the rater’s noise, so a quiet model rater produced a large apparent effect and a noisy human coder a small one. On simulated data where both tiers agreed exactly about every material, the metric read +0.55, past the default threshold that fails a study. The quantity was measuring rater consistency as much as rater disagreement, so it should not have been a gate.</p>
-<p>Run <code><a href="../reference/synthetic_check.html">synthetic_check()</a></code> and <code><a href="../reference/human_check.html">human_check()</a></code> on the same materials and read the two recovery tables side by side. The correlation and mean difference the old function reported were sound and are a couple of lines of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code> and <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>; the vignette shows them.</p>
+<p>I’ve removed <code>compare_validation()</code> and the <code>validation_comparison</code> class. Its <code>gap_inflation</code> score compared effects standardised by each tier’s own pooled SD. That mixed differences in rater consistency with disagreement about the materials. In a simulation where both tiers agreed about every material, the score was +0.55 and failed the default threshold.</p>
+<p>I now compare <code><a href="../reference/synthetic_check.html">synthetic_check()</a></code> and <code><a href="../reference/human_check.html">human_check()</a></code> on the same materials. The vignette also shows how to calculate correlations and mean differences with <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code> and <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>.</p>
 </li>
 </ul></div>
 <div class="section level3">
@@ -101,7 +103,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="reporting-0-4-0">Reporting<a class="anchor" aria-label="anchor" href="#reporting-0-4-0"></a></h3>
-<ul><li>The quantity printed as <code>d</code> was not Cohen’s d once a design had more than two conditions: the numerator was one pairwise contrast while the denominator pooled every condition, including ones outside the contrast. The recovery table now reports <code>margin</code> (points over the nearest competing condition), <code>nearest</code> (which condition that is), and <code>margin_d</code>, a genuine Cohen’s d for that pair. Naming the competitor also makes the number interpretable.</li>
+<ul><li>The quantity printed as <code>d</code> was not Cohen’s d once a design had more than two conditions: the numerator was one pairwise contrast while the denominator pooled every condition, including ones outside the contrast. The recovery table now reports <code>margin</code> (points over the nearest competing condition), <code>nearest</code> (which condition that is), and <code>margin_d</code>, Cohen’s d for that pair. Naming the competitor also makes the number interpretable.</li>
 <li>
 <code><a href="../reference/rater_reliability.html">rater_reliability()</a></code> returns <code>icc_single</code> (ICC(A,1), one rater) and <code>icc_average</code> (ICC(A,k), their mean) instead of one unlabelled <code>icc</code>. On the bundled data these are .72 and .88 on the scientific dimension, so quoting the wrong one materially overstates agreement.</li>
 <li>
@@ -117,12 +119,13 @@
 </ul></div>
 <div class="section level3">
 <h3 id="correctness-fixes-from-adversarial-testing-0-4-0">Correctness fixes from adversarial testing<a class="anchor" aria-label="anchor" href="#correctness-fixes-from-adversarial-testing-0-4-0"></a></h3>
-<p>These came out of stress-testing every exported function against degenerate, non-ASCII, and malformed input. Several of them would have put a wrong number in a table without saying anything, which is the worst way for a validation tool to fail.</p>
-<ul><li>Non-ASCII studies had no protection at all. <code><a href="../reference/check_manipulation_leakage.html">check_manipulation_leakage()</a></code> and the system-prompt confound warning matched with PCRE <code>\b</code>, which is ASCII-only, so a French vignette containing “economique” (accented) in the condition of that name came back clean. Matching is Unicode-aware now, and terms in scripts without word separators (Han, Kana, Hangul, Thai) use substring matching, since boundary assertions can’t apply there.</li>
+<p>These fixes came from testing unusual inputs, including missing values and non-English text. Several affected the reported numbers without producing an error message.</p>
+<ul><li>
+<code><a href="../reference/check_manipulation_leakage.html">check_manipulation_leakage()</a></code> and the system-prompt warning used PCRE <code>\b</code>, which is ASCII-only, so a French vignette containing “economique” (accented) in the condition of that name came back clean. Matching is Unicode-aware now, and terms in scripts without word separators (Han, Kana, Hangul, Thai) use substring matching, since boundary assertions can’t apply there.</li>
 <li>
 <code><a href="../reference/check_lexical_overlap.html">check_lexical_overlap()</a></code> tokenised on <code>[^a-z']</code>, splitting every accented word in two and producing empty vocabularies for non-Latin scripts. It now tokenises with Unicode semantics and reports rather than returning <code>[Inf, -Inf]</code> when nothing is comparable.</li>
 <li>
-<code><a href="../reference/check_readability.html">check_readability()</a></code> dropped conditions with no computable grade level from the spread, reporting a reassuring spread of zero and a PASS. Unmeasurable conditions are now named and fail the check.</li>
+<code><a href="../reference/check_readability.html">check_readability()</a></code> dropped conditions with no computable grade level from the spread, reporting a spread of zero and a pass. Unmeasurable conditions are now named and fail the check.</li>
 <li>
 <code><a href="../reference/export_rating_task.html">export_rating_task()</a></code> could overwrite the blinding key with a rating sheet whenever <code>path</code> had no <code>.csv</code> suffix, which destroyed the only file linking materials to conditions. Paths are derived safely now, key and sheet paths are asserted distinct, and all the validation happens before anything gets written.</li>
 <li>A dimension named <code>rater</code>, <code>text</code>, <code>material_id</code>, or <code>condition</code> silently clobbered or renamed the sheet’s own columns; these names are now rejected.</li>
@@ -154,7 +157,7 @@
 <div class="section level3">
 <h3 id="new-modules-0-3-0">New modules<a class="anchor" aria-label="anchor" href="#new-modules-0-3-0"></a></h3>
 <ul><li>Response cleaning (<code>R/clean.R</code>): <code>clean_responses()</code> standardises raw LLM output (trim, lowercase, remap); <code>extract_label()</code> pulls the first matching category from verbose chain-of-thought responses; <code>label_distribution()</code> returns a frequency table with proportions.</li>
-<li>Visualisation (<code>R/visualize.R</code>): <code>plot_confusion()</code>, <code>plot_sensitivity()</code>, <code>plot_labels()</code>, <code>plot_cost()</code>: publication-ready ggplot figures using <code>theme_tufte()</code> when ggthemes is available.</li>
+<li>Visualisation (<code>R/visualize.R</code>): <code>plot_confusion()</code>, <code>plot_sensitivity()</code>, <code>plot_labels()</code>, <code>plot_cost()</code>: ggplot figures using <code>theme_tufte()</code> when ggthemes is available.</li>
 <li>Material validation (<code>R/validate_materials.R</code>): <code><a href="../reference/check_length_balance.html">check_length_balance()</a></code>, <code><a href="../reference/check_readability.html">check_readability()</a></code>, <code>validate_materials()</code>: pre-deployment confound detection for experimental stimuli.</li>
 </ul></div>
 <div class="section level3">
@@ -196,7 +199,7 @@
 <h2 class="pkg-version" data-toc-text="0.2.0" id="repllm-020">repllm 0.2.0<a class="anchor" aria-label="anchor" href="#repllm-020"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-0-2-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-2-0"></a></h3>
-<ul><li>Rebuilt as a research methodology toolkit on top of <code>ellmer</code>. The package no longer reimplements LLM API calls. It uses <code>ellmer</code> for all LLM communication and focuses on experimental design, reliability, sensitivity analysis, validation, pre-registration, and reporting.</li>
+<ul><li>I rebuilt the package around <code>ellmer</code>, which handles the model calls. This version focused on experimental design, reliability checks, sensitivity analysis, validation, pre-registration, and reporting.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
@@ -225,10 +228,10 @@
 
     <footer><div class="pkgdown-footer-left">
 <p><a href="https://charlescrabtree.org/" class="external-link">Charles Crabtree</a><br>Monash University · Korea University</p>
-<p class="provenance-label">AI – Human (editor) <span aria-hidden="true">🤖✏️👤</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">Provenance standard: The Latent Review</a></p>
+<p class="provenance-label">Human &gt; AI <span aria-hidden="true">👤&gt;🤖</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">About this provenance label</a></p>
 </div>
 <div class="pkgdown-footer-right">
-<p>Research software for experimental social science.<br><a href="mailto:charles.crabtree@monash.edu">Contact Charles</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Report an issue</a></p>
+<p>I'd be glad to hear how you're using repllm.<br><a href="mailto:charles.crabtree@monash.edu">Email me</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Tell me about a bug</a></p>
 <p>MIT licensed · Built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a></p>
 </div>
 

@@ -1,10 +1,10 @@
-# Test Whether the Manipulation Moved the Intended Construct
+# Compare conditions using model ratings
 
-Take a set of ratings, synthetic or human, and report condition means
-and contrasts with robust confidence intervals for every dimension. Give
-it `target` and it also reports whether each condition scored highest on
-the dimension it was meant to move, and how big that gap is in pooled
-standard deviations.
+Report condition means and contrasts for each rated dimension. Supply a
+`target` map to see whether each condition has the highest mean on the
+dimension it's meant to move. The recovery table also reports the gap
+over the strongest competitor in rating points and pooled standard
+deviations.
 
 ## Usage
 
@@ -38,8 +38,10 @@ An object of class `rating_validation`.
 
 ## Details
 
-Standard errors cluster by material when several raters rate the same
-material, since those ratings aren't independent observations.
+I'd read the recovery table alongside the contrast intervals. The
+ranking is descriptive; it isn't a test of whether a treatment will work
+with respondents. Contrasts use robust standard errors, clustered by
+material when several raters score the same text.
 
 ## See also
 

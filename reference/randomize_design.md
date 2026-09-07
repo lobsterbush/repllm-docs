@@ -1,9 +1,8 @@
-# Randomise Execution Order
+# Shuffle the order of the conditions
 
-Shuffle the rows of a design. Randomising the generation order guards
-against order effects in providers that keep any request-level state,
-and you need to randomise presentation order before showing materials to
-raters.
+Return the design rows in a random order. I'd shuffle the order before
+generating materials or presenting them to raters. Supply a seed if you
+want to reproduce the shuffle.
 
 ## Usage
 

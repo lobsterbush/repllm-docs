@@ -1,13 +1,11 @@
-# Human Ratings of the Example Materials
+# Example human ratings
 
-Simulated output of
-[`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md):
-two human coders score all 24 materials in
+Simulated ratings in the format returned by
+[`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md).
+Two human coders score all 24 materials in
 [repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md)
 on the same three dimensions as
 [repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md).
-They show more measurement noise and less separation between conditions,
-which is what human coders usually do.
 
 ## Usage
 
@@ -39,6 +37,12 @@ A tibble with 144 rows and 5 columns:
 - rating:
 
   Integer rating on a 1 to 7 scale.
+
+## Details
+
+I've given these ratings more noise and smaller gaps on two dimensions
+so there's a difference to inspect. These are teaching data; they aren't
+ratings collected from people.
 
 ## See also
 

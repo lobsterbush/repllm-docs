@@ -2,71 +2,72 @@
 
 ## Design and generation
 
-Build a factorial design of conditions and have a model write the
-stimuli, one shared system prompt across every condition.
+Start with the factors you want to vary, then ask a model to write
+several materials per condition.
 
 - [`design_conditions()`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md)
-  : Build a Factorial Design of Experimental Conditions
+  : Build the experimental conditions
 - [`replicate_design()`](https://lobsterbush.github.io/repllm-docs/reference/replicate_design.md)
-  : Add Replicates to a Design
+  : Add versions of each condition
 - [`randomize_design()`](https://lobsterbush.github.io/repllm-docs/reference/randomize_design.md)
-  : Randomise Execution Order
+  : Shuffle the order of the conditions
 - [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
-  : Generate Experimental Materials from a Factorial Design
+  : Generate materials for each condition
 - [`generation_sensitivity()`](https://lobsterbush.github.io/repllm-docs/reference/generation_sensitivity.md)
-  : Generate the Same Design Under Several Models
+  : Generate materials with several models
 
 ## Tier 1, automatic validation
 
-Local, deterministic checks that need no API key. Flag differences in
-length, readability, condition leakage, and vocabulary.
+These checks run on your machine. I’d use them to find problems in the
+text before collecting ratings.
 
 - [`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
-  : Automatic Validation of Experimental Materials
+  : Run the local text checks
 - [`check_length_balance()`](https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.md)
-  : Check Length Balance Across Conditions
+  : Compare text length across conditions
 - [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md)
-  : Check Readability Across Conditions
+  : Compare reading levels across conditions
 - [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
-  : Check Whether Materials Name Their Own Manipulation
+  : Find words that could give away the condition
 - [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.md)
-  : Check Lexical Distinctiveness Across Conditions
+  : Compare vocabulary across conditions
 
 ## Tier 2, synthetic validation
 
-An LLM rates every material, blind to condition, on the construct the
-manipulation targets.
+Ask a model to score the texts on the dimensions you care about, without
+showing it the condition labels.
 
 - [`synthetic_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md)
-  : Rate Materials with Synthetic (LLM) Raters
+  : Collect model ratings of the materials
 - [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
-  : Test Whether the Manipulation Moved the Intended Construct
+  : Compare conditions using model ratings
 - [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
-  : Agreement Among Raters
+  : Check agreement among raters
 
 ## Tier 3, human validation
 
-Blinded rating sheets for human coders on a stratified subsample.
+Sample materials for people to rate, prepare blinded sheets, and compare
+their ratings with the model’s.
 
 - [`sample_for_human_validation()`](https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.md)
-  : Sample Materials for Human Validation
+  : Sample materials for people to rate
 - [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md)
-  : Export a Blinded Rating Task for Human Coders
+  : Prepare blinded rating sheets
 - [`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
-  : Read Completed Human Ratings
+  : Read the completed rating sheets
 - [`human_check()`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-  : Test the Manipulation Against Human Ratings
+  : Compare conditions using human ratings
 - [`human_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/human_reliability.md)
-  : Agreement Among Human Coders
+  : Check agreement among human coders
 
 ## Example data
 
-One complete simulated validation study, so every function can be run
-without an API key.
+I’ve included a worked example with 24 texts and simulated ratings. You
+can run the analysis without an API key.
 
 - [`repllm_materials`](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md)
-  : Generated Experimental Materials
+  : Example experimental materials
 - [`repllm_synthetic`](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md)
-  : Synthetic Ratings of the Example Materials
+  : Example model ratings
 - [`repllm_human`](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md)
-  : Human Ratings of the Example Materials
+  : Example human ratings

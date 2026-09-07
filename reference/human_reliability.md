@@ -1,8 +1,9 @@
-# Agreement Among Human Coders
+# Check agreement among human coders
 
-Inter-rater reliability across human coders, computed identically to
-[`rater_reliability`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
-for synthetic raters so the two are on the same footing.
+Calculate agreement among the human coders using
+[`rater_reliability`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md).
+I use the same statistics for both sets of raters so the results can be
+read together.
 
 ## Usage
 

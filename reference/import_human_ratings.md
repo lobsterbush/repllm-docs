@@ -1,8 +1,10 @@
-# Read Completed Human Ratings
+# Read the completed rating sheets
 
-Read one or more completed rating sheets, rejoin the condition key, and
-reshape to the long format the rest of the package uses, so you can
-analyse human ratings with the same functions as synthetic ones.
+Read completed sheets and join them to the separate key. The function
+restores original material IDs and condition labels, then puts the
+ratings into the long format used by the rest of the package. I'd run
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
+on this output to compare conditions.
 
 ## Usage
 

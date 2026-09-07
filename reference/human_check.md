@@ -1,10 +1,10 @@
-# Test the Manipulation Against Human Ratings
+# Compare conditions using human ratings
 
-The human-coded counterpart to
+Analyse human ratings with the same estimator used by
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md).
-It uses the same estimator so the two tiers are directly comparable:
-condition means and contrasts with robust confidence intervals per
-dimension, clustered by material when several coders rate the same one.
+The result includes condition means and contrasts with robust confidence
+intervals. Standard errors cluster by material when several coders rate
+the same text.
 
 ## Usage
 
@@ -31,6 +31,11 @@ human_check(ratings, target = NULL, conf_level = 0.95)
 ## Value
 
 An object of class `rating_validation`.
+
+## Details
+
+I'd compare the human and model results on the same materials. Similar
+condition rankings can still come with different rating gaps.
 
 ## Examples
 

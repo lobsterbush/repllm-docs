@@ -2,7 +2,11 @@
 
 ## repllm 0.4.0
 
-### Submission audit
+### September audit
+
+I’ve tightened the checks around blinding and imported ratings. The
+changes below address ways that labels could reach raters or
+observations could be counted incorrectly.
 
 - Prevent conversation history from leaking into generation or synthetic
   rating.
@@ -18,18 +22,17 @@
 - Require `estimatr` for the advertised robust inference default.
 - Correct the sensitivity-result print method and condition-column
   examples.
-- Declare AI – Human (editor) authorship provenance and redesign the
-  documentation to match Charles Crabtree’s professional website.
+- Declare Human \> AI provenance for the package and documentation.
+- Rewrite the public text in my voice and match the site to my
+  professional website.
 
 ### Scope change
 
-The package is now about generating experimental treatments with a model
-and validating them before you field them. I’ve taken out the
-text-annotation workflow: `llm_run()`, `run_coding()`, reliability
-against a gold standard, prompt and model sensitivity, LaTeX reporting,
-and audit logging. If you want to annotate text, use `ellmer` directly.
-It covers structured output, batching, retries, and cost accounting on
-its own now, and there was no good reason for me to sit on top of it.
+I’ve focused the package on generating experimental materials and
+checking them before fielding. I’ve removed the text-annotation
+workflow, including `llm_run()`, `run_coding()`, gold-standard
+reliability checks, prompt and model sensitivity, LaTeX reporting, and
+audit logging. ellmer handles annotation and model calls directly.
 
 ### Validation in three tiers
 
@@ -50,8 +53,8 @@ its own now, and there was no good reason for me to sit on top of it.
   a model rates every material on the target construct, blind to
   condition and in shuffled order. Ratings come back through
   [`ellmer::parallel_chat_structured()`](https://ellmer.tidyverse.org/reference/parallel_chat.html)
-  with a `type_object()` schema, so the model can’t hand you an
-  off-scale value and there’s nothing to parse.
+  with a `type_object()` schema. Failed and out-of-range ratings are
+  recorded as missing.
 - Human
   ([`sample_for_human_validation()`](https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.md),
   [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md),
@@ -65,9 +68,9 @@ its own now, and there was no good reason for me to sit on top of it.
 - [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
   now takes a single shared `chat`. It used to build one Chat per prompt
   and pass the first to `parallel_chat()`, which made the first
-  condition’s instruction the system prompt for every generation and
-  confounded the whole design. That was a bad bug and I’m glad it’s
-  gone.
+  condition’s instruction the system prompt for every generation. That
+  could put condition-specific wording into every request. I’ve
+  corrected it.
 - [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
   warns when the shared system prompt names one of your factor levels.
 - Generation provenance (model, params, template hash, seed, failure
@@ -82,12 +85,13 @@ its own now, and there was no good reason for me to sit on top of it.
 
 - Stratified sampling no longer hits R’s
   [`sample()`](https://rdrr.io/r/base/sample.html) length-one trap,
-  which could return a wrong index and duplicate rows; `min_per_stratum`
-  guarantees every condition is represented; allocation now returns
-  exactly `n`, and no longer errors when there are more strata than
-  requested draws.
-- Missing texts, failed API calls, and blank ratings are counted and
-  reported everywhere rather than being dropped from denominators.
+  which could return a wrong index and duplicate rows. `min_per_stratum`
+  allocates a minimum to each condition when the sample is large enough.
+  Allocation returns the requested number up to the available pool and
+  reports omitted strata.
+- Missing texts, failed API calls, and blank ratings are reported.
+  Synthetic rating output also records how many materials were skipped
+  for missing text.
 - Standard errors are clustered by material when several raters rate the
   same material.
 - Term matching escapes regex metacharacters and anchors word boundaries
@@ -96,8 +100,8 @@ its own now, and there was no good reason for me to sit on top of it.
 
 ### Example data
 
-The bundled datasets are replaced by one complete simulated validation
-study, so the whole pipeline runs without an API key.
+I’ve replaced the earlier datasets with one worked example. The ratings
+are simulated, so you can run the analysis without an API key.
 
 - `repllm_materials`: 24 generated carbon-tax vignettes, three frames
   crossed with two speaker types, four realisations per cell.
@@ -106,42 +110,34 @@ study, so the whole pipeline runs without an API key.
 - `repllm_human`: 144 ratings, two human coders over the same materials
   and dimensions.
 
-I built them to be instructive rather than flattering. The materials are
-balanced on length and reading level, but two of them name their own
-condition, so
-[`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
-comes back needing attention. Both rating tiers recover all three
-intended manipulations, and the two tiers correlate at about 0.9 on
-every dimension with essentially no mean difference. The model tier
-still reads the economic and moral gaps as wider than the coders do, and
-the scientific gap about the same. That split is worth looking at by
-eye.
+I’ve included two texts that name their own condition, so the leakage
+check has something to flag. The length and readability checks pass at
+the default thresholds. In the simulated ratings, each intended
+condition ranks highest on its target dimension. The model and human
+ratings correlate at about 0.9 on each dimension, with little mean
+difference. The model ratings still show larger economic and moral gaps.
+I’d inspect both the agreement and those gaps.
 
 The annotation-era datasets `repllm_example`, `repllm_example_run`, and
 `repllm_vignettes` are removed.
 
 ### Removed
 
-- `compare_validation()` is gone, along with the `validation_comparison`
-  class. It reduced the two rating tiers to one pass-or-fail verdict
-  built on `gap_inflation`, the difference between each tier’s
-  standardised effect. Each tier was divided by its own pooled SD, and
-  that SD carries the rater’s noise, so a quiet model rater produced a
-  large apparent effect and a noisy human coder a small one. On
-  simulated data where both tiers agreed exactly about every material,
-  the metric read +0.55, past the default threshold that fails a study.
-  The quantity was measuring rater consistency as much as rater
-  disagreement, so it should not have been a gate.
+- I’ve removed `compare_validation()` and the `validation_comparison`
+  class. Its `gap_inflation` score compared effects standardised by each
+  tier’s own pooled SD. That mixed differences in rater consistency with
+  disagreement about the materials. In a simulation where both tiers
+  agreed about every material, the score was +0.55 and failed the
+  default threshold.
 
-  Run
+  I now compare
   [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
   and
   [`human_check()`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-  on the same materials and read the two recovery tables side by side.
-  The correlation and mean difference the old function reported were
-  sound and are a couple of lines of
+  on the same materials. The vignette also shows how to calculate
+  correlations and mean differences with
   [`aggregate()`](https://rdrr.io/r/stats/aggregate.html) and
-  [`cor()`](https://rdrr.io/r/stats/cor.html); the vignette shows them.
+  [`cor()`](https://rdrr.io/r/stats/cor.html).
 
 ### Inference
 
@@ -168,8 +164,8 @@ The annotation-era datasets `repllm_example`, `repllm_example_run`, and
   denominator pooled every condition, including ones outside the
   contrast. The recovery table now reports `margin` (points over the
   nearest competing condition), `nearest` (which condition that is), and
-  `margin_d`, a genuine Cohen’s d for that pair. Naming the competitor
-  also makes the number interpretable.
+  `margin_d`, Cohen’s d for that pair. Naming the competitor also makes
+  the number interpretable.
 - [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
   returns `icc_single` (ICC(A,1), one rater) and `icc_average`
   (ICC(A,k), their mean) instead of one unlabelled `icc`. On the bundled
@@ -195,19 +191,16 @@ The annotation-era datasets `repllm_example`, `repllm_example_run`, and
 
 ### Correctness fixes from adversarial testing
 
-These came out of stress-testing every exported function against
-degenerate, non-ASCII, and malformed input. Several of them would have
-put a wrong number in a table without saying anything, which is the
-worst way for a validation tool to fail.
+These fixes came from testing unusual inputs, including missing values
+and non-English text. Several affected the reported numbers without
+producing an error message.
 
-- Non-ASCII studies had no protection at all.
-  [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
-  and the system-prompt confound warning matched with PCRE `\b`, which
-  is ASCII-only, so a French vignette containing “economique” (accented)
-  in the condition of that name came back clean. Matching is
-  Unicode-aware now, and terms in scripts without word separators (Han,
-  Kana, Hangul, Thai) use substring matching, since boundary assertions
-  can’t apply there.
+- [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
+  and the system-prompt warning used PCRE `\b`, which is ASCII-only, so
+  a French vignette containing “economique” (accented) in the condition
+  of that name came back clean. Matching is Unicode-aware now, and terms
+  in scripts without word separators (Han, Kana, Hangul, Thai) use
+  substring matching, since boundary assertions can’t apply there.
 - [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.md)
   tokenised on `[^a-z']`, splitting every accented word in two and
   producing empty vocabularies for non-Latin scripts. It now tokenises
@@ -215,8 +208,8 @@ worst way for a validation tool to fail.
   when nothing is comparable.
 - [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md)
   dropped conditions with no computable grade level from the spread,
-  reporting a reassuring spread of zero and a PASS. Unmeasurable
-  conditions are now named and fail the check.
+  reporting a spread of zero and a pass. Unmeasurable conditions are now
+  named and fail the check.
 - [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md)
   could overwrite the blinding key with a rating sheet whenever `path`
   had no `.csv` suffix, which destroyed the only file linking materials
@@ -273,9 +266,8 @@ worst way for a validation tool to fail.
   matching category from verbose chain-of-thought responses;
   `label_distribution()` returns a frequency table with proportions.
 - Visualisation (`R/visualize.R`): `plot_confusion()`,
-  `plot_sensitivity()`, `plot_labels()`, `plot_cost()`:
-  publication-ready ggplot figures using `theme_tufte()` when ggthemes
-  is available.
+  `plot_sensitivity()`, `plot_labels()`, `plot_cost()`: ggplot figures
+  using `theme_tufte()` when ggthemes is available.
 - Material validation (`R/validate_materials.R`):
   [`check_length_balance()`](https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.md),
   [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md),
@@ -319,9 +311,8 @@ worst way for a validation tool to fail.
 
 ### Major changes
 
-- Rebuilt as a research methodology toolkit on top of `ellmer`. The
-  package no longer reimplements LLM API calls. It uses `ellmer` for all
-  LLM communication and focuses on experimental design, reliability,
+- I rebuilt the package around `ellmer`, which handles the model calls.
+  This version focused on experimental design, reliability checks,
   sensitivity analysis, validation, pre-registration, and reporting.
 
 ### New features

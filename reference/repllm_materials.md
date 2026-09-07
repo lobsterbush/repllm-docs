@@ -1,13 +1,11 @@
-# Generated Experimental Materials
+# Example experimental materials
 
-Twenty-four short vignettes about a carbon tax, written by an LLM from a
-factorial design crossing three frames with two speaker types, four
-realisations per cell. Together with
+I've included 24 carbon-tax vignettes: three frames crossed with two
+speaker types, with four versions per cell. They form a worked example
+with the simulated ratings in
 [repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md)
 and
-[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md)
-these form one complete simulated validation study, so every function in
-the package can be demonstrated without an API key.
+[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md).
 
 ## Usage
 
@@ -41,13 +39,10 @@ A tibble with 24 rows and 5 columns:
 
 ## Details
 
-I built these to be instructive rather than flattering. They're balanced
-on length and reading level, but two of them name their own condition,
-so
+Two texts contain their own condition labels, so
 [`check_manipulation_leakage`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
-fires and
-[`validate_auto`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
-comes back needing attention.
+flags them. Length and readability pass the default thresholds. These
+data let you inspect the checks without making a model call.
 
 ## See also
 

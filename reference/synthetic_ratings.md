@@ -1,9 +1,11 @@
-# Rate Materials with Synthetic (LLM) Raters
+# Collect model ratings of the materials
 
-Ask a model to rate every material on one or more dimensions, blind to
-the condition that produced it. This is the second tier. It's cheap
-enough to run on the whole stimulus pool, and it asks whether the
-manipulation moved the construct you meant it to move.
+Ask a model to rate the texts on the dimensions you specify. I'd use
+these ratings to screen a pool of materials before comparing them with
+human ratings on a sample.
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
+uses the same analysis as
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md).
 
 ## Usage
 
@@ -82,19 +84,13 @@ A long tibble with `material_id`, `condition`, `rater`, `dimension`, and
 dropped. Materials without usable text are skipped; their count is
 stored in `n_missing_materials`.
 
-## Details
+## What the raters see
 
-Synthetic ratings are evidence rather than proof. I'd treat them as a
-screening instrument. Rate a subsample by hand with
-[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-and compare the two before you rely on the model's ratings for the rest
-of the pool.
-
-## Blinding
-
-Raters see the material text and nothing else. Condition labels,
-generation prompts, and design columns never get sent. The order is
-shuffled separately for each rater, so position can't track condition.
+The package sends each material's text without its condition label,
+generation prompt, or design columns. It clears earlier chat turns on a
+clone, replaces the system prompt with the rating instructions, and
+shuffles the texts for each rater. The stimulus itself can still give
+away the condition.
 
 ## See also
 

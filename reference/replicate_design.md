@@ -1,9 +1,9 @@
-# Add Replicates to a Design
+# Add versions of each condition
 
-Expand each condition by `n` replicates. In stimulus generation this is
-the multiple-realisations logic of Porter and Velez (2022). Generating
-several independent versions per condition and averaging over them takes
-away the freedom to pick the one stimulus you happen to like.
+Repeat each row of a design `n` times. I use this when I want several
+materials per condition, following Porter and Velez (2022). Averaging
+over several stimuli makes the result less dependent on one choice of
+wording.
 
 ## Usage
 

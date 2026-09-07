@@ -1,9 +1,7 @@
-# Automatic Validation of Experimental Materials
+# Run the local text checks
 
-Run local checks on generated materials before any of them reach a
-rater. They cost nothing, need no API key, and catch what generators get
-wrong most often. Conditions drift apart in length or reading level, and
-materials name their own manipulation instead of embodying it.
+Check length, reading level, vocabulary, and words that could give away
+the condition. These checks run locally and don't need an API key.
 
 ## Usage
 
@@ -63,13 +61,13 @@ An object of class `auto_validation`.
 
 ## Details
 
-This is the first of three tiers, and all it establishes is that the
-materials are comparable on the nuisance dimensions. It can't tell you
-whether the manipulation worked.
+I'd start here before paying for ratings. Passing the checks means the
+materials met the chosen thresholds. It doesn't rule out other confounds
+or establish that the manipulation works. Use
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 and
 [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-are for that.
+to examine ratings of what the texts convey.
 
 ## See also
 

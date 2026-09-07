@@ -1,10 +1,10 @@
-# Export a Blinded Rating Task for Human Coders
+# Prepare blinded rating sheets
 
-Write a rating sheet your coders can fill in, plus a separate key file
-linking each row back to its condition. The sheet has no condition
-labels, no generation prompts, or design columns. Random codes replace
-original IDs and the rows are shuffled. The text itself can still reveal
-the manipulation.
+Write rating sheets for human coders and a separate key for the
+researcher. Each sheet contains the text, random material codes, and
+blank rating columns. It leaves out condition labels, generation
+prompts, and the original IDs. Each coder gets a separately shuffled
+sheet.
 
 ## Usage
 
@@ -75,9 +75,10 @@ maps blinded `material_id` codes to `original_material_id` and
 
 ## Details
 
-Keep the key away from your coders.
+Keep the key away from the coders.
 [`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
-rejoins it when the ratings come back.
+uses it to restore the original IDs and conditions. The text can still
+reveal the manipulation, so I'd check that before sending the sheets.
 
 ## Examples
 
@@ -88,6 +89,6 @@ m <- data.frame(
 )
 tmp <- tempfile(fileext = ".csv")
 export_rating_task(m, tmp, dimensions = c(economic = "economic appeal"))
-#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpud3fuK/file1706f21041b0f_key.csv
+#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpqRWDLT/file627d402ade4_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 ```

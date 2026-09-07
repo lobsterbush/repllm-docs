@@ -1,8 +1,8 @@
-# Synthetic Ratings of the Example Materials
+# Example model ratings
 
-Simulated output of
-[`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md):
-three LLM raters score all 24 materials in
+Simulated ratings in the format returned by
+[`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md).
+Three model raters score all 24 materials in
 [repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md)
 on three dimensions.
 
@@ -39,16 +39,14 @@ A tibble with 216 rows and 5 columns:
 
 ## Details
 
-The simulation has the synthetic raters recover every intended
-manipulation while exaggerating two of them. On the economic and moral
-dimensions the separation between conditions is amplified relative to
-the human coders. On the scientific dimension it isn't. Run
+I've set up the example so both model and human ratings rank each
+intended condition highest. The model ratings show larger economic and
+moral gaps than the simulated human ratings do; the scientific gaps are
+similar. Run
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
-on these and
+and
 [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-on
-[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md),
-then set the two side by side.
+to compare them.
 
 ## See also
 

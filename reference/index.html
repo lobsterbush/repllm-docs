@@ -15,7 +15,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Get started</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Try the example</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -34,7 +34,7 @@
     <div class="section level2">
       <h2 id="design-and-generation">Design and generation<a class="anchor" aria-label="anchor" href="#design-and-generation"></a></h2>
 
-      <div class="section-desc"><p>Build a factorial design of conditions and have a model write the stimuli, one shared system prompt across every condition.</p></div>
+      <div class="section-desc"><p>Start with the factors you want to vary, then ask a model to write several materials per condition.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -46,39 +46,39 @@
           <code><a href="design_conditions.html">design_conditions()</a></code>
 
         </dt>
-        <dd>Build a Factorial Design of Experimental Conditions</dd>
+        <dd>Build the experimental conditions</dd>
 
         <dt>
 
           <code><a href="replicate_design.html">replicate_design()</a></code>
 
         </dt>
-        <dd>Add Replicates to a Design</dd>
+        <dd>Add versions of each condition</dd>
 
         <dt>
 
           <code><a href="randomize_design.html">randomize_design()</a></code>
 
         </dt>
-        <dd>Randomise Execution Order</dd>
+        <dd>Shuffle the order of the conditions</dd>
 
         <dt>
 
           <code><a href="generate_materials.html">generate_materials()</a></code>
 
         </dt>
-        <dd>Generate Experimental Materials from a Factorial Design</dd>
+        <dd>Generate materials for each condition</dd>
 
         <dt>
 
           <code><a href="generation_sensitivity.html">generation_sensitivity()</a></code>
 
         </dt>
-        <dd>Generate the Same Design Under Several Models</dd>
+        <dd>Generate materials with several models</dd>
       </dl></div><div class="section level2">
       <h2 id="tier-automatic-validation">Tier 1, automatic validation<a class="anchor" aria-label="anchor" href="#tier-automatic-validation"></a></h2>
 
-      <div class="section-desc"><p>Local, deterministic checks that need no API key. Flag differences in length, readability, condition leakage, and vocabulary.</p></div>
+      <div class="section-desc"><p>These checks run on your machine. I’d use them to find problems in the text before collecting ratings.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -90,39 +90,39 @@
           <code><a href="validate_auto.html">validate_auto()</a></code>
 
         </dt>
-        <dd>Automatic Validation of Experimental Materials</dd>
+        <dd>Run the local text checks</dd>
 
         <dt>
 
           <code><a href="check_length_balance.html">check_length_balance()</a></code>
 
         </dt>
-        <dd>Check Length Balance Across Conditions</dd>
+        <dd>Compare text length across conditions</dd>
 
         <dt>
 
           <code><a href="check_readability.html">check_readability()</a></code>
 
         </dt>
-        <dd>Check Readability Across Conditions</dd>
+        <dd>Compare reading levels across conditions</dd>
 
         <dt>
 
           <code><a href="check_manipulation_leakage.html">check_manipulation_leakage()</a></code>
 
         </dt>
-        <dd>Check Whether Materials Name Their Own Manipulation</dd>
+        <dd>Find words that could give away the condition</dd>
 
         <dt>
 
           <code><a href="check_lexical_overlap.html">check_lexical_overlap()</a></code>
 
         </dt>
-        <dd>Check Lexical Distinctiveness Across Conditions</dd>
+        <dd>Compare vocabulary across conditions</dd>
       </dl></div><div class="section level2">
       <h2 id="tier-synthetic-validation">Tier 2, synthetic validation<a class="anchor" aria-label="anchor" href="#tier-synthetic-validation"></a></h2>
 
-      <div class="section-desc"><p>An LLM rates every material, blind to condition, on the construct the manipulation targets.</p></div>
+      <div class="section-desc"><p>Ask a model to score the texts on the dimensions you care about, without showing it the condition labels.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -134,25 +134,25 @@
           <code><a href="synthetic_ratings.html">synthetic_ratings()</a></code>
 
         </dt>
-        <dd>Rate Materials with Synthetic (LLM) Raters</dd>
+        <dd>Collect model ratings of the materials</dd>
 
         <dt>
 
           <code><a href="synthetic_check.html">synthetic_check()</a></code>
 
         </dt>
-        <dd>Test Whether the Manipulation Moved the Intended Construct</dd>
+        <dd>Compare conditions using model ratings</dd>
 
         <dt>
 
           <code><a href="rater_reliability.html">rater_reliability()</a></code>
 
         </dt>
-        <dd>Agreement Among Raters</dd>
+        <dd>Check agreement among raters</dd>
       </dl></div><div class="section level2">
       <h2 id="tier-human-validation">Tier 3, human validation<a class="anchor" aria-label="anchor" href="#tier-human-validation"></a></h2>
 
-      <div class="section-desc"><p>Blinded rating sheets for human coders on a stratified subsample.</p></div>
+      <div class="section-desc"><p>Sample materials for people to rate, prepare blinded sheets, and compare their ratings with the model’s.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -164,39 +164,39 @@
           <code><a href="sample_for_human_validation.html">sample_for_human_validation()</a></code>
 
         </dt>
-        <dd>Sample Materials for Human Validation</dd>
+        <dd>Sample materials for people to rate</dd>
 
         <dt>
 
           <code><a href="export_rating_task.html">export_rating_task()</a></code>
 
         </dt>
-        <dd>Export a Blinded Rating Task for Human Coders</dd>
+        <dd>Prepare blinded rating sheets</dd>
 
         <dt>
 
           <code><a href="import_human_ratings.html">import_human_ratings()</a></code>
 
         </dt>
-        <dd>Read Completed Human Ratings</dd>
+        <dd>Read the completed rating sheets</dd>
 
         <dt>
 
           <code><a href="human_check.html">human_check()</a></code>
 
         </dt>
-        <dd>Test the Manipulation Against Human Ratings</dd>
+        <dd>Compare conditions using human ratings</dd>
 
         <dt>
 
           <code><a href="human_reliability.html">human_reliability()</a></code>
 
         </dt>
-        <dd>Agreement Among Human Coders</dd>
+        <dd>Check agreement among human coders</dd>
       </dl></div><div class="section level2">
       <h2 id="example-data">Example data<a class="anchor" aria-label="anchor" href="#example-data"></a></h2>
 
-      <div class="section-desc"><p>One complete simulated validation study, so every function can be run without an API key.</p></div>
+      <div class="section-desc"><p>I’ve included a worked example with 24 texts and simulated ratings. You can run the analysis without an API key.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -208,21 +208,21 @@
           <code><a href="repllm_materials.html">repllm_materials</a></code>
 
         </dt>
-        <dd>Generated Experimental Materials</dd>
+        <dd>Example experimental materials</dd>
 
         <dt>
 
           <code><a href="repllm_synthetic.html">repllm_synthetic</a></code>
 
         </dt>
-        <dd>Synthetic Ratings of the Example Materials</dd>
+        <dd>Example model ratings</dd>
 
         <dt>
 
           <code><a href="repllm_human.html">repllm_human</a></code>
 
         </dt>
-        <dd>Human Ratings of the Example Materials</dd>
+        <dd>Example human ratings</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
@@ -230,10 +230,10 @@
 
     <footer><div class="pkgdown-footer-left">
 <p><a href="https://charlescrabtree.org/" class="external-link">Charles Crabtree</a><br>Monash University · Korea University</p>
-<p class="provenance-label">AI – Human (editor) <span aria-hidden="true">🤖✏️👤</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">Provenance standard: The Latent Review</a></p>
+<p class="provenance-label">Human &gt; AI <span aria-hidden="true">👤&gt;🤖</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">About this provenance label</a></p>
 </div>
 <div class="pkgdown-footer-right">
-<p>Research software for experimental social science.<br><a href="mailto:charles.crabtree@monash.edu">Contact Charles</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Report an issue</a></p>
+<p>I'd be glad to hear how you're using repllm.<br><a href="mailto:charles.crabtree@monash.edu">Email me</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Tell me about a bug</a></p>
 <p>MIT licensed · Built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a></p>
 </div>
 

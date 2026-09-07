@@ -1,9 +1,8 @@
-# Check Readability Across Conditions
+# Compare reading levels across conditions
 
-Estimate the Flesch-Kincaid grade level for each text and compare across
-conditions. If quanteda.textstats is installed it gives you the exact
-score. If it isn't, you get a syllable-counting approximation instead,
-and the result records which one you got.
+Estimate Flesch-Kincaid reading levels and compare their condition
+means. The function uses quanteda.textstats when it's installed and a
+syllable heuristic otherwise. The output tells you which method it used.
 
 ## Usage
 
@@ -31,6 +30,11 @@ check_readability(texts, conditions, threshold = 2)
 A list with `per_text`, `by_condition`, `max_diff`, `unmeasurable`
 (conditions with no computable grade level, which fail the check),
 `method`, `n_missing`, `n_no_condition`, and `pass`.
+
+## Details
+
+This is an English-language measure. I'd use a suitable measure for the
+language of the study before interpreting differences in other texts.
 
 ## Examples
 

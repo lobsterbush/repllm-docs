@@ -1,8 +1,9 @@
-# Generate Experimental Materials from a Factorial Design
+# Generate materials for each condition
 
-Have a model write experimental stimuli (vignettes, quotes, scenarios)
-from a design matrix. Each row of `design` produces `n_versions`
-independent realisations, following Porter and Velez (2022).
+Ask a model to write experimental materials from your design. Each row
+produces `n_versions` separate responses, following Porter and Velez
+(2022). You can use this for vignettes, quotations, or other short
+texts.
 
 ## Usage
 
@@ -63,15 +64,13 @@ A tibble of class `llm_materials`: all columns of `design`, plus
 their row with `text = NA`. Generation provenance is stored in the
 `"provenance"` attribute.
 
-## Why the system prompt is shared
+## Keep the system prompt general
 
-Every condition is generated from the *same* Chat object, so the system
-prompt stays constant and only the user turn changes. That's what keeps
-the conditions comparable. If the system prompt named a condition
-itself, that framing would land on every other cell of the design, which
-is the confound this package is meant to catch. `generate_materials()`
-checks the system prompt against your factor levels and warns you if it
-finds one.
+The same system prompt applies to every condition. I put instructions
+about length and format there, and condition-specific wording in the
+template. `generate_materials()` warns if the system prompt names a
+factor level. Use a fresh chat so earlier conversation turns don't enter
+the requests.
 
 ## References
 

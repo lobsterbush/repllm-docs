@@ -1,12 +1,12 @@
-# Sample Materials for Human Validation
+# Sample materials for people to rate
 
-Draw a subsample of materials for human rating, stratified by condition
-so every cell shows up. Human coding is the expensive tier, so it
-usually runs on a subsample. Run
+Draw a sample of materials, usually stratified by condition. I'd use
+this when rating the whole pool by hand would be too expensive. Analyse
+the returned ratings with
 [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
-on it and set the result beside
+and compare them with
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
-to see whether the two tiers agree.
+on the same materials.
 
 ## Usage
 
@@ -39,8 +39,8 @@ sample_for_human_validation(
 - min_per_stratum:
 
   Minimum number of materials drawn from each stratum before
-  proportional allocation (default: 1). This guarantees that every
-  condition is represented even when one is rare. Set to 0 for purely
+  proportional allocation (default: 1), when the requested sample is
+  large enough. Omitted conditions are reported. Set to 0 for purely
   proportional allocation.
 
 - text_col:
@@ -58,12 +58,13 @@ order, plus `material_id` if it was absent.
 
 ## Details
 
-Allocation gives every stratum `min_per_stratum` materials first, then
-distributes what is left by largest remainder, never exceeding a
-stratum's size. A stratum with a single member is drawn correctly.
-Materials with a missing stratum value are excluded and reported, so you
-get `min(n, <materials with a stratum value>)` rows rather than
-`min(n, nrow(materials))` whenever any label is missing.
+When the sample is large enough, each stratum receives `min_per_stratum`
+materials first. The remainder is allocated proportionally using largest
+remainders, without exceeding the available materials. The function
+reports strata that couldn't be included.
+
+Materials with missing stratum labels are excluded and counted. The
+number returned is therefore capped at the number with a stratum label.
 
 ## Examples
 

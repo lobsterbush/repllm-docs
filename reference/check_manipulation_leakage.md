@@ -1,9 +1,9 @@
-# Check Whether Materials Name Their Own Manipulation
+# Find words that could give away the condition
 
-A vignette that contains the word "economic" lets a rater recover the
-condition from the label instead of the content. What you measure then
-is label recognition. This check flags materials containing any
-condition label or other term you don't want in there.
+Look for condition labels or other terms you've asked the function to
+flag. A text that calls its own argument "economic" could prompt a rater
+to score the label. I'd read the flagged texts to decide whether they
+express the intended argument or simply name it.
 
 ## Usage
 

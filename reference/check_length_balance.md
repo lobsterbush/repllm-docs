@@ -1,8 +1,8 @@
-# Check Length Balance Across Conditions
+# Compare text length across conditions
 
-Compare word and character counts across conditions. A condition that
-runs longer gives participants more to react to, so the manipulation
-gets confused with sheer exposure.
+Compare word and character counts across conditions. I'd inspect a
+condition that consistently produces longer texts: respondents may be
+reacting to the extra information as well as the intended manipulation.
 
 ## Usage
 

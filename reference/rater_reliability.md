@@ -1,9 +1,9 @@
-# Agreement Among Raters
+# Check agreement among raters
 
-Report inter-rater reliability across raters for each dimension, for
-either synthetic or human ratings. You get the intraclass correlation
-for continuous scales and Krippendorff's alpha as an ordinal check.
-Failed ratings are reported rather than quietly dropped.
+Calculate inter-rater reliability for each dimension using the
+intraclass correlation and ordinal Krippendorff's alpha. The function
+also reports missing ratings and the number of complete materials used
+for the ICC.
 
 ## Usage
 
@@ -31,10 +31,10 @@ and .89 on the same data is typical.
 
 ## Details
 
-High agreement among synthetic raters is necessary but it isn't
-sufficient. At a low temperature and without distinct personas, model
-raters agree with each other because they're nearly the same rater,
-which tells you nothing about how well the construct is measured.
+I'd specify whether I'm reporting the reliability of one rater or the
+mean of several. I'd also be careful interpreting high agreement among
+repeated calls to the same model: the raters share a model, and
+agreement among them doesn't establish agreement with people.
 
 ## Examples
 

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Generate and validate experimental materials • repllm</title>
+<title>Checking model-written experimental materials • repllm</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,9 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Generate and validate experimental materials">
-<meta name="description" content="An R toolkit by Charles Crabtree for factorial stimulus generation, local diagnostics, blinded model ratings, and human validation.">
-<meta property="og:description" content="An R toolkit by Charles Crabtree for factorial stimulus generation, local diagnostics, blinded model ratings, and human validation.">
+<meta property="og:title" content="Checking model-written experimental materials">
+<meta name="description" content="I built repllm to generate materials for survey experiments and check what they convey before fielding a study. By Charles Crabtree.">
+<meta property="og:description" content="I built repllm to generate materials for survey experiments and check what they convey before fielding a study. By Charles Crabtree.">
 <meta property="og:image" content="https://lobsterbush.github.io/repllm-docs/logo.png">
 <meta name="theme-color" content="#143a63">
 </head>
@@ -39,7 +39,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/getting-started.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/getting-started.html">Try the example</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
@@ -65,13 +65,13 @@
 Research software · Charles Crabtree
 </p>
 <p class="hero-title">
-Generate with a model.<br>Validate with evidence.
+Does the treatment do<br>what I think it does?
 </p>
 <p class="hero-summary">
-An R toolkit for experimental materials: factorial designs, local diagnostics, blinded model ratings, and human validation.
+I built repllm to generate materials for survey experiments and check them before putting them in front of respondents.
 </p>
 <p class="hero-links">
-<a class="hero-primary" href="#quick-start">Start with the data <span aria-hidden="true">↗</span></a> <a href="https://lobsterbush.github.io/repllm-docs/reference/index.html">Explore the reference →</a>
+<a class="hero-primary" href="#quick-start">Try an example <span aria-hidden="true">↗</span></a> <a href="https://lobsterbush.github.io/repllm-docs/reference/index.html">See the functions →</a>
 </p>
 <p class="hero-meta">
 Version 0.4.0 · Experimental · Preparing for CRAN
@@ -79,22 +79,18 @@ Version 0.4.0 · Experimental · Preparing for CRAN
 </div>
 <!-- badges: start -->
 
-<hr>
-<p>I wrote this package because I kept asking a language model to draft vignettes for survey experiments, and then had no good answer when someone asked whether the vignettes actually did what I said they did.</p>
-<p>Generating stimuli this way is fast and it makes factorial designs cheap. It also hands you a measurement problem that hand-written stimuli didn’t have. You don’t know whether the materials carry the manipulation you asked for, and you don’t know what else they carry along with it. Length, reading level, tone, and vocabulary can all drift with the condition, and any of those will show up in your treatment effect.</p>
-<p>So <code>repllm</code> generates the materials and then validates them in three tiers: local checks that cost nothing, a model rating every material blind to condition, and human coders on a subsample. The last two ask the same question of different raters, so you read them together.</p>
-<hr>
+<p>A language model can write a set of experimental vignettes quickly. I’d still want to know whether those vignettes vary in the way I intended. An economic frame should make people think about economic consequences. It might also produce a longer text, or one that’s harder to read. Those differences could matter for the experiment.</p>
+<p>That’s the problem I built <code>repllm</code> to help with. It generates materials from a factorial design, checks the text, and helps collect ratings from models and people. I want to see where the materials fall short before I field the study.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>repllm</code> is not yet available on CRAN. The source repository currently requires access from the maintainer. With repository access:</p>
+<p>I’m preparing <code>repllm</code> for CRAN. For now, the source repository is private; <a href="mailto:charles.crabtree@monash.edu">email me</a> if you’d like access. Once you have it:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"lobsterbush/repllm"</span><span class="op">)</span></span></code></pre></div>
-<p>If you have the source archive, install it and its dependencies with <code>remotes::install_local("repllm_0.4.0.tar.gz", dependencies = TRUE)</code>. Contact <a href="mailto:charles.crabtree@monash.edu">Charles Crabtree</a> for source access.</p>
-<p>Requirements: R 4.1 or later. Local diagnostics and the bundled examples need no credentials. Generation and synthetic rating require an ellmer-supported provider and your own credentials; provider charges may apply.</p>
-<p>Documentation: <a href="https://lobsterbush.github.io/repllm-docs/" class="uri">https://lobsterbush.github.io/repllm-docs/</a></p>
-<hr>
+<p>If I’ve sent you a source archive, you can install it and its dependencies with <code>remotes::install_local("repllm_0.4.0.tar.gz", dependencies = TRUE)</code>.</p>
+<p>You’ll need R 4.1 or later. You can run the local checks and bundled examples without an API key. Generating materials or collecting model ratings needs a provider supported by ellmer, your own credentials, and any fees the provider charges.</p>
+<p>The <a href="https://lobsterbush.github.io/repllm-docs/">documentation</a> is public.</p>
 </div>
 <div class="section level2">
 <h2 id="three-tiers-of-validation">Three tiers of validation<a class="anchor" aria-label="anchor" href="#three-tiers-of-validation"></a>
@@ -103,28 +99,28 @@ Version 0.4.0 · Experimental · Preparing for CRAN
 <div class="tier">
 <span class="eyebrow">01 / Automatic</span>
 <h3>
-Inspect the materials
+Check the text
 </h3>
 <p>
-Check length, readability, condition leakage, and vocabulary locally.
+I start with the things I can check locally: length, reading level, vocabulary, and words that give away the condition.
 </p>
 </div>
 <div class="tier">
 <span class="eyebrow">02 / Synthetic</span>
 <h3>
-Measure the manipulation
+Ask a model to rate it
 </h3>
 <p>
-Ask model raters to score the text without condition labels or generation history.
+Model ratings help screen the materials. The raters get the text without its condition label or the conversation that produced it.
 </p>
 </div>
 <div class="tier">
 <span class="eyebrow">03 / Human</span>
 <h3>
-Compare with people
+Ask people, too
 </h3>
 <p>
-Collect blinded human ratings on a stratified sample and compare the evidence.
+I want to know whether people read the materials the same way. The package prepares blinded rating sheets for a sample.
 </p>
 </div>
 </div>
@@ -150,97 +146,97 @@ way, so you set the two results side by side.</code></pre>
 </colgroup>
 <thead><tr>
 <th>Function</th>
-<th>Purpose</th>
+<th>What it does</th>
 </tr></thead>
 <tbody>
 <tr>
 <td><code><a href="reference/design_conditions.html">design_conditions()</a></code></td>
-<td>Cross experimental factors into a design matrix</td>
+<td>Cross the factors in your experiment</td>
 </tr>
 <tr>
 <td>
 <code><a href="reference/replicate_design.html">replicate_design()</a></code> / <code><a href="reference/randomize_design.html">randomize_design()</a></code>
 </td>
-<td>Several realisations per condition; shuffle order</td>
+<td>Repeat conditions or shuffle their order</td>
 </tr>
 <tr>
 <td><code><a href="reference/generate_materials.html">generate_materials()</a></code></td>
-<td>Write the stimuli from the design via ellmer</td>
+<td>Ask a model to write materials for each condition</td>
 </tr>
 <tr>
 <td><code><a href="reference/generation_sensitivity.html">generation_sensitivity()</a></code></td>
-<td>Run the same design under several generators</td>
+<td>Generate materials with several models</td>
 </tr>
 <tr>
 <td><code><a href="reference/validate_auto.html">validate_auto()</a></code></td>
-<td>Tier 1: all the local checks at once</td>
+<td>Run the local text checks</td>
 </tr>
 <tr>
 <td><code><a href="reference/check_length_balance.html">check_length_balance()</a></code></td>
-<td>Word and character counts across conditions</td>
+<td>Compare word and character counts</td>
 </tr>
 <tr>
 <td><code><a href="reference/check_readability.html">check_readability()</a></code></td>
-<td>Flesch-Kincaid grade level across conditions</td>
+<td>Compare Flesch-Kincaid reading levels</td>
 </tr>
 <tr>
 <td><code><a href="reference/check_manipulation_leakage.html">check_manipulation_leakage()</a></code></td>
-<td>Materials that name their own condition</td>
+<td>Find words that give away the condition</td>
 </tr>
 <tr>
 <td><code><a href="reference/check_lexical_overlap.html">check_lexical_overlap()</a></code></td>
-<td>Whether conditions are too alike or too different</td>
+<td>Compare vocabulary across conditions</td>
 </tr>
 <tr>
 <td><code><a href="reference/synthetic_ratings.html">synthetic_ratings()</a></code></td>
-<td>Tier 2: blind LLM ratings of every material</td>
+<td>Collect model ratings without showing condition labels</td>
 </tr>
 <tr>
 <td><code><a href="reference/synthetic_check.html">synthetic_check()</a></code></td>
-<td>Did the manipulation move the target construct?</td>
+<td>Compare conditions on the dimensions you’ve rated</td>
 </tr>
 <tr>
 <td><code><a href="reference/rater_reliability.html">rater_reliability()</a></code></td>
-<td>Agreement among raters</td>
+<td>Check agreement among raters</td>
 </tr>
 <tr>
 <td><code><a href="reference/sample_for_human_validation.html">sample_for_human_validation()</a></code></td>
-<td>Tier 3: stratified subsample for human coding</td>
+<td>Sample materials for people to rate</td>
 </tr>
 <tr>
 <td><code><a href="reference/export_rating_task.html">export_rating_task()</a></code></td>
-<td>Blinded rating sheets plus a separate key</td>
+<td>Write shuffled rating sheets and a separate key</td>
 </tr>
 <tr>
 <td><code><a href="reference/import_human_ratings.html">import_human_ratings()</a></code></td>
-<td>Read the completed sheets back into long format</td>
+<td>Read completed sheets and restore condition labels</td>
 </tr>
 <tr>
 <td>
 <code><a href="reference/human_check.html">human_check()</a></code> / <code><a href="reference/human_reliability.html">human_reliability()</a></code>
 </td>
-<td>The tier-3 counterparts</td>
+<td>Analyse human ratings and coder agreement</td>
 </tr>
 </tbody>
 </table>
-<p>The package ships one simulated study so you can run all of this without an API key: <code>repllm_materials</code> holds 24 generated vignettes, and <code>repllm_synthetic</code> and <code>repllm_human</code> hold ratings of them by three LLM raters and two human coders.</p>
-<hr>
+<p>I’ve included 24 carbon-tax vignettes and simulated ratings so you can try the package without making a model call. <code>repllm_materials</code> holds the texts; <code>repllm_synthetic</code> and <code>repllm_human</code> hold ratings representing three model raters and two human coders.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>Run a complete local check before connecting a provider:</p>
+<p>I’d start here. This runs the local checks and compares the two sets of simulated ratings:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lobsterbush.github.io/repllm-docs/">repllm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/validate_auto.html">validate_auto</a></span><span class="op">(</span><span class="va">repllm_materials</span>, condition_col <span class="op">=</span> <span class="st">"frame"</span><span class="op">)</span></span>
 <span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>economic <span class="op">=</span> <span class="st">"economic"</span>, moral <span class="op">=</span> <span class="st">"moral"</span>, scientific <span class="op">=</span> <span class="st">"scientific"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/synthetic_check.html">synthetic_check</a></span><span class="op">(</span><span class="va">repllm_synthetic</span>, target <span class="op">=</span> <span class="va">targets</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/human_check.html">human_check</a></span><span class="op">(</span><span class="va">repllm_human</span>, target <span class="op">=</span> <span class="va">targets</span><span class="op">)</span></span></code></pre></div>
-<p>The bundled materials and ratings are simulated teaching data, not evidence that model ratings reproduce human judgments in a real study.</p>
+<p>These ratings are teaching data. They show how the functions behave. They don’t tell us how well a model would agree with people in your study.</p>
 <div class="section level3">
 <h3 id="generate-your-own-materials">Generate your own materials<a class="anchor" aria-label="anchor" href="#generate-your-own-materials"></a>
 </h3>
+<p>This example crosses frame with source and asks for three versions of each condition. You’ll need your provider credentials to run it.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lobsterbush.github.io/repllm-docs/">repllm</a></span><span class="op">)</span></span>
 <span></span>
@@ -261,13 +257,13 @@ way, so you set the two results side by side.</code></pre>
 <span>  chat <span class="op">=</span> <span class="va">chat</span>,</span>
 <span>  n_versions <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>One <code>chat</code> object is shared across every condition, so the system prompt stays constant and only the user turn varies. If the system prompt named a condition itself, that framing would land on every cell of the design, and I’ve made that mistake. <code><a href="reference/generate_materials.html">generate_materials()</a></code> now checks the system prompt against your factor levels and warns you.</p>
-<p>Generating three versions per condition rather than one follows Porter and Velez (2022). Averaging over several stimuli takes away the freedom to pick the one you happen to like.</p>
+<p>Use a fresh <code>chat</code> object. Its system prompt applies to every condition, so put condition-specific instructions in the template. The function warns if it finds a factor level in the system prompt and rejects a chat with earlier conversation turns.</p>
+<p>The use of several versions follows Porter and Velez (2022). I want the design to depend less on which particular wording I happened to choose.</p>
 </div>
 <div class="section level3">
 <h3 id="tier-1-the-local-checks">Tier 1: the local checks<a class="anchor" aria-label="anchor" href="#tier-1-the-local-checks"></a>
 </h3>
-<p>These run on your machine, cost nothing, and need no key.</p>
+<p>These checks run on your machine. Here’s what they find in the bundled texts:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">repllm_materials</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/validate_auto.html">validate_auto</a></span><span class="op">(</span><span class="va">repllm_materials</span>, condition_col <span class="op">=</span> <span class="st">"frame"</span><span class="op">)</span></span>
@@ -277,12 +273,13 @@ way, so you set the two results side by side.</code></pre>
 <span><span class="co">#&gt; ! Manipulation leakage: 2/24 materials name a condition term.</span></span>
 <span><span class="co">#&gt; v Distinctiveness: Jaccard overlap in [0.1, 0.11]</span></span>
 <span><span class="co">#&gt; ! Needs attention: "leakage"</span></span></code></pre></div>
-<p>Two of the 24 vignettes use the word “economic” or “scientific” inside the condition of that name. That lets a rater recover the condition from the label instead of the content, so what you’d be measuring is label recognition.</p>
-<p>Passing tier 1 means these diagnostics found no differences beyond the chosen thresholds. It does not establish equivalence or rule out other confounds. Readability scores use an English-language formula; inspect non-English materials with language-appropriate measures.</p>
+<p>Two vignettes contain “economic” or “scientific”, the label of their own condition. I’d inspect those texts. A rater might respond to the label without reading the intended argument.</p>
+<p>The other checks pass at the default thresholds. That tells us what these checks found; it doesn’t rule out confounding. The readability formula is for English, so I’d use a language-appropriate measure for other texts.</p>
 </div>
 <div class="section level3">
 <h3 id="tier-2-synthetic-raters">Tier 2: synthetic raters<a class="anchor" aria-label="anchor" href="#tier-2-synthetic-raters"></a>
 </h3>
+<p>Here I ask model raters to score economic and moral appeals. The analysis below uses the bundled ratings, which also include scientific appeals.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/synthetic_ratings.html">synthetic_ratings</a></span><span class="op">(</span></span>
 <span>  <span class="va">repllm_materials</span>,</span>
@@ -308,13 +305,14 @@ way, so you set the two results side by side.</code></pre>
 <span><span class="co">#&gt;     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67)</span></span>
 <span><span class="co">#&gt;     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23)</span></span>
 <span><span class="co">#&gt;   Recovered 3/3 intended contrasts</span></span></code></pre></div>
-<p>Each row is the margin over the nearest competing condition, named, with Cohen’s d for that pair. Reporting the margin against the strongest competitor rather than against an average is the stricter test, and naming the competitor keeps the d interpretable.</p>
-<p>Raters see the text and nothing else. No condition labels, no generation prompts, and the order is shuffled separately for each rater. Ratings come back through <code><a href="https://ellmer.tidyverse.org/reference/parallel_chat.html" class="external-link">ellmer::parallel_chat_structured()</a></code> with a <code>type_object()</code> schema, so the model can’t hand you a value off the scale and there’s nothing to parse.</p>
-<p>I’d supply <code>personas</code> if you’re running more than one rater. Without them, and at a low temperature, your three synthetic raters are close to the same rater three times over, and their agreement will look better than it is.</p>
+<p>The recovery table names the strongest competing condition and reports the gap in rating points and Cohen’s d. I find that easier to interpret than a comparison with the average of all the other conditions.</p>
+<p>Each rater sees the material text. The package removes earlier chat turns, replaces the system prompt with the rating instructions, and shuffles the texts. It asks ellmer for structured ratings and records failed or out-of-range responses as missing.</p>
+<p>I’d give the raters different <code>personas</code>, while keeping in mind that they’re still using the same model. High agreement among them can reflect shared model behavior. I wouldn’t take it as evidence that people will agree.</p>
 </div>
 <div class="section level3">
 <h3 id="tier-3-human-coders">Tier 3: human coders<a class="anchor" aria-label="anchor" href="#tier-3-human-coders"></a>
 </h3>
+<p>Here I sample 12 materials and prepare a separate sheet for each coder:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>economic   <span class="op">=</span> <span class="st">"economic appeal"</span>,</span>
 <span>          moral      <span class="op">=</span> <span class="st">"moral appeal"</span>,</span>
@@ -330,12 +328,12 @@ way, so you set the two results side by side.</code></pre>
 <span></span>
 <span><span class="va">human</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_human_ratings.html">import_human_ratings</a></span><span class="op">(</span><span class="va">task</span><span class="op">$</span><span class="va">sheets</span>, <span class="va">task</span><span class="op">$</span><span class="va">key_path</span>, scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/human_check.html">human_check</a></span><span class="op">(</span><span class="va">human</span>, target <span class="op">=</span> <span class="va">targets</span><span class="op">)</span></span></code></pre></div>
-<p>The sheets carry no condition labels and their rows are shuffled. The key goes to a separate file so it never reaches your coders.</p>
+<p>The sheets use random IDs and shuffled rows. The separate key links those IDs to the original materials and conditions; keep it away from the coders. Choose new file paths for a new task, since existing sheets won’t be overwritten.</p>
 </div>
 <div class="section level3">
 <h3 id="reading-the-two-tiers-together">Reading the two tiers together<a class="anchor" aria-label="anchor" href="#reading-the-two-tiers-together"></a>
 </h3>
-<p>Both tiers report the same thing in the same shape, so put them next to each other. On the bundled example:</p>
+<p>I use the same summaries for both sets of ratings. That makes it easier to see where they differ. Here’s the bundled example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>economic <span class="op">=</span> <span class="st">"economic"</span>, moral <span class="op">=</span> <span class="st">"moral"</span>, scientific <span class="op">=</span> <span class="st">"scientific"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/synthetic_check.html">synthetic_check</a></span><span class="op">(</span><span class="va">repllm_synthetic</span>, target <span class="op">=</span> <span class="va">targets</span><span class="op">)</span></span>
@@ -347,16 +345,16 @@ way, so you set the two results side by side.</code></pre>
 <span><span class="co">#&gt;     ok    economic     on economic     margin +2.44 over scientific   (d = +2.82)</span></span>
 <span><span class="co">#&gt;     ok    moral        on moral        margin +2.62 over scientific   (d = +3.24)</span></span>
 <span><span class="co">#&gt;     ok    scientific   on scientific   margin +2.62 over economic     (d = +3.16)</span></span></code></pre></div>
-<p>In this simulated example, both tiers rank each intended condition highest. That descriptive ordering is not a significance test or evidence of equivalence. The model reads the economic and moral margins as wider than your coders do, and reads the scientific margin about the same. That is worth looking at before you decide the manipulation is strong.</p>
-<p><code><a href="reference/rater_reliability.html">rater_reliability()</a></code> is worth reporting beside it, and note which ICC you quote. On this data one synthetic rater is .72 to .94 depending on dimension, while the mean of three is .88 to .98. Those are different claims.</p>
-<p>I would not reduce this to a single pass or fail number. An earlier version of the package did, and the arithmetic turned out to mix two things that should not be mixed: how much the tiers actually disagree about the materials, and how much steadier a model rater is than a person. A quiet rater came out looking inflated whether or not it disagreed with anyone. Read the two tables.</p>
+<p>Each intended condition ranks highest on its target dimension in both sets of ratings. The model ratings show wider economic and moral gaps than the human ratings do. The scientific gaps are similar. I’d look at those differences before deciding how much to rely on the model ratings.</p>
+<p>The ranking is descriptive. It doesn’t test whether the two sets of ratings are equivalent, and it doesn’t establish that the manipulation will work with respondents.</p>
+<p>I’d also report <code><a href="reference/rater_reliability.html">rater_reliability()</a></code> and specify which ICC I’m using. In these data, the reliability of one synthetic rater ranges from .72 to .94 across dimensions. For the mean of three raters, it ranges from .88 to .98. The choice depends on whether I’m analysing individual ratings or their average.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="what-this-owes-to-porter-and-velez">What this owes to Porter and Velez<a class="anchor" aria-label="anchor" href="#what-this-owes-to-porter-and-velez"></a>
 </h2>
-<p>The package grew out of Porter and Velez (2022). Their argument is that picking one placebo, or one stimulus, hands the researcher more freedom than anyone should want, and that you should generate a set and average over it instead.</p>
-<p>I took that seriously and then noticed it doesn’t stop at generation. If a model wrote the set, you didn’t choose any of them, and you can’t vouch for what they do to a respondent. So the generation has to arrive with measurement attached, and that’s what the three tiers here are. <code><a href="reference/replicate_design.html">replicate_design()</a></code> and the <code>n_versions</code> argument are their idea directly. The rest is what I think follows from it.</p>
+<p>The package grew out of Porter and Velez (2022). Their work motivates using several stimuli per condition and averaging over them. I’ve carried that idea into <code><a href="reference/replicate_design.html">replicate_design()</a></code> and the <code>n_versions</code> argument.</p>
+<p>I also want evidence about what the generated materials convey. That’s why I’ve put generation and validation in the same package.</p>
 <p>Porter, E., &amp; Velez, Y. R. (2022). Placebo selection in survey experiments: An agnostic approach. <em>Political Analysis</em>, 30(4), 481-494.</p>
 </div>
 <div class="section level2">
@@ -369,38 +367,37 @@ way, so you set the two results side by side.</code></pre>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">  url    = {https://github.com/lobsterbush/repllm},</span></span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">  note   = {R package version 0.4.0}</span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">}</span></span></code></pre></div>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a>
 </h2>
-<p>The <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">issue tracker</a> is the best place for bugs and requests, or email me at <a href="mailto:charles.crabtree@monash.edu">charles.crabtree@monash.edu</a>. I’d be glad to hear what breaks.</p>
+<p>I’d be glad to hear how you’re using the package, especially where a check misses something. Open an <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">issue</a> or <a href="mailto:charles.crabtree@monash.edu">email me</a>.</p>
 <p>Charles Crabtree, Monash University and Korea University. MIT License.</p>
 </div>
 <div class="section level2">
 <h2 id="provenance">Provenance<a class="anchor" aria-label="anchor" href="#provenance"></a>
 </h2>
-<p><strong>AI – Human (editor) 🤖✏️👤</strong></p>
-<p>Declared by Charles Crabtree: AI produced the work, with Charles Crabtree as human editor and package maintainer. This declaration covers the package and its documentation. The September 2026 audit and site revision used OpenAI Codex.</p>
-<p>The label follows <a href="https://thelatentreview.com/provenance/" class="external-link">The Latent Review’s provenance standard</a>, shared under <a href="https://creativecommons.org/licenses/by/4.0/" class="external-link">CC BY 4.0</a>. The package remains MIT licensed. This authorship declaration is distinct from the model, prompt, and timestamp provenance recorded for generated materials.</p>
+<p><strong>Human &gt; AI 👤&gt;🤖</strong></p>
+<p>I led this work, with substantial contributions from AI to the ideas and implementation. I maintain the package and edit its documentation. I used OpenAI Codex for the September 2026 audit and these revisions.</p>
+<p>I’m using <a href="https://thelatentreview.com/provenance/" class="external-link">The Latent Review’s provenance standard</a>, which is shared under <a href="https://creativecommons.org/licenses/by/4.0/" class="external-link">CC BY 4.0</a>. The package remains MIT licensed. Generated materials also carry a separate record of the model and prompt used to produce them.</p>
 </div>
 <div class="section level2">
 <h2 id="development-and-replication">Development and replication<a class="anchor" aria-label="anchor" href="#development-and-replication"></a>
 </h2>
-<p>For development, install <code>devtools</code>, <code>here</code>, and <code>pkgdown</code> from CRAN. From a local source checkout, run <code>remotes::install_deps(dependencies = TRUE)</code>, then:</p>
+<p>To work on the package, install <code>devtools</code>, <code>here</code>, and <code>pkgdown</code> from CRAN. In your local checkout, run <code>remotes::install_deps(dependencies = TRUE)</code>, followed by:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">test</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">check</a></span><span class="op">(</span>args <span class="op">=</span> <span class="st">"--as-cran"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"build_site.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>The tests mock provider calls and require no API keys. The getting-started vignette reproduces the local validation examples from the bundled data.</p>
+<p>The tests use simulated data and mock model calls, so they don’t need API keys. The getting-started vignette walks through the bundled example.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="software-access">
-<h2 data-toc-skip>Software access</h2>
+  </main><aside class="col-md-3"><div class="trying-the-package">
+<h2 data-toc-skip>Trying the package</h2>
 <ul class="list-unstyled">
 <li>
-<p>Source available from the maintainer while the package is being prepared for CRAN.</p>
-<p><a href="mailto:charles.crabtree@monash.edu">Request access</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Report a bug</a></p>
+<p>I’m preparing repllm for CRAN. Email me if you’d like to try the source package before then.</p>
+<p><a href="mailto:charles.crabtree@monash.edu">Email me</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Report a bug</a></p>
 </li>
 </ul>
 </div>
@@ -439,6 +436,7 @@ way, so you set the two results side by side.</code></pre>
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://thelatentreview.com/provenance/" class="external-link"><img src="reference/figures/provenance.svg" alt="repllm: Human &gt; AI 👤&gt;🤖"></a></li>
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a></li>
 </ul>
@@ -450,10 +448,10 @@ way, so you set the two results side by side.</code></pre>
 
     <footer><div class="pkgdown-footer-left">
 <p><a href="https://charlescrabtree.org/" class="external-link">Charles Crabtree</a><br>Monash University · Korea University</p>
-<p class="provenance-label">AI – Human (editor) <span aria-hidden="true">🤖✏️👤</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">Provenance standard: The Latent Review</a></p>
+<p class="provenance-label">Human &gt; AI <span aria-hidden="true">👤&gt;🤖</span><br><a href="https://thelatentreview.com/provenance/" class="external-link">About this provenance label</a></p>
 </div>
 <div class="pkgdown-footer-right">
-<p>Research software for experimental social science.<br><a href="mailto:charles.crabtree@monash.edu">Contact Charles</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Report an issue</a></p>
+<p>I'd be glad to hear how you're using repllm.<br><a href="mailto:charles.crabtree@monash.edu">Email me</a> · <a href="https://github.com/lobsterbush/repllm-docs/issues" class="external-link">Tell me about a bug</a></p>
 <p>MIT licensed · Built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a></p>
 </div>
 
