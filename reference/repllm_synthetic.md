@@ -1,9 +1,9 @@
 # Synthetic Ratings of the Example Materials
 
 Simulated output of
-[`synthetic_ratings`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md):
+[`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md):
 three LLM raters score all 24 materials in
-[repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md)
+[repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md)
 on three dimensions.
 
 ## Usage
@@ -19,7 +19,7 @@ A tibble with 216 rows and 5 columns:
 - material_id:
 
   Identifier matching
-  [repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md).
+  [repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md).
 
 - condition:
 
@@ -43,17 +43,17 @@ The simulation has the synthetic raters recover every intended
 manipulation while exaggerating two of them. On the economic and moral
 dimensions the separation between conditions is amplified relative to
 the human coders. On the scientific dimension it isn't. Run
-[`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 on these and
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
 on
-[repllm_human](https://lobsterbush.github.io/repllm/reference/repllm_human.md),
+[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md),
 then set the two side by side.
 
 ## See also
 
-[repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md),
-[repllm_human](https://lobsterbush.github.io/repllm/reference/repllm_human.md)
+[repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md),
+[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md)
 
 ## Examples
 

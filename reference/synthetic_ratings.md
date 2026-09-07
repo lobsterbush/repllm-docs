@@ -28,7 +28,7 @@ synthetic_ratings(
 - materials:
 
   A data frame of materials, typically from
-  [`generate_materials`](https://lobsterbush.github.io/repllm/reference/generate_materials.md).
+  [`generate_materials`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md).
 
 - dimensions:
 
@@ -84,7 +84,7 @@ dropped.
 
 Synthetic ratings are evidence rather than proof. I'd treat them as a
 screening instrument. Rate a subsample by hand with
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
 and compare the two before you rely on the model's ratings for the rest
 of the pool.
 
@@ -96,8 +96,8 @@ shuffled separately for each rater, so position can't track condition.
 
 ## See also
 
-[`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md),
-[`rater_reliability`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md),
+[`rater_reliability`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
 
 ## Examples
 

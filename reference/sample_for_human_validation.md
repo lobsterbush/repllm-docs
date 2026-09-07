@@ -3,9 +3,9 @@
 Draw a subsample of materials for human rating, stratified by condition
 so every cell shows up. Human coding is the expensive tier, so it
 usually runs on a subsample. Run
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
 on it and set the result beside
-[`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 to see whether the two tiers agree.
 
 ## Usage

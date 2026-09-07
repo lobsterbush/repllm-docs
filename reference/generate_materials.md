@@ -23,7 +23,7 @@ generate_materials(
 - design:
 
   A data frame of conditions, typically from
-  [`design_conditions`](https://lobsterbush.github.io/repllm/reference/design_conditions.md).
+  [`design_conditions`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md).
   Column names become `{placeholder}`s in `template`.
 
 - template:

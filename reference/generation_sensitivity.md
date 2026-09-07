@@ -32,7 +32,7 @@ generation_sensitivity(design, template, chats, n_versions = 3L, ...)
 - ...:
 
   Passed to
-  [`generate_materials`](https://lobsterbush.github.io/repllm/reference/generate_materials.md).
+  [`generate_materials`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md).
 
 ## Value
 

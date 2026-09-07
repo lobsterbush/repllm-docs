@@ -3,4 +3,4 @@
 ### All vignettes
 
 - [Generating and validating experimental
-  materials](https://lobsterbush.github.io/repllm/articles/getting-started.md):
+  materials](https://lobsterbush.github.io/repllm-docs/articles/getting-started.md):

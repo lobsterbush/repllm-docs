@@ -1,11 +1,11 @@
 # Human Ratings of the Example Materials
 
 Simulated output of
-[`import_human_ratings`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md):
+[`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md):
 two human coders score all 24 materials in
-[repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md)
+[repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md)
 on the same three dimensions as
-[repllm_synthetic](https://lobsterbush.github.io/repllm/reference/repllm_synthetic.md).
+[repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md).
 They show more measurement noise and less separation between conditions,
 which is what human coders usually do.
 
@@ -22,7 +22,7 @@ A tibble with 144 rows and 5 columns:
 - material_id:
 
   Identifier matching
-  [repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md).
+  [repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md).
 
 - condition:
 
@@ -42,8 +42,8 @@ A tibble with 144 rows and 5 columns:
 
 ## See also
 
-[repllm_materials](https://lobsterbush.github.io/repllm/reference/repllm_materials.md),
-[repllm_synthetic](https://lobsterbush.github.io/repllm/reference/repllm_synthetic.md)
+[repllm_materials](https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.md),
+[repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md)
 
 ## Examples
 

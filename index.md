@@ -48,22 +48,22 @@ devtools::install_github("lobsterbush/repllm")
 
 | Function | Purpose |
 |----|----|
-| [`design_conditions()`](https://lobsterbush.github.io/repllm/reference/design_conditions.md) | Cross experimental factors into a design matrix |
-| [`replicate_design()`](https://lobsterbush.github.io/repllm/reference/replicate_design.md) / [`randomize_design()`](https://lobsterbush.github.io/repllm/reference/randomize_design.md) | Several realisations per condition; shuffle order |
-| [`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md) | Write the stimuli from the design via ellmer |
-| [`generation_sensitivity()`](https://lobsterbush.github.io/repllm/reference/generation_sensitivity.md) | Run the same design under several generators |
-| [`validate_auto()`](https://lobsterbush.github.io/repllm/reference/validate_auto.md) | Tier 1: all the local checks at once |
-| [`check_length_balance()`](https://lobsterbush.github.io/repllm/reference/check_length_balance.md) | Word and character counts across conditions |
-| [`check_readability()`](https://lobsterbush.github.io/repllm/reference/check_readability.md) | Flesch-Kincaid grade level across conditions |
-| [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm/reference/check_manipulation_leakage.md) | Materials that name their own condition |
-| [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm/reference/check_lexical_overlap.md) | Whether conditions are too alike or too different |
-| [`synthetic_ratings()`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md) | Tier 2: blind LLM ratings of every material |
-| [`synthetic_check()`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md) | Did the manipulation move the target construct? |
-| [`rater_reliability()`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md) | Agreement among raters |
-| [`sample_for_human_validation()`](https://lobsterbush.github.io/repllm/reference/sample_for_human_validation.md) | Tier 3: stratified subsample for human coding |
-| [`export_rating_task()`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md) | Blinded rating sheets plus a separate key |
-| [`import_human_ratings()`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md) | Read the completed sheets back into long format |
-| [`human_check()`](https://lobsterbush.github.io/repllm/reference/human_check.md) / [`human_reliability()`](https://lobsterbush.github.io/repllm/reference/human_reliability.md) | The tier-3 counterparts |
+| [`design_conditions()`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md) | Cross experimental factors into a design matrix |
+| [`replicate_design()`](https://lobsterbush.github.io/repllm-docs/reference/replicate_design.md) / [`randomize_design()`](https://lobsterbush.github.io/repllm-docs/reference/randomize_design.md) | Several realisations per condition; shuffle order |
+| [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md) | Write the stimuli from the design via ellmer |
+| [`generation_sensitivity()`](https://lobsterbush.github.io/repllm-docs/reference/generation_sensitivity.md) | Run the same design under several generators |
+| [`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md) | Tier 1: all the local checks at once |
+| [`check_length_balance()`](https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.md) | Word and character counts across conditions |
+| [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md) | Flesch-Kincaid grade level across conditions |
+| [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md) | Materials that name their own condition |
+| [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.md) | Whether conditions are too alike or too different |
+| [`synthetic_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md) | Tier 2: blind LLM ratings of every material |
+| [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md) | Did the manipulation move the target construct? |
+| [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md) | Agreement among raters |
+| [`sample_for_human_validation()`](https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.md) | Tier 3: stratified subsample for human coding |
+| [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md) | Blinded rating sheets plus a separate key |
+| [`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md) | Read the completed sheets back into long format |
+| [`human_check()`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md) / [`human_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/human_reliability.md) | The tier-3 counterparts |
 
 The package ships one simulated study so you can run all of this without
 an API key: `repllm_materials` holds 24 generated vignettes, and
@@ -100,7 +100,7 @@ One `chat` object is shared across every condition, so the system prompt
 stays constant and only the user turn varies. If the system prompt named
 a condition itself, that framing would land on every cell of the design,
 and I’ve made that mistake.
-[`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+[`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
 now checks the system prompt against your factor levels and warns you.
 
 Generating three versions per condition rather than one follows Porter
@@ -221,7 +221,7 @@ either account. The model reads the economic and moral margins as wider
 than your coders do, and reads the scientific margin about the same.
 That is worth looking at before you decide the manipulation is strong.
 
-[`rater_reliability()`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+[`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
 is worth reporting beside it, and note which ICC you quote. On this data
 one synthetic rater is .72 to .94 depending on dimension, while the mean
 of three is .88 to .98. Those are different claims.
@@ -244,7 +244,7 @@ I took that seriously and then noticed it doesn’t stop at generation. If
 a model wrote the set, you didn’t choose any of them, and you can’t
 vouch for what they do to a respondent. So the generation has to arrive
 with measurement attached, and that’s what the three tiers here are.
-[`replicate_design()`](https://lobsterbush.github.io/repllm/reference/replicate_design.md)
+[`replicate_design()`](https://lobsterbush.github.io/repllm-docs/reference/replicate_design.md)
 and the `n_versions` argument are their idea directly. The rest is what
 I think follows from it.
 

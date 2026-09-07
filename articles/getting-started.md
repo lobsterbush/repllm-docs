@@ -80,7 +80,7 @@ Two things about that call. One `chat` object is shared across every
 condition, so the system prompt stays constant and only the user turn
 changes. If the system prompt named a condition itself, that framing
 would land on every cell of the design, and I’ve made that mistake.
-[`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+[`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
 now checks the system prompt against your factor levels and warns you.
 
 Generating several realisations per condition rather than one follows
@@ -176,7 +176,7 @@ them, and at a low temperature, your three synthetic raters are close to
 the same rater three times over, and their agreement will look better
 than it is.
 
-[`synthetic_check()`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+[`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 reports condition means with robust confidence intervals for every
 dimension. When several raters rate the same material those ratings
 aren’t independent, so the standard errors cluster by material.
@@ -241,7 +241,7 @@ table(subsample$frame)
 #>          4          4          4
 ```
 
-[`export_rating_task()`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md)
+[`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md)
 writes a blinded sheet for your coders and a separate key. The sheet has
 no condition labels and its rows are shuffled. Keep the key away from
 your coders.
@@ -254,14 +254,14 @@ task <- export_rating_task(
   condition_col = "frame",
   n_raters = 2
 )
-#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpobyqBS/ratings_key.csv
+#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpRFyRaV/ratings_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 names(readr::read_csv(task$sheets[1], show_col_types = FALSE))
 #> [1] "material_id" "text"        "rater"       "economic"    "moral"
 ```
 
 When the sheets come back,
-[`import_human_ratings()`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md)
+[`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
 rejoins the key and hands you the same long format the synthetic tier
 produces, so the same analysis functions apply.
 

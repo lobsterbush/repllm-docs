@@ -26,25 +26,25 @@ attached. The three tiers here are that measurement.
 
 ## Workflow
 
-1.  [`design_conditions`](https://lobsterbush.github.io/repllm/reference/design_conditions.md)
+1.  [`design_conditions`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md)
     builds the factorial design.
 
-2.  [`generate_materials`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+2.  [`generate_materials`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
     writes the stimuli.
 
-3.  [`validate_auto`](https://lobsterbush.github.io/repllm/reference/validate_auto.md)
+3.  [`validate_auto`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
     runs local confound checks.
 
-4.  [`synthetic_ratings`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md)
+4.  [`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md)
     and
-    [`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+    [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
     test whether the manipulation moved the intended construct.
 
-5.  [`sample_for_human_validation`](https://lobsterbush.github.io/repllm/reference/sample_for_human_validation.md),
-    [`export_rating_task`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md),
-    [`import_human_ratings`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md),
+5.  [`sample_for_human_validation`](https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.md),
+    [`export_rating_task`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md),
+    [`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md),
     and
-    [`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+    [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
     do the same with human coders.
 
 Steps 4 and 5 answer the same question with different raters, so run

@@ -2,7 +2,7 @@
 
 Cross a set of experimental factors into a design matrix, one row per
 condition. This is where a study starts, and it's what
-[`generate_materials`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+[`generate_materials`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
 takes as input: every column you name here becomes a `{placeholder}` you
 can drop into the generation template. Use `.exclude` to drop cells that
 make no sense, so you aren't asking a model to write a stimulus nobody

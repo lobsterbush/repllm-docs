@@ -34,7 +34,7 @@ export_rating_task(
 - dimensions:
 
   Named character vector of dimensions, as passed to
-  [`synthetic_ratings`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md).
+  [`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md).
   One blank column per dimension is added.
 
 - key_path:
@@ -72,7 +72,7 @@ Invisibly, a list with `sheets` (paths written) and `key_path`.
 ## Details
 
 Keep the key away from your coders.
-[`import_human_ratings`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md)
+[`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
 rejoins it when the ratings come back.
 
 ## Examples
@@ -84,6 +84,6 @@ m <- data.frame(
 )
 tmp <- tempfile(fileext = ".csv")
 export_rating_task(m, tmp, dimensions = c(economic = "economic appeal"))
-#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpwppG3K/file1175b370421b6_key.csv
+#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpSxjDyA/file11a42383061a0_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 ```

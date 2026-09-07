@@ -18,9 +18,9 @@ synthetic_check(ratings, target = NULL, conf_level = 0.95)
 
   A long tibble with `material_id`, `condition`, `dimension`, and
   `rating`, from
-  [`synthetic_ratings`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md)
+  [`synthetic_ratings`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md)
   or
-  [`import_human_ratings`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md).
+  [`import_human_ratings`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md).
 
 - target:
 
@@ -43,8 +43,8 @@ material, since those ratings aren't independent observations.
 
 ## See also
 
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md),
-[`rater_reliability`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md),
+[`rater_reliability`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
 
 ## Examples
 

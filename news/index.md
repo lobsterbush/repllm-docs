@@ -15,47 +15,47 @@ its own now, and there was no good reason for me to sit on top of it.
 ### Validation in three tiers
 
 - Automatic
-  ([`validate_auto()`](https://lobsterbush.github.io/repllm/reference/validate_auto.md)):
-  [`check_length_balance()`](https://lobsterbush.github.io/repllm/reference/check_length_balance.md),
-  [`check_readability()`](https://lobsterbush.github.io/repllm/reference/check_readability.md),
-  [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm/reference/check_manipulation_leakage.md),
+  ([`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)):
+  [`check_length_balance()`](https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.md),
+  [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md),
+  [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md),
   and
-  [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm/reference/check_lexical_overlap.md).
+  [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.md).
   Runs locally with no API key.
-  [`check_readability()`](https://lobsterbush.github.io/repllm/reference/check_readability.md)
+  [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md)
   delegates to `quanteda.textstats` when available and records which
   method produced the score.
 - Synthetic
-  ([`synthetic_ratings()`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md),
-  [`synthetic_check()`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)):
+  ([`synthetic_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md),
+  [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)):
   a model rates every material on the target construct, blind to
   condition and in shuffled order. Ratings come back through
   [`ellmer::parallel_chat_structured()`](https://ellmer.tidyverse.org/reference/parallel_chat.html)
   with a `type_object()` schema, so the model can’t hand you an
   off-scale value and there’s nothing to parse.
 - Human
-  ([`sample_for_human_validation()`](https://lobsterbush.github.io/repllm/reference/sample_for_human_validation.md),
-  [`export_rating_task()`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md),
-  [`import_human_ratings()`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md),
-  [`human_check()`](https://lobsterbush.github.io/repllm/reference/human_check.md)):
+  ([`sample_for_human_validation()`](https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.md),
+  [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md),
+  [`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md),
+  [`human_check()`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)):
   blinded rating sheets with a separate key, read back into the same
   long format the synthetic tier produces.
 
 ### Generation
 
-- [`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+- [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
   now takes a single shared `chat`. It used to build one Chat per prompt
   and pass the first to `parallel_chat()`, which made the first
   condition’s instruction the system prompt for every generation and
   confounded the whole design. That was a bad bug and I’m glad it’s
   gone.
-- [`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md)
+- [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md)
   warns when the shared system prompt names one of your factor levels.
 - Generation provenance (model, params, template hash, seed, failure
   count) is stored on the returned object.
-- [`generation_sensitivity()`](https://lobsterbush.github.io/repllm/reference/generation_sensitivity.md)
+- [`generation_sensitivity()`](https://lobsterbush.github.io/repllm-docs/reference/generation_sensitivity.md)
   runs the same design under several generators.
-- [`design_conditions()`](https://lobsterbush.github.io/repllm/reference/design_conditions.md)
+- [`design_conditions()`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md)
   replaces `cross_design()` and crosses experimental factors rather than
   chats and temperatures.
 
@@ -90,7 +90,7 @@ study, so the whole pipeline runs without an API key.
 I built them to be instructive rather than flattering. The materials are
 balanced on length and reading level, but two of them name their own
 condition, so
-[`validate_auto()`](https://lobsterbush.github.io/repllm/reference/validate_auto.md)
+[`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
 comes back needing attention. Both rating tiers recover all three
 intended manipulations, and the two tiers correlate at about 0.9 on
 every dimension with essentially no mean difference. The model tier
@@ -115,9 +115,9 @@ The annotation-era datasets `repllm_example`, `repllm_example_run`, and
   disagreement, so it should not have been a gate.
 
   Run
-  [`synthetic_check()`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+  [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
   and
-  [`human_check()`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+  [`human_check()`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
   on the same materials and read the two recovery tables side by side.
   The correlation and mean difference the old function reported were
   sound and are a couple of lines of
@@ -151,12 +151,12 @@ The annotation-era datasets `repllm_example`, `repllm_example_run`, and
   nearest competing condition), `nearest` (which condition that is), and
   `margin_d`, a genuine Cohen’s d for that pair. Naming the competitor
   also makes the number interpretable.
-- [`rater_reliability()`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+- [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
   returns `icc_single` (ICC(A,1), one rater) and `icc_average`
   (ICC(A,k), their mean) instead of one unlabelled `icc`. On the bundled
   data these are .72 and .88 on the scientific dimension, so quoting the
   wrong one materially overstates agreement.
-- [`rater_reliability()`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+- [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
   also returns `n_complete` and says so when the ICC used fewer
   materials than the data contains.
   [`irr::icc`](https://rdrr.io/pkg/irr/man/icc.html) drops any material
@@ -167,7 +167,7 @@ The annotation-era datasets `repllm_example`, `repllm_example_run`, and
   `n = 9`.
 - `se_type` no longer reports the first dimension’s estimator for all of
   them. Where dimensions differ it says so and exposes `se_types`.
-- [`import_human_ratings()`](https://lobsterbush.github.io/repllm/reference/import_human_ratings.md)
+- [`import_human_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.md)
   distinguishes a cell a coder left blank from one holding something
   unreadable. A coder typing “five” previously became an
   indistinguishable NA in the blank count.
@@ -182,23 +182,23 @@ put a wrong number in a table without saying anything, which is the
 worst way for a validation tool to fail.
 
 - Non-ASCII studies had no protection at all.
-  [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm/reference/check_manipulation_leakage.md)
+  [`check_manipulation_leakage()`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
   and the system-prompt confound warning matched with PCRE `\b`, which
   is ASCII-only, so a French vignette containing “economique” (accented)
   in the condition of that name came back clean. Matching is
   Unicode-aware now, and terms in scripts without word separators (Han,
   Kana, Hangul, Thai) use substring matching, since boundary assertions
   can’t apply there.
-- [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm/reference/check_lexical_overlap.md)
+- [`check_lexical_overlap()`](https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.md)
   tokenised on `[^a-z']`, splitting every accented word in two and
   producing empty vocabularies for non-Latin scripts. It now tokenises
   with Unicode semantics and reports rather than returning `[Inf, -Inf]`
   when nothing is comparable.
-- [`check_readability()`](https://lobsterbush.github.io/repllm/reference/check_readability.md)
+- [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md)
   dropped conditions with no computable grade level from the spread,
   reporting a reassuring spread of zero and a PASS. Unmeasurable
   conditions are now named and fail the check.
-- [`export_rating_task()`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md)
+- [`export_rating_task()`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md)
   could overwrite the blinding key with a rating sheet whenever `path`
   had no `.csv` suffix, which destroyed the only file linking materials
   to conditions. Paths are derived safely now, key and sheet paths are
@@ -207,7 +207,7 @@ worst way for a validation tool to fail.
 - A dimension named `rater`, `text`, `material_id`, or `condition`
   silently clobbered or renamed the sheet’s own columns; these names are
   now rejected.
-- [`rater_reliability()`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+- [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
   fed duplicate material-by-rater rows to
   [`stats::reshape()`](https://rdrr.io/r/stats/reshape.html), which kept
   the first of each pair and returned ICC and alpha of 1.0 from
@@ -226,13 +226,13 @@ worst way for a validation tool to fail.
   otherwise.
 - `design_conditions(.exclude=)` returning `NA` replaced a real
   condition with an all-`NA` phantom row.
-  [`replicate_design()`](https://lobsterbush.github.io/repllm/reference/replicate_design.md)
+  [`replicate_design()`](https://lobsterbush.github.io/repllm-docs/reference/replicate_design.md)
   accepted `n = Inf` and silently overwrote an existing `replicate`
   column. Repeated factor levels now warn.
-- [`validate_auto()`](https://lobsterbush.github.io/repllm/reference/validate_auto.md)
+- [`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
   reported “all passed” while half the pool was unusable; the verdict
   now accounts for missing texts and unlabelled materials.
-- [`synthetic_ratings()`](https://lobsterbush.github.io/repllm/reference/synthetic_ratings.md)
+- [`synthetic_ratings()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.md)
   accepted `scale = c(NA, 7)` and failed inside `if()`.
 - Rows with a missing condition label formed a silent `NA` stratum in
   the per-condition tables of the tier-1 checks. They are now excluded
@@ -258,14 +258,14 @@ worst way for a validation tool to fail.
   publication-ready ggplot figures using `theme_tufte()` when ggthemes
   is available.
 - Material validation (`R/validate_materials.R`):
-  [`check_length_balance()`](https://lobsterbush.github.io/repllm/reference/check_length_balance.md),
-  [`check_readability()`](https://lobsterbush.github.io/repllm/reference/check_readability.md),
+  [`check_length_balance()`](https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.md),
+  [`check_readability()`](https://lobsterbush.github.io/repllm-docs/reference/check_readability.md),
   `validate_materials()`: pre-deployment confound detection for
   experimental stimuli.
 
 ### New functions in existing modules
 
-- [`generate_materials()`](https://lobsterbush.github.io/repllm/reference/generate_materials.md):
+- [`generate_materials()`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md):
   generate experimental stimuli from a factorial design matrix via LLM,
   with multiple versions per condition (Porter & Velez 2022).
 - `code_structured()`: multi-dimensional text coding via LLM with JSON
@@ -308,8 +308,8 @@ worst way for a validation tool to fail.
 ### New features
 
 - Experimental design: `llm_run()`, `run_coding()`, `cross_design()`,
-  [`replicate_design()`](https://lobsterbush.github.io/repllm/reference/replicate_design.md),
-  [`randomize_design()`](https://lobsterbush.github.io/repllm/reference/randomize_design.md).
+  [`replicate_design()`](https://lobsterbush.github.io/repllm-docs/reference/replicate_design.md),
+  [`randomize_design()`](https://lobsterbush.github.io/repllm-docs/reference/randomize_design.md).
 - Reliability: `llm_human_reliability()`,
   `llm_intermodel_reliability()`, `confusion_summary()`.
 - Sensitivity: `prompt_sensitivity()`, `model_sensitivity()`,

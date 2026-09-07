@@ -19,7 +19,7 @@ import_human_ratings(path, key_path, dimensions = NULL, scale = NULL)
 - key_path:
 
   Path to the key written by
-  [`export_rating_task`](https://lobsterbush.github.io/repllm/reference/export_rating_task.md).
+  [`export_rating_task`](https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.md).
 
 - dimensions:
 

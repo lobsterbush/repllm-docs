@@ -3,9 +3,9 @@
 Twenty-four short vignettes about a carbon tax, written by an LLM from a
 factorial design crossing three frames with two speaker types, four
 realisations per cell. Together with
-[repllm_synthetic](https://lobsterbush.github.io/repllm/reference/repllm_synthetic.md)
+[repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md)
 and
-[repllm_human](https://lobsterbush.github.io/repllm/reference/repllm_human.md)
+[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md)
 these form one complete simulated validation study, so every function in
 the package can be demonstrated without an API key.
 
@@ -44,15 +44,15 @@ A tibble with 24 rows and 5 columns:
 I built these to be instructive rather than flattering. They're balanced
 on length and reading level, but two of them name their own condition,
 so
-[`check_manipulation_leakage`](https://lobsterbush.github.io/repllm/reference/check_manipulation_leakage.md)
+[`check_manipulation_leakage`](https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.md)
 fires and
-[`validate_auto`](https://lobsterbush.github.io/repllm/reference/validate_auto.md)
+[`validate_auto`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
 comes back needing attention.
 
 ## See also
 
-[repllm_synthetic](https://lobsterbush.github.io/repllm/reference/repllm_synthetic.md),
-[repllm_human](https://lobsterbush.github.io/repllm/reference/repllm_human.md)
+[repllm_synthetic](https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.md),
+[repllm_human](https://lobsterbush.github.io/repllm-docs/reference/repllm_human.md)
 
 ## Examples
 

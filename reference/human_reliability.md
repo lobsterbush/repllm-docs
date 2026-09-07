@@ -1,7 +1,7 @@
 # Agreement Among Human Coders
 
 Inter-rater reliability across human coders, computed identically to
-[`rater_reliability`](https://lobsterbush.github.io/repllm/reference/rater_reliability.md)
+[`rater_reliability`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
 for synthetic raters so the two are on the same footing.
 
 ## Usage

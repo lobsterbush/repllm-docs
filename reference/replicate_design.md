@@ -16,7 +16,7 @@ replicate_design(design, n = 3)
 - design:
 
   A tibble from
-  [`design_conditions`](https://lobsterbush.github.io/repllm/reference/design_conditions.md).
+  [`design_conditions`](https://lobsterbush.github.io/repllm-docs/reference/design_conditions.md).
 
 - n:
 

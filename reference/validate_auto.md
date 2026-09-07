@@ -24,7 +24,7 @@ validate_auto(
 - materials:
 
   A data frame of materials, typically from
-  [`generate_materials`](https://lobsterbush.github.io/repllm/reference/generate_materials.md).
+  [`generate_materials`](https://lobsterbush.github.io/repllm-docs/reference/generate_materials.md).
 
 - condition_col:
 
@@ -66,15 +66,15 @@ An object of class `auto_validation`.
 This is the first of three tiers, and all it establishes is that the
 materials are comparable on the nuisance dimensions. It can't tell you
 whether the manipulation worked.
-[`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md)
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 and
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
 are for that.
 
 ## See also
 
-[`synthetic_check`](https://lobsterbush.github.io/repllm/reference/synthetic_check.md),
-[`human_check`](https://lobsterbush.github.io/repllm/reference/human_check.md)
+[`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md),
+[`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)
 
 ## Examples
 
