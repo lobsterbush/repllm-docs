@@ -16,9 +16,10 @@ The package grew out of Porter and Velez (2022). Their work motivates
 using several stimuli per condition. I’ve added tools for inspecting
 those stimuli and collecting ratings of what they convey.
 
-I’ll walk through the local checks, then model ratings and human
-ratings. The rating data in this vignette are simulated. I’ve included
-them so you can run the analysis without an API key.
+I’ll start with checks I can run on the text itself, then compare model
+ratings with ratings in the human-coder format. The rating data in this
+vignette are simulated. I’ve included them so you can run the analysis
+without an API key.
 
 [ellmer](https://ellmer.tidyverse.org/) handles the model calls and
 credentials.
@@ -240,7 +241,7 @@ task <- export_rating_task(
   condition_col = "frame",
   n_raters = 2
 )
-#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpua6ZWp/ratings_key.csv
+#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmp2aFtOB/ratings_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 names(readr::read_csv(task$sheets[1], show_col_types = FALSE))
 #> [1] "material_id" "text"        "rater"       "economic"    "moral"
@@ -331,11 +332,9 @@ The correlations are around 0.9 on each dimension. In these simulated
 data, the model and human ratings order the materials similarly even
 though some condition gaps differ. I’d report both findings.
 
-I don’t reduce the comparison to one pass-or-fail score. The former
-`compare_validation()` function mixed disagreement about the materials
-with differences in rater consistency. I’ve removed it. The condition
-comparisons and material-level checks above make the evidence easier to
-inspect.
+I’d report condition differences alongside agreement on individual
+materials. Those answer different questions. A single pass-or-fail score
+would hide which part of the comparison needs attention.
 
 ## Using repllm with ellmer
 

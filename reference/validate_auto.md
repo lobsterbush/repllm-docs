@@ -61,9 +61,9 @@ An object of class `auto_validation`.
 
 ## Details
 
-I'd start here before paying for ratings. Passing the checks means the
-materials met the chosen thresholds. It doesn't rule out other confounds
-or establish that the manipulation works. Use
+I start with these checks before collecting ratings. Passing the checks
+means the materials met the chosen thresholds. It doesn't rule out other
+confounds or establish that the manipulation works. Use
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
 and
 [`human_check`](https://lobsterbush.github.io/repllm-docs/reference/human_check.md)

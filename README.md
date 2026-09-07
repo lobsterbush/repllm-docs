@@ -1,6 +1,6 @@
 # repllm documentation
 
-Rendered documentation for [`repllm`](https://lobsterbush.github.io/repllm-docs/),
+I maintain this documentation for [`repllm`](https://lobsterbush.github.io/repllm-docs/),
 an R package for generating experimental stimuli with a language model and
 validating them before they go into the field.
 
@@ -10,8 +10,8 @@ The site is at <https://lobsterbush.github.io/repllm-docs/>.
 
 Generated output only. Every file here is built by
 [pkgdown](https://pkgdown.r-lib.org/) from the package source, which lives in a
-separate private repository. Nothing here is edited by hand, so a pull request
-against it would be overwritten on the next build.
+separate private repository. I make documentation edits in the package source so that they survive the
+next build.
 
 If you spot something wrong in the documentation, please
 [email me](mailto:charles.crabtree@monash.edu) rather than opening a pull

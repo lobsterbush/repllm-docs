@@ -19,10 +19,9 @@ An economic frame should make people think about economic consequences.
 It might also produce a longer text, or one that’s harder to read. Those
 differences could matter for the experiment.
 
-That’s the problem I built `repllm` to help with. It generates materials
-from a factorial design, checks the text, and helps collect ratings from
-models and people. I want to see where the materials fall short before I
-field the study.
+I use `repllm` to generate materials from a factorial design, then
+inspect what changed across conditions. Its text checks and rating tools
+help me decide which materials need revision before I field a study.
 
 ## Installation
 
@@ -47,7 +46,7 @@ any fees the provider charges.
 The [documentation](https://lobsterbush.github.io/repllm-docs/) is
 public.
 
-## Three tiers of validation
+## Checking the materials
 
 01 / Automatic
 
@@ -111,8 +110,8 @@ representing three model raters and two human coders.
 
 ## Quick start
 
-I’d start here. This runs the local checks and compares the two sets of
-simulated ratings:
+Start with the bundled example. These calls run the local checks and
+compare the simulated model and human ratings:
 
 ``` r
 library(repllm)

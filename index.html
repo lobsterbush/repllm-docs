@@ -80,7 +80,7 @@ Version 0.4.0 · Experimental · Preparing for CRAN
 <!-- badges: start -->
 
 <p>A language model can write a set of experimental vignettes quickly. I’d still want to know whether those vignettes vary in the way I intended. An economic frame should make people think about economic consequences. It might also produce a longer text, or one that’s harder to read. Those differences could matter for the experiment.</p>
-<p>That’s the problem I built <code>repllm</code> to help with. It generates materials from a factorial design, checks the text, and helps collect ratings from models and people. I want to see where the materials fall short before I field the study.</p>
+<p>I use <code>repllm</code> to generate materials from a factorial design, then inspect what changed across conditions. Its text checks and rating tools help me decide which materials need revision before I field a study.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -93,7 +93,7 @@ Version 0.4.0 · Experimental · Preparing for CRAN
 <p>The <a href="https://lobsterbush.github.io/repllm-docs/">documentation</a> is public.</p>
 </div>
 <div class="section level2">
-<h2 id="three-tiers-of-validation">Three tiers of validation<a class="anchor" aria-label="anchor" href="#three-tiers-of-validation"></a>
+<h2 id="checking-the-materials">Checking the materials<a class="anchor" aria-label="anchor" href="#checking-the-materials"></a>
 </h2>
 <div class="tier-grid">
 <div class="tier">
@@ -225,7 +225,7 @@ way, so you set the two results side by side.</code></pre>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>I’d start here. This runs the local checks and compares the two sets of simulated ratings:</p>
+<p>Start with the bundled example. These calls run the local checks and compare the simulated model and human ratings:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lobsterbush.github.io/repllm-docs/">repllm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/validate_auto.html">validate_auto</a></span><span class="op">(</span><span class="va">repllm_materials</span>, condition_col <span class="op">=</span> <span class="st">"frame"</span><span class="op">)</span></span>
@@ -411,12 +411,6 @@ way, so you set the two results side by side.</code></pre>
 </ul>
 </div>
 
-<div class="community">
-<h2 data-toc-skip>Community</h2>
-<ul class="list-unstyled">
-<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
-</ul>
-</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
