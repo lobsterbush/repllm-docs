@@ -1,9 +1,9 @@
 # Test Whether the Manipulation Moved the Intended Construct
 
 Take a set of ratings, synthetic or human, and report condition means
-with robust confidence intervals for every dimension. Give it `target`
-and it also reports whether each condition scored highest on the
-dimension it was meant to move, and how big that gap is in pooled
+and contrasts with robust confidence intervals for every dimension. Give
+it `target` and it also reports whether each condition scored highest on
+the dimension it was meant to move, and how big that gap is in pooled
 standard deviations.
 
 ## Usage

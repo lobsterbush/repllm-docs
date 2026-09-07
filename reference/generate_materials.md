@@ -36,7 +36,8 @@ generate_materials(
 
   An ellmer Chat object used for every condition. Its system prompt
   should carry only task-general instructions (length, register,
-  format), never condition-specific content.
+  format), never condition-specific content. Use a fresh chat with no
+  conversation history; previously used chats are rejected.
 
 - n_versions:
 

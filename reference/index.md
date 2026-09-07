@@ -18,8 +18,8 @@ stimuli, one shared system prompt across every condition.
 
 ## Tier 1, automatic validation
 
-Local, deterministic checks that need no API key. They establish that
-conditions are comparable on nuisance dimensions.
+Local, deterministic checks that need no API key. Flag differences in
+length, readability, condition leakage, and vocabulary.
 
 - [`validate_auto()`](https://lobsterbush.github.io/repllm-docs/reference/validate_auto.md)
   : Automatic Validation of Experimental Materials

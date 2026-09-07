@@ -50,6 +50,13 @@ attached. The three tiers here are that measurement.
 Steps 4 and 5 answer the same question with different raters, so run
 both on the same materials and set the results side by side.
 
+## Authorship provenance
+
+AI – Human (editor). Declared by Charles Crabtree: AI produced the work,
+with Charles Crabtree as human editor and package maintainer. The label
+follows <https://thelatentreview.com/provenance/>. See the installed
+PROVENANCE file for the scope of this declaration.
+
 ## References
 
 Porter, E., & Velez, Y. R. (2022). Placebo selection in survey
@@ -59,9 +66,9 @@ experiments: An agnostic approach. *Political Analysis*, 30(4), 481-494.
 
 Useful links:
 
-- <https://github.com/lobsterbush/repllm>
+- <https://lobsterbush.github.io/repllm-docs/>
 
-- Report bugs at <https://github.com/lobsterbush/repllm/issues>
+- Report bugs at <https://github.com/lobsterbush/repllm-docs/issues>
 
 ## Author
 

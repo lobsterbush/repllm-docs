@@ -2,8 +2,9 @@
 
 Write a rating sheet your coders can fill in, plus a separate key file
 linking each row back to its condition. The sheet has no condition
-labels, no generation prompts, and no design columns, and its rows are
-shuffled, so a coder can't work out the manipulation from the file.
+labels, no generation prompts, or design columns. Random codes replace
+original IDs and the rows are shuffled. The text itself can still reveal
+the manipulation.
 
 ## Usage
 
@@ -29,7 +30,8 @@ export_rating_task(
 
 - path:
 
-  Path for the rating sheet CSV.
+  Path for a new rating sheet CSV. Existing output files are never
+  overwritten; choose new paths for a new task.
 
 - dimensions:
 
@@ -67,7 +69,9 @@ export_rating_task(
 
 ## Value
 
-Invisibly, a list with `sheets` (paths written) and `key_path`.
+Invisibly, a list with `sheets` (paths written) and `key_path`. The key
+maps blinded `material_id` codes to `original_material_id` and
+`condition`. Import restores original IDs.
 
 ## Details
 
@@ -84,6 +88,6 @@ m <- data.frame(
 )
 tmp <- tempfile(fileext = ".csv")
 export_rating_task(m, tmp, dimensions = c(economic = "economic appeal"))
-#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpSxjDyA/file11a42383061a0_key.csv
+#> ✔ Wrote 1 blinded rating sheet; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpud3fuK/file1706f21041b0f_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 ```

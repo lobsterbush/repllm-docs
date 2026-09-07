@@ -3,8 +3,8 @@
 The human-coded counterpart to
 [`synthetic_check`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md).
 It uses the same estimator so the two tiers are directly comparable:
-condition means with robust confidence intervals per dimension,
-clustered by material when several coders rate the same one.
+condition means and contrasts with robust confidence intervals per
+dimension, clustered by material when several coders rate the same one.
 
 ## Usage
 

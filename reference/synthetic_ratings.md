@@ -39,7 +39,8 @@ synthetic_ratings(
 - chat:
 
   An ellmer Chat object. Its system prompt is replaced with the
-  generated rating instruction, so pass a bare chat.
+  generated rating instruction and its conversation history is cleared
+  on a clone. The supplied chat is not modified.
 
 - n_raters:
 
@@ -78,7 +79,8 @@ synthetic_ratings(
 
 A long tibble with `material_id`, `condition`, `rater`, `dimension`, and
 `rating`. Failed or invalid ratings are kept as `NA` rather than
-dropped.
+dropped. Materials without usable text are skipped; their count is
+stored in `n_missing_materials`.
 
 ## Details
 

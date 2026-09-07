@@ -5,7 +5,7 @@ glad to hear where the package gets something wrong.
 
 ## Reporting bugs
 
-Open an issue at <https://github.com/lobsterbush/repllm/issues> and
+Open an issue at <https://github.com/lobsterbush/repllm-docs/issues> and
 include a minimal reproducible example, the output of
 [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html), and the
 version you’re on from `packageVersion("repllm")`.

@@ -164,6 +164,7 @@ ratings <- synthetic_ratings(
     scientific = "how strongly the text appeals to scientific evidence"
   ),
   chat     = ellmer::chat_openai(echo = "none"),
+  condition_col = "frame",
   n_raters = 3,
   personas = c("a general survey respondent",
                "a policy analyst",
@@ -177,9 +178,9 @@ the same rater three times over, and their agreement will look better
 than it is.
 
 [`synthetic_check()`](https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.md)
-reports condition means with robust confidence intervals for every
-dimension. When several raters rate the same material those ratings
-aren’t independent, so the standard errors cluster by material.
+reports condition means and contrasts with robust confidence intervals
+for every dimension. When several raters rate the same material those
+ratings aren’t independent, so the standard errors cluster by material.
 
 The bundled `repllm_synthetic` dataset is what a run like that gives
 you.
@@ -254,7 +255,7 @@ task <- export_rating_task(
   condition_col = "frame",
   n_raters = 2
 )
-#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//RtmpRFyRaV/ratings_key.csv
+#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmp8X55hB/ratings_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 names(readr::read_csv(task$sheets[1], show_col_types = FALSE))
 #> [1] "material_id" "text"        "rater"       "economic"    "moral"

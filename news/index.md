@@ -2,6 +2,25 @@
 
 ## repllm 0.4.0
 
+### Submission audit
+
+- Prevent conversation history from leaking into generation or synthetic
+  rating.
+- Replace condition-revealing material IDs with random codes in human
+  sheets; restore original IDs on import and retain support for earlier
+  sheet formats.
+- Refuse to overwrite existing rating sheets or keys. Preserve leading
+  zeroes in imported IDs and reject duplicate keys, duplicate ratings,
+  and missing dimensions.
+- Validate scalar counts, dimension descriptions, scale endpoints,
+  material IDs, and confidence levels. Count empty generation responses
+  as failures.
+- Require `estimatr` for the advertised robust inference default.
+- Correct the sensitivity-result print method and condition-column
+  examples.
+- Declare AI – Human (editor) authorship provenance and redesign the
+  documentation to match Charles Crabtree’s professional website.
+
 ### Scope change
 
 The package is now about generating experimental treatments with a model

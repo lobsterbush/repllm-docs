@@ -1,35 +1,96 @@
-<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://lobsterbush.github.io/repllm-docs/404.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/LICENSE-text.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/WARP.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/articles/getting-started.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/articles/index.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/authors.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/index.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/news/index.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/check_readability.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/design_conditions.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/generate_materials.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/generation_sensitivity.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/human_check.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/human_reliability.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/index.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/randomize_design.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/replicate_design.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/repllm-package.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_human.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.html</loc></url>
-<url><loc>https://lobsterbush.github.io/repllm-docs/reference/validate_auto.html</loc></url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/404.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/articles/getting-started.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/index.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/check_length_balance.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/check_lexical_overlap.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/check_manipulation_leakage.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/check_readability.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/design_conditions.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/export_rating_task.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/generate_materials.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/generation_sensitivity.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/human_check.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/human_reliability.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/import_human_ratings.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/randomize_design.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/replicate_design.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/repllm-package.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_human.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_materials.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/repllm_synthetic.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/sample_for_human_validation.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/synthetic_check.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/synthetic_ratings.html</loc>
+  </url>
+  <url>
+    <loc>https://lobsterbush.github.io/repllm-docs/reference/validate_auto.html</loc>
+  </url>
 </urlset>
-

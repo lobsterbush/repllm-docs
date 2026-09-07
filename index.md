@@ -1,7 +1,17 @@
 # repllm
 
-> Generating experimental treatments with an LLM, and validating them
-> before you field them
+Research software · Charles Crabtree
+
+Generate with a model.  
+Validate with evidence.
+
+An R toolkit for experimental materials: factorial designs, local
+diagnostics, blinded model ratings, and human validation.
+
+[Start with the data ↗](#quick-start) [Explore the reference
+→](https://lobsterbush.github.io/repllm-docs/reference/index.html)
+
+Version 0.4.0 · Experimental · Preparing for CRAN
 
 ------------------------------------------------------------------------
 
@@ -25,13 +35,51 @@ the same question of different raters, so you read them together.
 
 ## Installation
 
+`repllm` is not yet available on CRAN. The source repository currently
+requires access from the maintainer. With repository access:
+
 ``` r
-devtools::install_github("lobsterbush/repllm")
+# install.packages("remotes")
+remotes::install_github("lobsterbush/repllm")
 ```
+
+If you have the source archive, install it and its dependencies with
+`remotes::install_local("repllm_0.4.0.tar.gz", dependencies = TRUE)`.
+Contact [Charles Crabtree](mailto:charles.crabtree@monash.edu) for
+source access.
+
+Requirements: R 4.1 or later. Local diagnostics and the bundled examples
+need no credentials. Generation and synthetic rating require an
+ellmer-supported provider and your own credentials; provider charges may
+apply.
+
+Documentation: <https://lobsterbush.github.io/repllm-docs/>
 
 ------------------------------------------------------------------------
 
-## The pipeline
+## Three tiers of validation
+
+01 / Automatic
+
+### Inspect the materials
+
+Check length, readability, condition leakage, and vocabulary locally.
+
+02 / Synthetic
+
+### Measure the manipulation
+
+Ask model raters to score the text without condition labels or
+generation history.
+
+03 / Human
+
+### Compare with people
+
+Collect blinded human ratings on a stratified sample and compare the
+evidence.
+
+### The workflow
 
     design_conditions()  ->  generate_materials()
                                      |
@@ -73,6 +121,21 @@ raters and two human coders.
 ------------------------------------------------------------------------
 
 ## Quick start
+
+Run a complete local check before connecting a provider:
+
+``` r
+library(repllm)
+validate_auto(repllm_materials, condition_col = "frame")
+targets <- c(economic = "economic", moral = "moral", scientific = "scientific")
+synthetic_check(repllm_synthetic, target = targets)
+human_check(repllm_human, target = targets)
+```
+
+The bundled materials and ratings are simulated teaching data, not
+evidence that model ratings reproduce human judgments in a real study.
+
+### Generate your own materials
 
 ``` r
 library(repllm)
@@ -127,9 +190,10 @@ the condition of that name. That lets a rater recover the condition from
 the label instead of the content, so what you’d be measuring is label
 recognition.
 
-Passing tier 1 doesn’t mean the manipulation worked. It means that if
-the conditions differ downstream, length and reading level aren’t the
-reason.
+Passing tier 1 means these diagnostics found no differences beyond the
+chosen thresholds. It does not establish equivalence or rule out other
+confounds. Readability scores use an English-language formula; inspect
+non-English materials with language-appropriate measures.
 
 ### Tier 2: synthetic raters
 
@@ -141,6 +205,7 @@ ratings <- synthetic_ratings(
     moral    = "how strongly the text appeals to moral duty"
   ),
   chat     = ellmer::chat_openai(echo = "none"),
+  condition_col = "frame",
   n_raters = 3,
   personas = c("a general survey respondent", "a policy analyst",
                "an undergraduate student")
@@ -157,12 +222,12 @@ synthetic_check(repllm_synthetic, target = targets)
 #>     ok    moral        on moral        margin +3.37 over scientific   (d = +6.67)
 #>     ok    scientific   on scientific   margin +2.75 over economic     (d = +3.23)
 #>   Recovered 3/3 intended contrasts
+```
 
 Each row is the margin over the nearest competing condition, named, with
-Cohen's d for that pair. Reporting the margin against the strongest competitor
-rather than against an average is the stricter test, and naming the competitor
-keeps the d interpretable.
-```
+Cohen’s d for that pair. Reporting the margin against the strongest
+competitor rather than against an average is the stricter test, and
+naming the competitor keeps the d interpretable.
 
 Raters see the text and nothing else. No condition labels, no generation
 prompts, and the order is shuffled separately for each rater. Ratings
@@ -216,10 +281,12 @@ human_check(repllm_human, target = targets)
 #>     ok    scientific   on scientific   margin +2.62 over economic     (d = +3.16)
 ```
 
-Both tiers recover all three manipulations, so the design works on
-either account. The model reads the economic and moral margins as wider
-than your coders do, and reads the scientific margin about the same.
-That is worth looking at before you decide the manipulation is strong.
+In this simulated example, both tiers rank each intended condition
+highest. That descriptive ordering is not a significance test or
+evidence of equivalence. The model reads the economic and moral margins
+as wider than your coders do, and reads the scientific margin about the
+same. That is worth looking at before you decide the manipulation is
+strong.
 
 [`rater_reliability()`](https://lobsterbush.github.io/repllm-docs/reference/rater_reliability.md)
 is worth reporting beside it, and note which ICC you quote. On this data
@@ -267,8 +334,39 @@ experiments: An agnostic approach. *Political Analysis*, 30(4), 481-494.
 
 ## Contact
 
-The [issue tracker](https://github.com/lobsterbush/repllm/issues) is the
-best place for bugs and requests, or email me at
+The [issue tracker](https://github.com/lobsterbush/repllm-docs/issues)
+is the best place for bugs and requests, or email me at
 <charles.crabtree@monash.edu>. I’d be glad to hear what breaks.
 
 Charles Crabtree, Monash University and Korea University. MIT License.
+
+## Provenance
+
+**AI – Human (editor) 🤖✏️👤**
+
+Declared by Charles Crabtree: AI produced the work, with Charles
+Crabtree as human editor and package maintainer. This declaration covers
+the package and its documentation. The September 2026 audit and site
+revision used OpenAI Codex.
+
+The label follows [The Latent Review’s provenance
+standard](https://thelatentreview.com/provenance/), shared under [CC BY
+4.0](https://creativecommons.org/licenses/by/4.0/). The package remains
+MIT licensed. This authorship declaration is distinct from the model,
+prompt, and timestamp provenance recorded for generated materials.
+
+## Development and replication
+
+For development, install `devtools`, `here`, and `pkgdown` from CRAN.
+From a local source checkout, run
+`remotes::install_deps(dependencies = TRUE)`, then:
+
+``` r
+devtools::test()
+devtools::check(args = "--as-cran")
+source(here::here("data-raw", "build_site.R"))
+```
+
+The tests mock provider calls and require no API keys. The
+getting-started vignette reproduces the local validation examples from
+the bundled data.
