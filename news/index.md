@@ -22,7 +22,8 @@ observations could be counted incorrectly.
 - Require `estimatr` for the advertised robust inference default.
 - Correct the sensitivity-result print method and condition-column
   examples.
-- Declare Human \> AI provenance for the package and documentation.
+- Record development work and AI assistance for the package and
+  documentation.
 - Rewrite the public text in my voice and match the site to my
   professional website.
 

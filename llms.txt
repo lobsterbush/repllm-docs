@@ -327,19 +327,13 @@ me](mailto:charles.crabtree@monash.edu).
 
 Charles Crabtree, Monash University and Korea University. MIT License.
 
-## Provenance
+## Development record
 
-**Human \> AI 👤\>🤖**
+I maintain the package and edit its documentation. I used OpenAI Codex
+for the September 2026 audit and revisions.
 
-I led this work, with substantial contributions from AI to the ideas and
-implementation. I maintain the package and edit its documentation. I
-used OpenAI Codex for the September 2026 audit and these revisions.
-
-I’m using [The Latent Review’s provenance
-standard](https://thelatentreview.com/provenance/), which is shared
-under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The
-package remains MIT licensed. Generated materials also carry a separate
-record of the model and prompt used to produce them.
+Generated materials carry a separate record of the model and prompt used
+to produce them.
 
 ## Development and replication
 

@@ -241,7 +241,7 @@ task <- export_rating_task(
   condition_col = "frame",
   n_raters = 2
 )
-#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmp2aFtOB/ratings_key.csv
+#> ✔ Wrote 2 blinded rating sheets; key at /var/folders/hj/4jw7nfmx44q2c83zpn3h2n6m0000gq/T//Rtmpp3qciS/ratings_key.csv
 #> ℹ Rate each dimension from 1 to 7. Do not share the key with coders.
 names(readr::read_csv(task$sheets[1], show_col_types = FALSE))
 #> [1] "material_id" "text"        "rater"       "economic"    "moral"

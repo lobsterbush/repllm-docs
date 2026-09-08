@@ -44,12 +44,12 @@ I'd run steps 4 and 5 on the same materials and compare the results.
 Agreement in condition rankings can still come with different rating
 gaps.
 
-## Authorship provenance
+## Development record
 
-Human \> AI. I led this work, with substantial AI contributions to the
-ideas and implementation. I'm Charles Crabtree, the package maintainer.
-The label follows <https://thelatentreview.com/provenance/>. The
-installed PROVENANCE file gives the full declaration.
+Charles Crabtree maintains the package. OpenAI Codex assisted with the
+September 2026 audit and revisions. The installed PROVENANCE file
+describes this work and the separate records attached to generated
+materials.
 
 ## References
 

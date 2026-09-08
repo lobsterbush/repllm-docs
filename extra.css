@@ -55,7 +55,6 @@ aside .links { border-top: 2px solid var(--repllm-navy); padding-top: 1rem; }
 table { font-size: .96rem; }
 table code { white-space: normal; }
 footer { border-top: 1px solid var(--repllm-rule); padding-top: 1.5rem; margin-top: 4rem; color: var(--repllm-muted); font-size: .9rem; }
-footer .provenance-label { color: var(--repllm-navy); }
 [id] { scroll-margin-top: 6.5rem; }
 @media (max-width: 991px) { .template-home main { padding-right: calc(var(--bs-gutter-x) * .5); } }
 @media (max-width: 767px) {
@@ -77,5 +76,3 @@ p, li, .hero-summary { hyphens: none; }
 
 .navbar { transform: none !important; }
 .template-home .repllm-hero + hr { display: none; }
-
-.provenance-badge, img[src$="provenance.svg"] { width: 330px; max-width: 100%; height: auto; }
