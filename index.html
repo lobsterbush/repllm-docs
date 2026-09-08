@@ -227,7 +227,7 @@ way, so you set the two results side by side.</code></pre>
 </h2>
 <p>Start with the bundled example. These calls run the local checks and compare the simulated model and human ratings:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lobsterbush.github.io/repllm-docs/">repllm</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lobsterbush/repllm" class="external-link">repllm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/validate_auto.html">validate_auto</a></span><span class="op">(</span><span class="va">repllm_materials</span>, condition_col <span class="op">=</span> <span class="st">"frame"</span><span class="op">)</span></span>
 <span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>economic <span class="op">=</span> <span class="st">"economic"</span>, moral <span class="op">=</span> <span class="st">"moral"</span>, scientific <span class="op">=</span> <span class="st">"scientific"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/synthetic_check.html">synthetic_check</a></span><span class="op">(</span><span class="va">repllm_synthetic</span>, target <span class="op">=</span> <span class="va">targets</span><span class="op">)</span></span>
@@ -238,7 +238,7 @@ way, so you set the two results side by side.</code></pre>
 </h3>
 <p>This example crosses frame with source and asks for three versions of each condition. You’ll need your provider credentials to run it.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lobsterbush.github.io/repllm-docs/">repllm</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lobsterbush/repllm" class="external-link">repllm</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/design_conditions.html">design_conditions</a></span><span class="op">(</span></span>
 <span>  frame  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"economic"</span>, <span class="st">"moral"</span><span class="op">)</span>,</span>
@@ -410,6 +410,12 @@ way, so you set the two results side by side.</code></pre>
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
